@@ -1,0 +1,459 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7C1DDE0D1AFABC0B00099DAE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C130597193FC0B60060F343 /* Images.xcassets */; };
+		7C1DDE111AFAC37D00099DAE /* AutoImagrNBI_1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CA424AD1AFAA75800C60874 /* AutoImagrNBI_1024.png */; };
+		7C1DDE121AFAC38300099DAE /* imagr_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CA424A91AFAA40300C60874 /* imagr_icon.png */; };
+		7C1DDE131AFAC38300099DAE /* com.apple.macmini-unibody-no-optical.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CA424A71AFAA2E700C60874 /* com.apple.macmini-unibody-no-optical.png */; };
+		7C1DDE141AFAC38300099DAE /* CDiskImage.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7C83B57519A3B41700E9572E /* CDiskImage.icns */; };
+		7C1DDE171AFAC38300099DAE /* YoYo-diskcopy-doc.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7CD1B87A19EC76EB00C70449 /* YoYo-diskcopy-doc.icns */; };
+		7C1DDE191AFAC38300099DAE /* AlertStopIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7C27FA25198C357900BD5A07 /* AlertStopIcon.icns */; };
+		7C1DDE1A1AFAC38300099DAE /* YoYo-package.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7C9BC9E619EC7EE800C4FDDD /* YoYo-package.icns */; };
+		7C1DDE1B1AFAC38300099DAE /* YoYo-Localization.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7C9BC9E419EC7D0500C4FDDD /* YoYo-Localization.icns */; };
+		7C1DDE1C1AFAC38300099DAE /* Clock.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CDCE26B1985A2B8005CE10C /* Clock.png */; };
+		7C1DDE1D1AFAC38300099DAE /* YoYo-icn_desktop.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 7CDD2BB819EC7BAA008D370F /* YoYo-icn_desktop.tiff */; };
+		7C1DDE1E1AFAC38300099DAE /* YoYo-FinderIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7CDD2BB919EC7BAA008D370F /* YoYo-FinderIcon.icns */; };
+		7C1DDE1F1AFAC38300099DAE /* YoYo-ExecutableBinaryIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7CDD2BBA19EC7BAA008D370F /* YoYo-ExecutableBinaryIcon.icns */; };
+		7C1DDE201AFAC38300099DAE /* YoYo-Clock.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7CDD2BBB19EC7BAA008D370F /* YoYo-Clock.icns */; };
+		7C1DDE211AFAC38300099DAE /* YoYo-AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7CDD2BBC19EC7BAA008D370F /* YoYo-AppIcon.icns */; };
+		7C1DDE231AFAC38300099DAE /* CertStackLarge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C39447F1960C7DA00BF371B /* CertStackLarge@2x.png */; };
+		7C1DDE271AFAC38300099DAE /* DMGFormat.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7C1305A3193FC10A0060F343 /* DMGFormat.icns */; };
+		7C1DDE281AFAC38300099DAE /* NetBootVolume.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7C1305A4193FC10A0060F343 /* NetBootVolume.icns */; };
+		7C1DDE291AFAC38300099DAE /* RemoteDesktop.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7C1305A6193FC10A0060F343 /* RemoteDesktop.icns */; };
+		7C1DDE2B1AFAC38900099DAE /* complete.aif in Resources */ = {isa = PBXBuildFile; fileRef = 7C27FA27198C3D9500BD5A07 /* complete.aif */; };
+		7C1DDE2C1AFAC39400099DAE /* AutoImagrNBI-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7C130588193FC0B60060F343 /* AutoImagrNBI-Info.plist */; };
+		7C1DDE2D1AFAC39700099DAE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7C130589193FC0B60060F343 /* InfoPlist.strings */; };
+		7C1DDE2E1AFAC3A300099DAE /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 7C13058F193FC0B60060F343 /* Credits.rtf */; };
+		7C1DDE2F1AFAC3AA00099DAE /* AutoImagrNBIAppDelegate.applescript in Sources */ = {isa = PBXBuildFile; fileRef = 7C130592193FC0B60060F343 /* AutoImagrNBIAppDelegate.applescript */; };
+		7C1DDE301AFAC3AD00099DAE /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C13059E193FC0CE0060F343 /* MainMenu.xib */; };
+		7C1DDE311AFAC3B200099DAE /* root.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7CB60993199189E20068574D /* root.plist */; };
+		7C1DDE331AFAC3B200099DAE /* kcpassword in Resources */ = {isa = PBXBuildFile; fileRef = 7CC26BD719DA1C0D002A093B /* kcpassword */; };
+		7C1DDE341AFAC3B200099DAE /* com.AutoImagrNBI.boot.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7CCA40B619D9F22600C7114F /* com.AutoImagrNBI.boot.plist */; };
+		7C1DDE351AFAC3B200099DAE /* 10.8+root.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7C06F40619DA19680057D6ED /* 10.8+root.plist */; };
+		7C1DDE361AFAC3B200099DAE /* com.AutoImagrNBI.Imagr.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7CC26BD919DA1D2C002A093B /* com.AutoImagrNBI.Imagr.plist */; };
+		7C1DDE371AFAC3B200099DAE /* NBImageInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7CC636E5197D444E008473CE /* NBImageInfo.plist */; };
+		7C1DDE381AFAC3B200099DAE /* rc.netboot in Resources */ = {isa = PBXBuildFile; fileRef = 7CC26BDB19DA1DF8002A093B /* rc.netboot */; };
+		7C1DDE3A1AFAC3B200099DAE /* Boot.sh in Resources */ = {isa = PBXBuildFile; fileRef = 7CCA40B419D9EE9800C7114F /* Boot.sh */; };
+		7C8D6A9C1B0280E200AD4199 /* com.apple.dock.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7C8D6A9B1B0280E200AD4199 /* com.apple.dock.plist */; };
+		7CF177D91AFAB78300B0CD80 /* AppleScriptObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C130580193FC0B60060F343 /* AppleScriptObjC.framework */; };
+		7CF177EC1AFAB9AE00B0CD80 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF177EB1AFAB9AE00B0CD80 /* main.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		7C06F40619DA19680057D6ED /* 10.8+root.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "10.8+root.plist"; sourceTree = "<group>"; };
+		7C13057E193FC0B60060F343 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		7C130580193FC0B60060F343 /* AppleScriptObjC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppleScriptObjC.framework; path = System/Library/Frameworks/AppleScriptObjC.framework; sourceTree = SDKROOT; };
+		7C130583193FC0B60060F343 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		7C130584193FC0B60060F343 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		7C130585193FC0B60060F343 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		7C130588193FC0B60060F343 /* AutoImagrNBI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AutoImagrNBI-Info.plist"; sourceTree = "<group>"; };
+		7C13058A193FC0B60060F343 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7C13058C193FC0B60060F343 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		7C13058E193FC0B60060F343 /* AutoImagrNBI-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AutoImagrNBI-Prefix.pch"; sourceTree = "<group>"; };
+		7C130590193FC0B60060F343 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		7C130592193FC0B60060F343 /* AutoImagrNBIAppDelegate.applescript */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.applescript; path = AutoImagrNBIAppDelegate.applescript; sourceTree = "<group>"; };
+		7C130597193FC0B60060F343 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		7C13059E193FC0CE0060F343 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
+		7C1305A3193FC10A0060F343 /* DMGFormat.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = DMGFormat.icns; sourceTree = "<group>"; };
+		7C1305A4193FC10A0060F343 /* NetBootVolume.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = NetBootVolume.icns; sourceTree = "<group>"; };
+		7C1305A6193FC10A0060F343 /* RemoteDesktop.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = RemoteDesktop.icns; sourceTree = "<group>"; };
+		7C27FA25198C357900BD5A07 /* AlertStopIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AlertStopIcon.icns; sourceTree = "<group>"; };
+		7C27FA27198C3D9500BD5A07 /* complete.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = complete.aif; sourceTree = "<group>"; };
+		7C39447F1960C7DA00BF371B /* CertStackLarge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CertStackLarge@2x.png"; sourceTree = "<group>"; };
+		7C83B57519A3B41700E9572E /* CDiskImage.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = CDiskImage.icns; sourceTree = "<group>"; };
+		7C8D6A9B1B0280E200AD4199 /* com.apple.dock.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = com.apple.dock.plist; sourceTree = "<group>"; };
+		7C9BC9E419EC7D0500C4FDDD /* YoYo-Localization.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "YoYo-Localization.icns"; sourceTree = "<group>"; };
+		7C9BC9E619EC7EE800C4FDDD /* YoYo-package.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "YoYo-package.icns"; sourceTree = "<group>"; };
+		7CA424A71AFAA2E700C60874 /* com.apple.macmini-unibody-no-optical.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "com.apple.macmini-unibody-no-optical.png"; sourceTree = "<group>"; };
+		7CA424A91AFAA40300C60874 /* imagr_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = imagr_icon.png; sourceTree = "<group>"; };
+		7CA424AD1AFAA75800C60874 /* AutoImagrNBI_1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AutoImagrNBI_1024.png; sourceTree = "<group>"; };
+		7CB60993199189E20068574D /* root.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = root.plist; sourceTree = "<group>"; };
+		7CC26BD719DA1C0D002A093B /* kcpassword */ = {isa = PBXFileReference; lastKnownFileType = text; path = kcpassword; sourceTree = "<group>"; };
+		7CC26BD919DA1D2C002A093B /* com.AutoImagrNBI.Imagr.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = com.AutoImagrNBI.Imagr.plist; sourceTree = "<group>"; };
+		7CC26BDB19DA1DF8002A093B /* rc.netboot */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = rc.netboot; sourceTree = "<group>"; };
+		7CC636E5197D444E008473CE /* NBImageInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = NBImageInfo.plist; sourceTree = "<group>"; };
+		7CCA40B419D9EE9800C7114F /* Boot.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = Boot.sh; sourceTree = "<group>"; };
+		7CCA40B619D9F22600C7114F /* com.AutoImagrNBI.boot.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = com.AutoImagrNBI.boot.plist; sourceTree = "<group>"; };
+		7CD1B87A19EC76EB00C70449 /* YoYo-diskcopy-doc.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "YoYo-diskcopy-doc.icns"; sourceTree = "<group>"; };
+		7CDCE26B1985A2B8005CE10C /* Clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Clock.png; sourceTree = "<group>"; };
+		7CDD2BB819EC7BAA008D370F /* YoYo-icn_desktop.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "YoYo-icn_desktop.tiff"; sourceTree = "<group>"; };
+		7CDD2BB919EC7BAA008D370F /* YoYo-FinderIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "YoYo-FinderIcon.icns"; sourceTree = "<group>"; };
+		7CDD2BBA19EC7BAA008D370F /* YoYo-ExecutableBinaryIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "YoYo-ExecutableBinaryIcon.icns"; sourceTree = "<group>"; };
+		7CDD2BBB19EC7BAA008D370F /* YoYo-Clock.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "YoYo-Clock.icns"; sourceTree = "<group>"; };
+		7CDD2BBC19EC7BAA008D370F /* YoYo-AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "YoYo-AppIcon.icns"; sourceTree = "<group>"; };
+		7CF177D81AFAB78300B0CD80 /* AutoImagrNBI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoImagrNBI.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7CF177EB1AFAB9AE00B0CD80 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7CF177D51AFAB78300B0CD80 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7CF177D91AFAB78300B0CD80 /* AppleScriptObjC.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7C130572193FC0B60060F343 = {
+			isa = PBXGroup;
+			children = (
+				7C130586193FC0B60060F343 /* AutoImagrNBI */,
+				7C13057D193FC0B60060F343 /* Frameworks */,
+				7C13057C193FC0B60060F343 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7C13057C193FC0B60060F343 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7CF177D81AFAB78300B0CD80 /* AutoImagrNBI.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7C13057D193FC0B60060F343 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7C13057E193FC0B60060F343 /* Cocoa.framework */,
+				7C130580193FC0B60060F343 /* AppleScriptObjC.framework */,
+				7C130582193FC0B60060F343 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7C130582193FC0B60060F343 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7C130583193FC0B60060F343 /* AppKit.framework */,
+				7C130584193FC0B60060F343 /* CoreData.framework */,
+				7C130585193FC0B60060F343 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		7C130586193FC0B60060F343 /* AutoImagrNBI */ = {
+			isa = PBXGroup;
+			children = (
+				7CB60993199189E20068574D /* root.plist */,
+				7C8D6A9B1B0280E200AD4199 /* com.apple.dock.plist */,
+				7CC26BD719DA1C0D002A093B /* kcpassword */,
+				7CCA40B619D9F22600C7114F /* com.AutoImagrNBI.boot.plist */,
+				7C06F40619DA19680057D6ED /* 10.8+root.plist */,
+				7CC26BD919DA1D2C002A093B /* com.AutoImagrNBI.Imagr.plist */,
+				7CC636E5197D444E008473CE /* NBImageInfo.plist */,
+				7CC26BDB19DA1DF8002A093B /* rc.netboot */,
+				7CCA40B419D9EE9800C7114F /* Boot.sh */,
+				7C13059E193FC0CE0060F343 /* MainMenu.xib */,
+				7C130592193FC0B60060F343 /* AutoImagrNBIAppDelegate.applescript */,
+				7C130597193FC0B60060F343 /* Images.xcassets */,
+				7C130587193FC0B60060F343 /* Supporting Files */,
+			);
+			path = AutoImagrNBI;
+			sourceTree = "<group>";
+		};
+		7C130587193FC0B60060F343 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7CF177EB1AFAB9AE00B0CD80 /* main.m */,
+				7C27FA27198C3D9500BD5A07 /* complete.aif */,
+				7C1305A0193FC0F70060F343 /* Images */,
+				7C130588193FC0B60060F343 /* AutoImagrNBI-Info.plist */,
+				7C130589193FC0B60060F343 /* InfoPlist.strings */,
+				7C13058C193FC0B60060F343 /* main.m */,
+				7C13058E193FC0B60060F343 /* AutoImagrNBI-Prefix.pch */,
+				7C13058F193FC0B60060F343 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7C1305A0193FC0F70060F343 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				7CA424A91AFAA40300C60874 /* imagr_icon.png */,
+				7CA424A71AFAA2E700C60874 /* com.apple.macmini-unibody-no-optical.png */,
+				7C83B57519A3B41700E9572E /* CDiskImage.icns */,
+				7CD1B87A19EC76EB00C70449 /* YoYo-diskcopy-doc.icns */,
+				7C27FA25198C357900BD5A07 /* AlertStopIcon.icns */,
+				7C9BC9E619EC7EE800C4FDDD /* YoYo-package.icns */,
+				7C9BC9E419EC7D0500C4FDDD /* YoYo-Localization.icns */,
+				7CDCE26B1985A2B8005CE10C /* Clock.png */,
+				7CDD2BB819EC7BAA008D370F /* YoYo-icn_desktop.tiff */,
+				7CA424AD1AFAA75800C60874 /* AutoImagrNBI_1024.png */,
+				7CDD2BB919EC7BAA008D370F /* YoYo-FinderIcon.icns */,
+				7CDD2BBA19EC7BAA008D370F /* YoYo-ExecutableBinaryIcon.icns */,
+				7CDD2BBB19EC7BAA008D370F /* YoYo-Clock.icns */,
+				7CDD2BBC19EC7BAA008D370F /* YoYo-AppIcon.icns */,
+				7C39447F1960C7DA00BF371B /* CertStackLarge@2x.png */,
+				7C1305A3193FC10A0060F343 /* DMGFormat.icns */,
+				7C1305A4193FC10A0060F343 /* NetBootVolume.icns */,
+				7C1305A6193FC10A0060F343 /* RemoteDesktop.icns */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7CF177D71AFAB78300B0CD80 /* AutoImagrNBI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7CF177E61AFAB78300B0CD80 /* Build configuration list for PBXNativeTarget "AutoImagrNBI" */;
+			buildPhases = (
+				7CF177D41AFAB78300B0CD80 /* Sources */,
+				7CF177D51AFAB78300B0CD80 /* Frameworks */,
+				7CF177D61AFAB78300B0CD80 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AutoImagrNBI;
+			productName = AutoImagrNBI;
+			productReference = 7CF177D81AFAB78300B0CD80 /* AutoImagrNBI.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7C130573193FC0B60060F343 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0620;
+				ORGANIZATIONNAME = macmule;
+				TargetAttributes = {
+					7CF177D71AFAB78300B0CD80 = {
+						CreatedOnToolsVersion = 6.2;
+					};
+				};
+			};
+			buildConfigurationList = 7C130576193FC0B60060F343 /* Build configuration list for PBXProject "AutoImagrNBI" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7C130572193FC0B60060F343;
+			productRefGroup = 7C13057C193FC0B60060F343 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7CF177D71AFAB78300B0CD80 /* AutoImagrNBI */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7CF177D61AFAB78300B0CD80 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7C1DDE141AFAC38300099DAE /* CDiskImage.icns in Resources */,
+				7C1DDE2C1AFAC39400099DAE /* AutoImagrNBI-Info.plist in Resources */,
+				7C1DDE351AFAC3B200099DAE /* 10.8+root.plist in Resources */,
+				7C1DDE131AFAC38300099DAE /* com.apple.macmini-unibody-no-optical.png in Resources */,
+				7C1DDE341AFAC3B200099DAE /* com.AutoImagrNBI.boot.plist in Resources */,
+				7C1DDE2E1AFAC3A300099DAE /* Credits.rtf in Resources */,
+				7C1DDE1E1AFAC38300099DAE /* YoYo-FinderIcon.icns in Resources */,
+				7C1DDE1C1AFAC38300099DAE /* Clock.png in Resources */,
+				7C1DDE371AFAC3B200099DAE /* NBImageInfo.plist in Resources */,
+				7C1DDE311AFAC3B200099DAE /* root.plist in Resources */,
+				7C1DDE291AFAC38300099DAE /* RemoteDesktop.icns in Resources */,
+				7C1DDE381AFAC3B200099DAE /* rc.netboot in Resources */,
+				7C1DDE1F1AFAC38300099DAE /* YoYo-ExecutableBinaryIcon.icns in Resources */,
+				7C1DDE231AFAC38300099DAE /* CertStackLarge@2x.png in Resources */,
+				7C1DDE121AFAC38300099DAE /* imagr_icon.png in Resources */,
+				7C1DDE1A1AFAC38300099DAE /* YoYo-package.icns in Resources */,
+				7C1DDE191AFAC38300099DAE /* AlertStopIcon.icns in Resources */,
+				7C1DDE201AFAC38300099DAE /* YoYo-Clock.icns in Resources */,
+				7C1DDE2D1AFAC39700099DAE /* InfoPlist.strings in Resources */,
+				7C1DDE111AFAC37D00099DAE /* AutoImagrNBI_1024.png in Resources */,
+				7C1DDE2B1AFAC38900099DAE /* complete.aif in Resources */,
+				7C1DDE3A1AFAC3B200099DAE /* Boot.sh in Resources */,
+				7C1DDE301AFAC3AD00099DAE /* MainMenu.xib in Resources */,
+				7C1DDE211AFAC38300099DAE /* YoYo-AppIcon.icns in Resources */,
+				7C1DDE271AFAC38300099DAE /* DMGFormat.icns in Resources */,
+				7C1DDE281AFAC38300099DAE /* NetBootVolume.icns in Resources */,
+				7C1DDE361AFAC3B200099DAE /* com.AutoImagrNBI.Imagr.plist in Resources */,
+				7C1DDE0D1AFABC0B00099DAE /* Images.xcassets in Resources */,
+				7C1DDE171AFAC38300099DAE /* YoYo-diskcopy-doc.icns in Resources */,
+				7C1DDE1D1AFAC38300099DAE /* YoYo-icn_desktop.tiff in Resources */,
+				7C1DDE1B1AFAC38300099DAE /* YoYo-Localization.icns in Resources */,
+				7C1DDE331AFAC3B200099DAE /* kcpassword in Resources */,
+				7C8D6A9C1B0280E200AD4199 /* com.apple.dock.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7CF177D41AFAB78300B0CD80 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7C1DDE2F1AFAC3AA00099DAE /* AutoImagrNBIAppDelegate.applescript in Sources */,
+				7CF177EC1AFAB9AE00B0CD80 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		7C130589193FC0B60060F343 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7C13058A193FC0B60060F343 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		7C13058F193FC0B60060F343 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7C130590193FC0B60060F343 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7C130599193FC0B60060F343 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx10.9;
+			};
+			name = Debug;
+		};
+		7C13059A193FC0B60060F343 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx10.9;
+			};
+			name = Release;
+		};
+		7CF177E71AFAB78300B0CD80 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/AutoImagrNBI/AutoImagrNBI-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		7CF177E81AFAB78300B0CD80 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/AutoImagrNBI/AutoImagrNBI-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7C130576193FC0B60060F343 /* Build configuration list for PBXProject "AutoImagrNBI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7C130599193FC0B60060F343 /* Debug */,
+				7C13059A193FC0B60060F343 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7CF177E61AFAB78300B0CD80 /* Build configuration list for PBXNativeTarget "AutoImagrNBI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7CF177E71AFAB78300B0CD80 /* Debug */,
+				7CF177E81AFAB78300B0CD80 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7C130573193FC0B60060F343 /* Project object */;
+}

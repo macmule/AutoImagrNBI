@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>995A3246-DE03-4391-9C7E-22889C537C91</string>
+	<key>IDESourceControlProjectName</key>
+	<string>AutoImagrNBI</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>8AF18529B32B06D282F7B900BD56707EB7EFA9D6</key>
+		<string>https://github.com/macmule/AutoCasperNBI.git</string>
+		<key>9680A37C4B5FC44792692B91B603937EC5D1C517</key>
+		<string>https://github.com/macmule/AutoImagrNBI.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>AutoImagrNBI.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>8AF18529B32B06D282F7B900BD56707EB7EFA9D6</key>
+		<string>../..</string>
+		<key>9680A37C4B5FC44792692B91B603937EC5D1C517</key>
+		<string>../../AutoImagrNBI</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/macmule/AutoCasperNBI.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>8AF18529B32B06D282F7B900BD56707EB7EFA9D6</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>8AF18529B32B06D282F7B900BD56707EB7EFA9D6</string>
+			<key>IDESourceControlWCCName</key>
+			<string>AutoImagrNBI</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>9680A37C4B5FC44792692B91B603937EC5D1C517</string>
+			<key>IDESourceControlWCCName</key>
+			<string>AutoImagrNBI</string>
+		</dict>
+	</array>
+</dict>
+</plist>
