@@ -530,8 +530,11 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="4je-JR-u6R"/>
-                            <menuItem title="Check For Updates" enabled="NO" id="D7p-UP-HXT">
+                            <menuItem title="Check For Updates" id="D7p-UP-HXT">
                                 <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="checkForUpdates:" target="hVa-UE-hI8" id="OMS-XE-zzi"/>
+                                </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="TC8-dj-Uxm"/>
                             <menuItem title="Hide AutoImagrNBI" keyEquivalent="h" id="Olw-nP-bQN">
@@ -3765,6 +3768,7 @@ DQ
                 <binding destination="Voe-Tx-rLC" name="contentArray" keyPath="theCerts" id="U7c-dV-usb"/>
             </connections>
         </arrayController>
+        <customObject id="hVa-UE-hI8" customClass="SUUpdater"/>
     </objects>
     <resources>
         <image name="AlertStopIcon" width="512" height="512"/>

@@ -40,10 +40,26 @@
 		7C1DDE371AFAC3B200099DAE /* NBImageInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7CC636E5197D444E008473CE /* NBImageInfo.plist */; };
 		7C1DDE381AFAC3B200099DAE /* rc.netboot in Resources */ = {isa = PBXBuildFile; fileRef = 7CC26BDB19DA1DF8002A093B /* rc.netboot */; };
 		7C1DDE3A1AFAC3B200099DAE /* Boot.sh in Resources */ = {isa = PBXBuildFile; fileRef = 7CCA40B419D9EE9800C7114F /* Boot.sh */; };
+		7C1F6A621B039FCF005F1579 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C1F6A611B039FCF005F1579 /* Sparkle.framework */; };
+		7C1F6A641B03A065005F1579 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7C1F6A611B039FCF005F1579 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7C1F6A661B03A31E005F1579 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 7C1F6A651B03A31E005F1579 /* dsa_pub.pem */; };
 		7C8D6A9C1B0280E200AD4199 /* com.apple.dock.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7C8D6A9B1B0280E200AD4199 /* com.apple.dock.plist */; };
 		7CF177D91AFAB78300B0CD80 /* AppleScriptObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C130580193FC0B60060F343 /* AppleScriptObjC.framework */; };
 		7CF177EC1AFAB9AE00B0CD80 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF177EB1AFAB9AE00B0CD80 /* main.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		7C1F6A631B03A007005F1579 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7C1F6A641B03A065005F1579 /* Sparkle.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		7C06F40619DA19680057D6ED /* 10.8+root.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "10.8+root.plist"; sourceTree = "<group>"; };
@@ -63,6 +79,8 @@
 		7C1305A3193FC10A0060F343 /* DMGFormat.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = DMGFormat.icns; sourceTree = "<group>"; };
 		7C1305A4193FC10A0060F343 /* NetBootVolume.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = NetBootVolume.icns; sourceTree = "<group>"; };
 		7C1305A6193FC10A0060F343 /* RemoteDesktop.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = RemoteDesktop.icns; sourceTree = "<group>"; };
+		7C1F6A611B039FCF005F1579 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
+		7C1F6A651B03A31E005F1579 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		7C27FA25198C357900BD5A07 /* AlertStopIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AlertStopIcon.icns; sourceTree = "<group>"; };
 		7C27FA27198C3D9500BD5A07 /* complete.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = complete.aif; sourceTree = "<group>"; };
 		7C39447F1960C7DA00BF371B /* CertStackLarge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CertStackLarge@2x.png"; sourceTree = "<group>"; };
@@ -97,6 +115,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7CF177D91AFAB78300B0CD80 /* AppleScriptObjC.framework in Frameworks */,
+				7C1F6A621B039FCF005F1579 /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,6 +142,7 @@
 		7C13057D193FC0B60060F343 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7C1F6A611B039FCF005F1579 /* Sparkle.framework */,
 				7C13057E193FC0B60060F343 /* Cocoa.framework */,
 				7C130580193FC0B60060F343 /* AppleScriptObjC.framework */,
 				7C130582193FC0B60060F343 /* Other Frameworks */,
@@ -143,6 +163,7 @@
 		7C130586193FC0B60060F343 /* AutoImagrNBI */ = {
 			isa = PBXGroup;
 			children = (
+				7C1F6A651B03A31E005F1579 /* dsa_pub.pem */,
 				7CB60993199189E20068574D /* root.plist */,
 				7C8D6A9B1B0280E200AD4199 /* com.apple.dock.plist */,
 				7CC26BD719DA1C0D002A093B /* kcpassword */,
@@ -210,6 +231,7 @@
 				7CF177D41AFAB78300B0CD80 /* Sources */,
 				7CF177D51AFAB78300B0CD80 /* Frameworks */,
 				7CF177D61AFAB78300B0CD80 /* Resources */,
+				7C1F6A631B03A007005F1579 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -258,6 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C1DDE141AFAC38300099DAE /* CDiskImage.icns in Resources */,
+				7C1F6A661B03A31E005F1579 /* dsa_pub.pem in Resources */,
 				7C1DDE2C1AFAC39400099DAE /* AutoImagrNBI-Info.plist in Resources */,
 				7C1DDE351AFAC3B200099DAE /* 10.8+root.plist in Resources */,
 				7C1DDE131AFAC38300099DAE /* com.apple.macmini-unibody-no-optical.png in Resources */,
@@ -404,6 +427,10 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -424,6 +451,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/AutoImagrNBI/AutoImagrNBI-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;

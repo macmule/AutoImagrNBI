@@ -519,23 +519,32 @@ script AutoImagrNBIAppDelegate
                     --Log Action
                     set logMe to "Error: Select a 10.10+ DMG"
                     logToFile_(me)
-                    -- Set to false to display
-                    set my userNotifyErrorHidden to false
-                    -- Set Error message
-                    set my userNotifyError to "Error: Select a 10.10+ DMG"
-                    -- Notify of errors or success
-                    userNotify_(me)
                     -- Update label to show we're doing stuff
-                    set my selectedOSDMGTextField to ""
+                    set my selectedOSDMGTextField to "Select a 10.10+ DMG"
                     -- Hide the cog
                     set my cogOSDMG to false
                     -- Delay needed to update label
                     delay 0.1
+                    -- Set build Process ProgressBar to indeterminate & animated
+                    set my buildProcessProgressBarIndeterminate to true
+                    set my buildProcessProgressBarAniminate to true
+                    delay 0.1
+                    -- activate build process window
+                    activate
+                    showBuildProcessWindow's makeKeyAndOrderFront_(null)
+                    -- Update Build Process Window's Text Field
+                    set my buildProcessTextField to "Error: Select a 10.10+ DMG, detaching mounted volume"
+                    delay 0.1
+                    --Log Action
+                    set logMe to "Error: Select a 10.10+ DMG, detaching mounted volume"
+                    logToFile_(me)
                     -- Detach Volume
                     do shell script "/usr/bin/hdiutil detach " & quoted form of selectedOSdmgMountPath & " -force"
                     --Log Action
                     set logMe to "Unmounted " & quoted form of selectedOSdmgMountPath
                     logToFile_(me)
+                    -- Close Build Process Window
+                    showBuildProcessWindow's orderOut_(null)
                 else
                     -- If we have both OS & build versions, display them
                     set my selectedOSDMGTextField to "Mac OS " & selectedOSdmgVersion & " (" & selectedOSBuilddmgVersion & ")"
