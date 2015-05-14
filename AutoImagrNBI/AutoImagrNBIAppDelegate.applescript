@@ -28,9 +28,7 @@ script AutoImagrNBIAppDelegate
     property selectedAppTextField : ""
     property selectedAppBundleName : ""
     property selectedImagrAppVersion : ""
-    property imagrServerURL : ""
-    property enteredimagrServerURLTextField : ""
-    property imagrServerURLHtml : ""
+    property imagrConfigURL : ""
     property selectOSDMG : ""
     property selectedOSDMGTextField : ""
     property netBootNameTextField : ""
@@ -44,7 +42,7 @@ script AutoImagrNBIAppDelegate
     property hostMacOSVersionMajor : ""
     property selectedOSdmgVersionToDelim : ""
     property selectedOSdmgVersionMajor : ""
-    property jssAndImagrVersionCheckTextfield : ""
+    property ImagrAndImagrVersionCheckTextfield : ""
     property netBootImageIndexMinValue : ""
     property netBootImageIndexMaxValue : ""
     property netBootImageIndex : ""
@@ -62,7 +60,7 @@ script AutoImagrNBIAppDelegate
     property tempUUID : ""
     property netBootDmgMountPath : ""
     property selectedAppPathToCopy : ""
-    property downloadedJSSCACert : ""
+    property downloadedImagrCACert : ""
     property variableVariable : ""
     property buildDate : ""
     property ardPasswordEncoded : ""
@@ -119,13 +117,6 @@ script AutoImagrNBIAppDelegate
     property warningSelectedApp : false
     property cogSelectedApp : false
     property cogSelectedAppAnimate : true
-    property checkGreenimagrServerURL : false
-    property exclamationRedimagrServerURL : false
-    property warningimagrServerURL : false
-    property cogimagrServerURL : false
-    property cogimagrServerURLAnimate: true
-    property JSSOptionsDisabled : true
-    property minorJSSAndImagrVersionDiff : false
     property buildButtonDisabled : true
     property optionsButtonDisabled : true
     property disableOptionsAndBuild : true
@@ -165,6 +156,7 @@ script AutoImagrNBIAppDelegate
     property disableAdminUserCheck : false
     property firstLaunch : true
     property netBootDescriptionSet : false
+    property imagrConfigURLCheckPass : false
     
     -- Others
     property buildProcessProgressBarMax : 0
@@ -230,7 +222,7 @@ script AutoImagrNBIAppDelegate
                                             ardPassword:ardPassword, ¬
                                             customDesktopImageEnabled:customDesktopImageEnabled, ¬
                                             customDesktopImagePath:customDesktopImagePath, ¬
-                                            imagrServerURL:imagrServerURL, ¬
+                                            imagrConfigURL:imagrConfigURL, ¬
                                             netBootDescriptionEnabled:netBootDescriptionEnabled, ¬
                                             servedFromNetSUS:servedFromNetSUS,  ¬
                                             netBootImageIndexLoadBalanced:netBootImageIndexLoadBalanced, ¬
@@ -256,7 +248,7 @@ script AutoImagrNBIAppDelegate
         tell defaults to set my ardPassword to objectForKey_("ardPassword") as string
         tell defaults to set my customDesktopImageEnabled to objectForKey_("customDesktopImageEnabled") as boolean
         tell defaults to set my customDesktopImagePath to objectForKey_("customDesktopImagePath") as string
-        tell defaults to set my imagrServerURL to objectForKey_("imagrServerURL") as string
+        tell defaults to set my imagrConfigURL to objectForKey_("imagrConfigURL") as string
         tell defaults to set my netBootDescriptionEnabled to objectForKey_("netBootDescriptionEnabled") as boolean
         tell defaults to set my servedFromNetSUS to objectForKey_("servedFromNetSUS") as boolean
         tell defaults to set my netBootImageIndexLoadBalanced to objectForKey_("netBootImageIndexLoadBalanced") as boolean
@@ -278,8 +270,8 @@ script AutoImagrNBIAppDelegate
     ----- BUTTON HANDLERS ----
     -- Open Options window
     on showOptionsWindow_(sender)
-        -- check the JSS URL
-        --checkimagrServerURL_(me)
+        -- check the Imagr URL
+        checkimagrURL_(me)
         -- reset value
         set optionsWindowPreCheckPassed to true
         -- Make sure a name is specified for the NetBoot Image, error if not.
@@ -334,12 +326,6 @@ script AutoImagrNBIAppDelegate
         set my selectedAppCheckPass to false
         set my cogSelectedApp to false
     end doResetSelectedAppIcons_
-    
-    -- Reset imagrServerURL Icons
-    on doResetimagrServerURLIcons_(sender)
-        set my checkGreenimagrServerURL to false
-        set my cogimagrServerURL to false
-    end doResetimagrServerURLIcons_
 
     -- Reset Main Window Text Field & Cog
     on resetMainWindowLabel_(sender)
@@ -368,7 +354,7 @@ script AutoImagrNBIAppDelegate
     ---- HELP MENU ----
     -- Open the User Guide
     on openUserGuide_(sender)
-        open location "https://github.com/macmule/AutoImagrNBI/wiki"
+        open location "https://macmule.com/projects/AutoImagrNBI"
     end openUserGuide_
     
     -- Open default browser to the below
@@ -506,7 +492,7 @@ script AutoImagrNBIAppDelegate
                 set applescriptsDelims to AppleScript's text item delimiters
                 -- Set delimiters to decimal
                 set AppleScript's text item delimiters to "."
-                -- Set variables to the split versions of Imagr & JSS versions
+                -- Set variables to the split versions of Imagr & Imagr versions
                 set selectedOSdmgVersionToDelim to selectedOSdmgVersionToDelim's text items
                 -- Set to major version of Imagr
                 set selectedOSdmgVersionMajor to text item 2 of selectedOSdmgVersionToDelim as integer
@@ -615,8 +601,6 @@ script AutoImagrNBIAppDelegate
                 doResetSelectedAppIcons_(me)
                 -- Display green tick
                 set my selectedAppCheckPass to true
-                -- Compare JSS & Imagr Versions
-                --checkimagrServerURL_(me)
                 -- See if pre-reqs have been met
                 checkIfReadyToProceed_(me)
             -- Error if cannot get the version number
@@ -644,10 +628,41 @@ script AutoImagrNBIAppDelegate
         checkIfReadyToProceed_(me)
     end selectedAppCheck_
     
-    -- Make sure OS & Imaging.app is specified before proceeding, once checked enable JSS options, as well as Build & Option buttons
+    -- Check the Imagr URL details & try & get version of the Imagr
+    on checkImagrURL_(sender)
+        -- Make sure imagrConfigURL has a value before we proceed
+        if (my imagrConfigURL is equal to missing value) or (my imagrConfigURL is equal to "") then
+            tell defaults to removeObjectForKey_("imagrConfigURL")
+            -- Display error to user
+            display dialog "Please enter an Imagr Configuration Plist URL" with icon 0 buttons {"OK"}
+            --Log Action
+            set logMe to "Error: Please enter an Imagr Configuration Plist URL"
+            logToFile_(me)
+            -- Disable Options & Build
+            set my disableOptionsAndBuild to true
+            -- Set to false so we don't continue
+            set imagrConfigURLCheckPass to false
+            -- See if pre-reqs have been met
+            checkIfReadyToProceed_(me)
+        else
+            -- Update plist
+            tell defaults to setObject_forKey_(imagrConfigURL, "imagrConfigURL")
+            -- Set to true so we can continue
+            set imagrConfigURLCheckPass to true
+            -- See if pre-reqs have been met
+            checkIfReadyToProceed_(me)
+        end if
+    end checkImagrURL_
+    
+    -- Make sure OS & Imaging.app is specified before proceeding, once checked enable Imagr options, as well as Build & Option buttons
     on checkIfReadyToProceed_(sender)
+        -- Make sure imagrConfigURL has a value before we proceed
+        if (my imagrConfigURL is not equal to missing value) or (my imagrConfigURL is not equal to "") then
+            -- Set to true so we can continue
+            set imagrConfigURLCheckPass to true
+        end if
         -- Check to see if we have ticks or minor warning before we proceed
-        if selectedAppCheckPass and selectedOSDMGCheckPass is equal to true
+        if (selectedAppCheckPass and selectedOSDMGCheckPass is equal to true) and imagrConfigURLCheckPass is equal to true then
             -- Enable Options & Build
             set my disableOptionsAndBuild to false
             --Log Action
@@ -661,20 +676,6 @@ script AutoImagrNBIAppDelegate
             netBootImageIndex_(me)
         end if
     end checkIfReadyToProceed_
-
-    -- Check the JSS URL details & try & get version of the JSS
-    on checkImagrURL_(sender)
-        -- Make sure imagrServerURL has a value before we proceed
-        if my imagrServerURL as string is not equal to "" then
-            -- Update plist
-            tell defaults to setObject_forKey_(imagrServerURL, "imagrServerURL")
-        else
-            -- Blank JSS Text Field
-            set my enteredimagrServerURLTextField to missing value
-            -- Delete imagrServerURL from plist
-            tell defaults to removeObjectForKey_("imagrServerURL")
-        end if
-    end checkImagrURL_
 
     -- Make sure a name is specified for the NetBoot Image, error if not.
     on netBootName_(sender)
@@ -820,8 +821,8 @@ script AutoImagrNBIAppDelegate
                 set buildDate to date string of (current date)
                 -- Get the full name of the user running AutoImagrNBI
                 set longUserName to long user name of (system info)
-                -- If we don't have a JSS URL set, then omit
-                if imagrServerURL is equal to "" then
+                -- If we don't have a Imagr URL set, then omit
+                if imagrConfigURL is equal to "" then
                     -- Set NetBoot Description
                     set my netBootDescription to selectedOSDMGTextField & " with Imagr " & selectedImagrAppVersion & ". Created by, " & longUserName & " on: " & buildDate & "."
                     --Log Action
@@ -829,7 +830,7 @@ script AutoImagrNBIAppDelegate
                     logToFile_(me)
                 else
                     -- Set NetBoot Description
-                    set my netBootDescription to selectedOSDMGTextField & " with Imagr " & selectedImagrAppVersion & " pointing to " & imagrServerURL & ". Created by, " & longUserName & " on: " & buildDate & "."
+                    set my netBootDescription to selectedOSDMGTextField & " with Imagr " & selectedImagrAppVersion & " pointing to " & imagrConfigURL & ". Created by, " & longUserName & " on: " & buildDate & "."
                     --Log Action
                     set logMe to "NetBoot description set to " & quoted form of netBootDescription
                     logToFile_(me)
@@ -1507,14 +1508,14 @@ script AutoImagrNBIAppDelegate
         netBootName_(me)
         -- Error if incorrect value specified
         netBootImageIndexCheck_(me)
+        -- Check the Imagr URL details & try & get version of the Imagr
+        checkimagrURL_(me)
         -- Set to boolean of value
         set buildButtonPreCheckPassed to buildButtonPreCheckPassed as boolean
         -- Proceed if we've passed precheck
         if buildButtonPreCheckPassed is true then
             -- reload options from plist
             retrieveDefaults_(me)
-            -- Check the JSS URL details & try & get version of the JSS
-            --checkimagrServerURL_(me)
             -- Set NetBoot Description
             enablenetBootDescription_(me)
             -- Check that image selected for desktop exists
@@ -1557,7 +1558,7 @@ script AutoImagrNBIAppDelegate
             set my buildProcessProgressBarMax to buildProcessProgressBarMax + 1
         end if
         -- If a Imagr Server URL is specified
-        if imagrServerURL is not ""
+        if imagrConfigURL is not ""
             set my buildProcessProgressBarMax to buildProcessProgressBarMax + 2
         end if
         -- If we're importing certs
@@ -3355,7 +3356,7 @@ script AutoImagrNBIAppDelegate
     on writeImagrPlist_(sender)
         try
             -- If a Imagr URL is specified
-            if imagrServerURL is not ""
+            if imagrConfigURL is not ""
                 -- Update Build Process Window's Text Field
                 set my buildProcessTextField to "Writing Imagr plist"
                 delay 0.1
@@ -3364,7 +3365,7 @@ script AutoImagrNBIAppDelegate
                 -- Imagr Plist location on mounted volume
                 set variableVariable to netBootDmgMountPath & "/private/var/root/Library/Preferences/com.grahamgilbert.Imagr.plist"
                 -- Write Imagr Server URL to plist,
-                do shell script "/usr/bin/defaults write " & quoted form of variableVariable & " serverurl -string " & imagrServerURL user name adminUserName password adminUsersPassword with administrator privileges
+                do shell script "/usr/bin/defaults write " & quoted form of variableVariable & " serverurl -string " & imagrConfigURL user name adminUserName password adminUsersPassword with administrator privileges
                 --Log Action
                 set logMe to "plist updated with Imagr Server url"
                 logToFile_(me)
@@ -3434,45 +3435,6 @@ script AutoImagrNBIAppDelegate
             userNotify_(me)
         end try
     end installImagrLaunchAgent_
-
-    -- Get JSS CA Cert if JSS URL given
-    on importJSSCACert_(sender)
-        -- If a JSS URL is specified
-        if imagrServerURL is not equal to "" then
-            try
-                -- Update Build Process Window's Text Field
-                set my buildProcessTextField to "Downloading JSS CA Cert"
-                delay 0.1
-                -- Update build Process ProgressBar
-                set my buildProcessProgressBar to buildProcessProgressBar + 1
-                -- Application Support location on TempOSdmg for installing at boot
-                set variableVariable to netBootDmgMountPath & "/Library/Application Support/AutoImagrNBI/Certificates/"
-                -- Log Action
-                set logMe to "Downloading JSS CA Cert for " & imagrServerURL
-                logToFile_(me)
-                -- Download CA Cert from JSS to /Library/Application Support/AutoImagrNBI/Certificates/UUID
-                do shell script "curl -k -o " & quoted form of variableVariable & tempUUID & ".cer " & imagrServerURL & "/CA/SCEP?operation=getcacert" user name adminUserName password adminUsersPassword with administrator privileges
-                -- Log Action
-                set logMe to "Downloaded JSS CA Cert to " & quoted form of variableVariable
-                logToFile_(me)
-                -- Add any additional certs if specified
-                importAdditionalCerts_(me)
-            on error
-                --Log Action
-                set logMe to "Error: Importing JSS CA Cert"
-                logToFile_(me)
-                -- Set to false to display
-                set my userNotifyErrorHidden to false
-                -- Set Error message
-                set my userNotifyError to "Error: Importing JSS CA Cert"
-                -- Notify of errors or success
-                userNotify_(me)
-            end try
-        else
-            -- Add any additional certs if specified
-            importAdditionalCerts_(me)
-        end if
-    end importJSSCACert_
 
     -- Add any additional certs if specified
     on importAdditionalCerts_(sender)
