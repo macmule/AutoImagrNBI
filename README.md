@@ -1,14 +1,15 @@
 # AutoImagrNBI
 AutoCasperNBI variant for use with Imagr
 
-MORE INFORMATION
+##MORE INFORMATION
 
 https://macmule.com/projects/AutoImagrNBI
 
-LATEST-RELEASE
+##LATEST-RELEASE
+
 https://github.com/macmule/AutoImagrNBI/releases/latest
 
-VERSION HISTORY
+##VERSION HISTORY
 
 1.0.1
 
