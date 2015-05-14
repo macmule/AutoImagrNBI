@@ -190,6 +190,17 @@
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        <connections>
+                                            <binding destination="Voe-Tx-rLC" name="value" keyPath="imagrConfigURL" id="Ks8-Jf-Nn9">
+                                                <dictionary key="options">
+                                                    <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                                    <bool key="NSConditionallySetsEditable" value="NO"/>
+                                                    <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                    <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
+                                                    <bool key="NSValidatesImmediately" value="YES"/>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
                                     </textFieldCell>
                                     <connections>
                                         <action selector="checkImagrURL:" target="Voe-Tx-rLC" id="Wog-eV-2du"/>
@@ -310,8 +321,8 @@
                                 <button id="klK-eR-rye">
                                     <rect key="frame" x="138" y="77" width="246" height="18"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <string key="toolTip">If NetBoot is to be served from a NetSUS appliance then the name cannot contain spaces, ticking this will remove spaces from the name.</string>
-                                    <buttonCell key="cell" type="check" title="Will be served from a NetSUS appliance" bezelStyle="regularSquare" imagePosition="left" controlSize="small" enabled="NO" inset="2" id="ePG-Pe-Zsf">
+                                    <string key="toolTip">If NetBoot is to be served from NetSUS or BSDPy then the name cannot contain spaces, ticking this will remove spaces from the name.</string>
+                                    <buttonCell key="cell" type="check" title="Will be served from NetSUS or BSDPy" bezelStyle="regularSquare" imagePosition="left" controlSize="small" enabled="NO" inset="2" id="ePG-Pe-Zsf">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="smallSystem"/>
                                     </buttonCell>
@@ -1260,7 +1271,7 @@ CA
                                                     <button toolTip="Installs a modifed rc.netboot file, this will not create shadow files on the NetBoot server." id="OEs-ku-2dk">
                                                         <rect key="frame" x="109" y="31" width="183" height="18"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <buttonCell key="cell" type="check" title="Install modified rc.netboot file" bezelStyle="regularSquare" imagePosition="left" inset="2" id="wqh-6g-HMT">
+                                                        <buttonCell key="cell" type="check" title="Install modified rc.netboot file" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="wqh-6g-HMT">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="smallSystem"/>
                                                         </buttonCell>

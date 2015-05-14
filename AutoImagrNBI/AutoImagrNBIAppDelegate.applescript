@@ -42,7 +42,6 @@ script AutoImagrNBIAppDelegate
     property hostMacOSVersionMajor : ""
     property selectedOSdmgVersionToDelim : ""
     property selectedOSdmgVersionMajor : ""
-    property ImagrAndImagrVersionCheckTextfield : ""
     property netBootImageIndexMinValue : ""
     property netBootImageIndexMaxValue : ""
     property netBootImageIndex : ""
@@ -134,9 +133,9 @@ script AutoImagrNBIAppDelegate
     property buildProcessProgressBarIndeterminate : false
     property buildProcessProgressBarAniminate : false
     property netBootCreationSuccessful : false
-    property netBootServeOverNFS : true
+    property netBootServeOverNFS : false
     property customDesktopImageEnabled : false
-    property installRCNetBootSelected : false
+    property installRCNetBootSelected : true
     property timeServerOptionsEnabled : false
     property createReadOnlyDMG : false
     property userNotifyErrorHidden : true
@@ -145,7 +144,7 @@ script AutoImagrNBIAppDelegate
     property buildButtonPreCheckPassed : true
     property closeButtonPreCheckPassed : true
     property simpleFinderEnabled : false
-    property servedFromNetSUS : false
+    property servedFromNetSUS : true
     property logNewLine : true
     property isAdminUser : false
     property pkgsMissing : false
@@ -657,7 +656,7 @@ script AutoImagrNBIAppDelegate
     -- Make sure OS & Imaging.app is specified before proceeding, once checked enable Imagr options, as well as Build & Option buttons
     on checkIfReadyToProceed_(sender)
         -- Make sure imagrConfigURL has a value before we proceed
-        if (my imagrConfigURL is not equal to missing value) or (my imagrConfigURL is not equal to "") then
+        if (my imagrConfigURL is not equal to missing value) and (my imagrConfigURL is not equal to "") then
             -- Set to true so we can continue
             set imagrConfigURLCheckPass to true
         end if
@@ -1508,8 +1507,8 @@ script AutoImagrNBIAppDelegate
         netBootName_(me)
         -- Error if incorrect value specified
         netBootImageIndexCheck_(me)
-        -- Check the Imagr URL details & try & get version of the Imagr
-        checkimagrURL_(me)
+        -- Bound to "Install modified rc.netboot file" checkbox, sets plist
+        installRCNetBootCheckBox_(me)
         -- Set to boolean of value
         set buildButtonPreCheckPassed to buildButtonPreCheckPassed as boolean
         -- Proceed if we've passed precheck
@@ -4076,10 +4075,6 @@ script AutoImagrNBIAppDelegate
                 do shell script "/usr/bin/defaults write " & quoted form of netBootDirectory & "/NBImageInfo.plist RootPath -string NetBoot.dmg" user name adminUserName password adminUsersPassword with administrator privileges
                 --Log Action
                 set logMe to "Set .nbi to RootPath"
-                logToFile_(me)
-                ---- Serve Over ---
-                --Log Action
-                set logMe to "Setting NBImageInfo.plist's serve over option"
                 logToFile_(me)
                 ---- ImageType ----
                 -- Update Build Process Window's Text Field
