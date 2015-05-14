@@ -1,7 +1,7 @@
 # AutoImagrNBI
 AutoCasperNBI variant for use with Imagr
 
-![alt tag](https://raw.github.com/username/projectname/branch/path/to/img.png)
+![AutoImagrNBI Logo](https://macmule.com/wp-content/uploads/2015/05/AutoImagrNBI_256.png)
 
 ###MORE INFORMATION
 
