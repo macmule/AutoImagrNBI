@@ -27,7 +27,6 @@
 		7C1DDE281AFAC38300099DAE /* NetBootVolume.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7C1305A4193FC10A0060F343 /* NetBootVolume.icns */; };
 		7C1DDE291AFAC38300099DAE /* RemoteDesktop.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7C1305A6193FC10A0060F343 /* RemoteDesktop.icns */; };
 		7C1DDE2B1AFAC38900099DAE /* complete.aif in Resources */ = {isa = PBXBuildFile; fileRef = 7C27FA27198C3D9500BD5A07 /* complete.aif */; };
-		7C1DDE2C1AFAC39400099DAE /* AutoImagrNBI-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7C130588193FC0B60060F343 /* AutoImagrNBI-Info.plist */; };
 		7C1DDE2D1AFAC39700099DAE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7C130589193FC0B60060F343 /* InfoPlist.strings */; };
 		7C1DDE2E1AFAC3A300099DAE /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 7C13058F193FC0B60060F343 /* Credits.rtf */; };
 		7C1DDE2F1AFAC3AA00099DAE /* AutoImagrNBIAppDelegate.applescript in Sources */ = {isa = PBXBuildFile; fileRef = 7C130592193FC0B60060F343 /* AutoImagrNBIAppDelegate.applescript */; };
@@ -248,7 +247,7 @@
 		7C130573193FC0B60060F343 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0620;
+				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = macmule;
 				TargetAttributes = {
 					7CF177D71AFAB78300B0CD80 = {
@@ -281,7 +280,6 @@
 			files = (
 				7C1DDE141AFAC38300099DAE /* CDiskImage.icns in Resources */,
 				7C1F6A661B03A31E005F1579 /* dsa_pub.pem in Resources */,
-				7C1DDE2C1AFAC39400099DAE /* AutoImagrNBI-Info.plist in Resources */,
 				7C1DDE351AFAC3B200099DAE /* 10.8+root.plist in Resources */,
 				7C1DDE131AFAC38300099DAE /* com.apple.macmini-unibody-no-optical.png in Resources */,
 				7C1DDE341AFAC3B200099DAE /* com.AutoImagrNBI.boot.plist in Resources */,
@@ -384,7 +382,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx10.9;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -416,7 +414,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				SDKROOT = macosx10.9;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};

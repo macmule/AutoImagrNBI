@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6751" systemVersion="13F1077" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6751"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -1097,7 +1097,7 @@ CA
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
-                                                    <box autoresizesSubviews="NO" verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" id="fK1-0C-d0W">
+                                                    <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" id="fK1-0C-d0W">
                                                         <rect key="frame" x="20" y="85" width="366" height="5"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
@@ -2735,7 +2735,7 @@ CA
                                                         <rect key="frame" x="207" y="27" width="178" height="22"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <string key="toolTip">Keyboard Input Language for the NBI. This list is written as per com.apple.HIToolbox requires the keyboards names, even with dodgy capitalisation.</string>
-                                                        <popUpButtonCell key="cell" type="push" title="US Extended" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="-2" imageScaling="proportionallyDown" inset="2" selectedItem="jZ5-al-x8e" id="gqa-pz-aIV">
+                                                        <popUpButtonCell key="cell" type="push" title="Georgian-QWERTY" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="-27650" imageScaling="proportionallyDown" inset="2" selectedItem="ekJ-Kv-MuD" id="gqa-pz-aIV">
                                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="smallSystem"/>
                                                             <menu key="menu" title="OtherViews" id="OuF-Ay-0wN">
@@ -2857,7 +2857,7 @@ CA
                                                                     <menuItem title="French - numerical" tag="1111" id="KtY-d4-DBR">
                                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                                     </menuItem>
-                                                                    <menuItem title="Georgian-QWERTY" tag="-27650" id="ekJ-Kv-MuD">
+                                                                    <menuItem title="Georgian-QWERTY" state="on" tag="-27650" id="ekJ-Kv-MuD">
                                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                                     </menuItem>
                                                                     <menuItem title="German" tag="3" id="wuN-g1-9n2">
@@ -3106,7 +3106,7 @@ CA
                                                                     <menuItem title="U.S." id="Ohp-v6-AWa">
                                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                                     </menuItem>
-                                                                    <menuItem title="US Extended" state="on" tag="-2" id="jZ5-al-x8e">
+                                                                    <menuItem title="US Extended" tag="-2" id="jZ5-al-x8e">
                                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                                     </menuItem>
                                                                     <menuItem title="USInternational-PC" tag="15000" id="TFM-nR-TuR">
@@ -3242,7 +3242,7 @@ CA
                                                                     <rect key="frame" x="0.0" y="0.0" width="1003" height="19"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <size key="intercellSpacing" width="3" height="2"/>
-                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                     <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
                                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                     <tableColumns>
@@ -3356,7 +3356,7 @@ CA
                                                                     <rect key="frame" x="0.0" y="0.0" width="1003" height="19"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <size key="intercellSpacing" width="3" height="2"/>
-                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                     <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
                                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                     <tableColumns>
@@ -3768,9 +3768,9 @@ DQ
         <image name="AutoImagrNBI_1024" width="512" height="512"/>
         <image name="CDiskImage" width="128" height="128"/>
         <image name="CertStackLarge" width="76" height="65"/>
-        <image name="NSAddTemplate" width="8" height="8"/>
+        <image name="NSAddTemplate" width="11" height="11"/>
         <image name="NSRefreshFreestandingTemplate" width="14" height="14"/>
-        <image name="NSRemoveTemplate" width="8" height="8"/>
+        <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="NetBootVolume" width="512" height="512"/>
         <image name="RemoteDesktop" width="512" height="512"/>
         <image name="YoYo-AppIcon" width="512" height="512"/>

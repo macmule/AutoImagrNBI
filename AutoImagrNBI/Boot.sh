@@ -1,7 +1,7 @@
 #!/bin/sh
 ################################################################################################
 #
-# Used by AutoCasperNBI created nbi's on launch to set Time, Screen Sharing & install Certificates
+# Used by AutoImagrNBI created nbi's on launch to set Time, Screen Sharing & install Certificates
 #
 ################################################################################################
 
@@ -12,12 +12,12 @@
 ########
 
 # If file exists, read from it & set Time Server & Zone
-if [ -f /Library/Application\ Support/AutoCasperNBI/Settings/TimeSettings.plist ]; then
+if [ -f /Library/Application\ Support/AutoImagrNBI/Settings/TimeSettings.plist ]; then
 
 echo "Getting Time Server & Zone settings..."
 
 # Get Time Server from plist
-timeServer=$(sudo defaults read /Library/Application\ Support/AutoCasperNBI/Settings/TimeSettings.plist timeServer)
+timeServer=$(sudo defaults read /Library/Application\ Support/AutoImagrNBI/Settings/TimeSettings.plist timeServer)
 
 echo "Setting Time Server..."
 
@@ -26,7 +26,7 @@ echo "Setting Time Server..."
 echo "Set Time Server"
 
 # Get Time Zone from plist
-timeZone=$(sudo defaults read /Library/Application\ Support/AutoCasperNBI/Settings/TimeSettings.plist timeZone)
+timeZone=$(sudo defaults read /Library/Application\ Support/AutoImagrNBI/Settings/TimeSettings.plist timeZone)
 
 echo "Setting Time Zone..."
 
@@ -55,12 +55,12 @@ fi
 ########
 
 # If file exists, read from it & create the ARD User
-if [ -f /Library/Application\ Support/AutoCasperNBI/Settings/ARDUser.plist ]; then
+if [ -f /Library/Application\ Support/AutoImagrNBI/Settings/ARDUser.plist ]; then
 
 echo "ARDUser.plist exists.. Getting values.."
 
 # Get encoded ARD Username from plist
-ardUsernameEncoded=$(sudo defaults read /Library/Application\ Support/AutoCasperNBI/Settings/ARDUser.plist ARDUsername)
+ardUsernameEncoded=$(sudo defaults read /Library/Application\ Support/AutoImagrNBI/Settings/ARDUser.plist ARDUsername)
 echo "Retrieved ARD User..."
 
 # Decode ARD Username
@@ -68,7 +68,7 @@ ardUsername=$(echo $ardUsernameEncoded | openssl base64 -d )
 echo "Decoded ARD User..."
 
 # Get encoded ARD Password from plist
-ardPasswordEncoded=$(sudo defaults read /Library/Application\ Support/AutoCasperNBI/Settings/ARDUser.plist ARDPassword)
+ardPasswordEncoded=$(sudo defaults read /Library/Application\ Support/AutoImagrNBI/Settings/ARDUser.plist ARDPassword)
 echo "Retrieved ARD Password..."
 
 # Decode ARD Password
@@ -100,7 +100,7 @@ fi
 ########
 
 # If both the ARDUser.plist & com.apple.VNCSettings.txt files exist
-if [ -f /Library/Application\ Support/AutoCasperNBI/Settings/ARDUser.plist ] && [ -f /Library/Preferences/com.apple.VNCSettings.txt ]; then
+if [ -f /Library/Application\ Support/AutoImagrNBI/Settings/ARDUser.plist ] && [ -f /Library/Preferences/com.apple.VNCSettings.txt ]; then
 
 echo "Enabling ARD & VNC..."
 
@@ -109,7 +109,7 @@ echo "Enabling ARD & VNC..."
 echo "ARD & VNC enabled..."
 
 # If only the file com.apple.VNCSettings.txt exists
-elif [ ! -f /Library/Application\ Support/AutoCasperNBI/Settings/ARDUser.plist ] && [ -f /Library/Preferences/com.apple.VNCSettings.txt ]; then
+elif [ ! -f /Library/Application\ Support/AutoImagrNBI/Settings/ARDUser.plist ] && [ -f /Library/Preferences/com.apple.VNCSettings.txt ]; then
 
 echo "Enabling VNC..."
 
@@ -118,7 +118,7 @@ echo "Enabling VNC..."
 echo "VNC enabled..."
 
 # If only the file ARDUser.plist exists
-elif [ -f /Library/Application\ Support/AutoCasperNBI/Settings/ARDUser.plist ] && [ ! -f /Library/Preferences/com.apple.VNCSettings.txt ]; then
+elif [ -f /Library/Application\ Support/AutoImagrNBI/Settings/ARDUser.plist ] && [ ! -f /Library/Preferences/com.apple.VNCSettings.txt ]; then
 
 echo "Enabling ARD..."
 
@@ -142,11 +142,11 @@ setIFS=$IFS
 # Set IFS to space
 IFS=$(echo -en "\n\b")
 
-# Check to see if /Library/Application\ Support/AutoCasperNBI/Certificates/ contains certs
-if [ "$(ls -A /Library/Application\ Support/AutoCasperNBI/Certificates/)" ]; then
+# Check to see if /Library/Application\ Support/AutoImagrNBI/Certificates/ contains certs
+if [ "$(ls -A /Library/Application\ Support/AutoImagrNBI/Certificates/)" ]; then
 
 # For each Certificate found...
-for certificate in /Library/Application\ Support/AutoCasperNBI/Certificates/*
+for certificate in /Library/Application\ Support/AutoImagrNBI/Certificates/*
 do
 
 echo "Installing Certificate $certificate..."
@@ -182,11 +182,3 @@ echo "GateKeeper disabled..."
 ########
 
 pmset -a displaysleep 180 disksleep 0 sleep 0 hibernatemode 0 womp 1 autopoweroffdelay 0 standbydelay 0 ttyskeepawake 0 autopoweroff 0
-
-########
-#
-# Energy Saver Preferences
-#
-########
-
-###launchctl unload -w /System/Library/LaunchDaemons/com.apple.kextd.plist

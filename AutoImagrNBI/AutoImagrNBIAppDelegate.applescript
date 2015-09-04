@@ -1943,7 +1943,7 @@ script AutoImagrNBIAppDelegate
             -- Set to text value, to avoid an issue when name changed
             set netBootNameTextField to netBootNameTextField as text
             -- Create the NetBoot.sparseimage
-            do shell script "/usr/bin/hdiutil create " & quoted form of netBootDirectory & "/NetBoot.sparseimage -type SPARSE -size 64g -volname " & quoted form of netBootNameTextField & " -uid 0 -gid 80 -mode 1775 -layout \"GPTSPUD\" -fs \"HFS+\" -stretch 500g -ov -puppetstrings" user name adminUserName password adminUsersPassword with administrator privileges
+            do shell script "/usr/bin/hdiutil create " & quoted form of netBootDirectory & "/NetBoot.sparseimage -type SPARSE -size 64g -volname " & quoted form of netBootNameTextField & " -uid 0 -gid 80 -mode 1775 -layout \"GPTSPUD\" -fs \"HFS+J\" -stretch 500g -ov -puppetstrings" user name adminUserName password adminUsersPassword with administrator privileges
             --Log action
             set logMe to "Successfully created NetBoot.sparseimage in " & quoted form of netBootDirectory
             logToFile_(me)
@@ -2071,8 +2071,8 @@ script AutoImagrNBIAppDelegate
                 -- Update build Process ProgressBar
                 set my buildProcessProgressBar to buildProcessProgressBar + 1
                 delay 0.1
-                -- Delete all in the location except those that are given below \"*DateAndTime.prefPane*\" -not -path
-                do shell script "find " & quoted form of netBootDmgMountPath & "/System/Library/PreferencePanes/* -maxdepth 0 -not -path  \"*Displays.prefPane*\" -not -path \"*Network.prefPane*\" -not -path \"*SharingPref.prefPane*\" -not -path \"*StartupDisk.prefPane*\" -exec rm -rf {} \\;" user name adminUserName password adminUsersPassword with administrator privileges
+                -- Delete all in the location except those that are given below
+                do shell script "find " & quoted form of netBootDmgMountPath & "/System/Library/PreferencePanes/* -maxdepth 0 -not -path \"*DateAndTime.prefPane*\" -not -path \"*Displays.prefPane*\" -not -path \"*Network.prefPane*\" -not -path \"*SharingPref.prefPane*\" -not -path \"*StartupDisk.prefPane*\" -exec rm -rf {} \\;" user name adminUserName password adminUsersPassword with administrator privileges
                 --Log Action
                 set logMe to "Deleted Preference Panes from: " & netBootDmgMountPath & "/System/Library/PreferencePanes/"
                 logToFile_(me)
@@ -3244,6 +3244,14 @@ script AutoImagrNBIAppDelegate
                 do shell script "cp -r " & quoted form of customDesktopImagePath & " " & quoted form of netBootDmgMountPath & "/System/Library/CoreServices/DefaultDesktop.jpg" user name adminUserName password adminUsersPassword with administrator privileges
                 --Log Action
                 set logMe to "Copied " & customDesktopImagePath & " to " & netBootDmgMountPath & "/System/Library/CoreServices/DefaultDesktop.jpg"
+                logToFile_(me)
+                --Log Action
+                set logMe to "Trying to set permissions to 755 on " & quoted form of netBootDmgMountPath & "/System/Library/CoreServices/DefaultDesktop.jpg"
+                logToFile_(me)
+                -- Making writable
+                do shell script "/bin/chmod -R 755 " & quoted form of netBootDmgMountPath & "/System/Library/CoreServices/DefaultDesktop.jpg" user name adminUserName password adminUsersPassword with administrator privileges
+                --Log Action
+                set logMe to "Set permissions to 755 on " & quoted form of netBootDmgMountPath & "/System/Library/CoreServices/DefaultDesktop.jpg"
                 logToFile_(me)
                 -- Copy Imagr.app selected earlier
                 copyImagrApp_(me)
