@@ -104,6 +104,12 @@ script AutoImagrNBIAppDelegate
     property selectedOSdmgFreeSpaceOnVolumeUnit : ""
     property mountPlist : ""
     property selectedOSdmgBytesTotal : ""
+    property latestNBImageInfo : ""
+    property latestImagrVersion : ""
+    property imagrBrowserDownloadURL : ""
+    property imagrTempDir : ""
+    property imagrMount : ""
+    property imagrMountPoint : ""
     
     --- Booleans
     property selectedOSDMGTextFieldEnabled : false
@@ -156,6 +162,8 @@ script AutoImagrNBIAppDelegate
     property firstLaunch : true
     property netBootDescriptionSet : false
     property imagrConfigURLCheckPass : false
+    property elCapNBImageInfoPlistExists : false
+    property useLatestNBImageInfo : false
     
     -- Others
     property buildProcessProgressBarMax : 0
@@ -596,12 +604,13 @@ script AutoImagrNBIAppDelegate
                 logToFile_(me)
                 -- Set label to Imagr version
                 set my selectedAppTextField to "Imagr " & selectedImagrAppVersion
+                delay 0.1
                 -- Reset Selected App Icons
                 doResetSelectedAppIcons_(me)
                 -- Display green tick
                 set my selectedAppCheckPass to true
-                -- See if pre-reqs have been met
-                checkIfReadyToProceed_(me)
+                -- Check latest Imagr version against selected app
+                checkImagrVersion_(me)
             -- Error if cannot get the version number
             on error
                 -- Reset Selected App Icons
@@ -627,7 +636,122 @@ script AutoImagrNBIAppDelegate
         checkIfReadyToProceed_(me)
     end selectedAppCheck_
     
-    -- Check the Imagr URL details & try & get version of the Imagr
+    -- Check latest Imagr version against selected app
+    on checkImagrVersion_(sender)
+        try
+            -- Get the latest version number of Imagr
+            set latestImagrVersion to do shell script "/usr/bin/curl -s https://api.github.com/repos/grahamgilbert/imagr/releases | awk '/tag_name/{ gsub(\"\\\"\",\"\"); gsub(\",\",\"\"); print $2; exit }'"
+            --Log Action
+            set logMe to "Latest Imagr version: " & latestImagrVersion
+            logToFile_(me)
+            -- Check versions
+            if selectedImagrAppVersion is less than latestImagrVersion then
+                -- Prompt user
+                display dialog "Selected version of Imagr (" & selectedImagrAppVersion & ") is older than the latest release of Imagr (" & latestImagrVersion & ")." & return & return & "Would you like to download the newest version & add to this NBI?" with icon caution buttons {"Release Info","No", "Yes"} default button "Yes"
+                -- If user selected yes
+                if button returned of the result is "Yes" then
+                    -- Download the latest version of Imagr
+                    downloadLatestImagr_(me)
+                else if button returned of the result is "Release Info" then
+                    -- Open a web browser to the latest releases page
+                    open location "https://github.com/grahamgilbert/imagr/releases/latest"
+                end if
+            else
+                -- See if pre-reqs have been met
+                checkIfReadyToProceed_(me)
+            end if
+        on error
+            -- See if pre-reqs have been met
+            checkIfReadyToProceed_(me)
+        end try
+    end checkImagrVersion_
+    
+    -- Download the latest version of Imagr
+    on downloadLatestImagr_(sender)
+        try
+            -- Update buildProcessLogTextField to show path to todays log
+            set my buildProcessLogTextField to "Today's Log: ~/Library/Logs/AutoCasperNBI/AutoCasperNBI-" & logDate & ".log"
+            -- Set build Process ProgressBar to indeterminate & animated to false
+            set my buildProcessProgressBarIndeterminate to true
+            set my buildProcessProgressBarAniminate to true
+            -- close admin check window
+            adminUserWindow's orderOut_(null)
+            -- activate build process window
+            activate
+            showBuildProcessWindow's makeKeyAndOrderFront_(null)
+            -- Update Build Process Window's Text Field
+            set my buildProcessTextField to "Getting latest version number of Imagr"
+            delay 0.1
+            -- Get the latest version number of Imagr
+            set latestImagrVersion to do shell script "/usr/bin/curl -s https://api.github.com/repos/grahamgilbert/imagr/releases | awk '/tag_name/{ gsub(\"\\\"\",\"\"); gsub(\",\",\"\"); print $2; exit }'"
+            --Log Action
+            set logMe to "Latest Imagr version: " & latestImagrVersion
+            logToFile_(me)
+            -- Update Build Process Window's Text Field
+            set my buildProcessTextField to "Getting the download URL for latest Imagr"
+            delay 0.1
+            -- Get the download URL for the latest version of Imagr
+            set imagrBrowserDownloadURL to do shell script "/usr/bin/curl -s https://api.github.com/repos/grahamgilbert/imagr/releases | awk '/browser_download_url/{ gsub(\"\\\"\",\"\"); print $2; exit }'"
+            --Log Action
+            set logMe to "Imagr download URL is: " & imagrBrowserDownloadURL
+            logToFile_(me)
+            -- Update Build Process Window's Text Field
+            set my buildProcessTextField to "Creating a temp directory"
+            delay 0.1
+            -- Create a temp directory
+            set imagrTempDir to do shell script "/usr/bin/mktemp -dt \"$0\""
+            --Log Action
+            set logMe to "Temp directory created at: " & imagrTempDir
+            logToFile_(me)
+            --Log Action
+            set logMe to "Downloading Imagr.dmg to " & imagrTempDir
+            logToFile_(me)
+            -- Update Build Process Window's Text Field
+            set my buildProcessTextField to "Downloading latest Imagr.dmg"
+            delay 0.1
+            -- Download latest version of Imagr
+            do shell script "/usr/bin/curl -sL -o " & imagrTempDir & "/Imagr.dmg --connect-timeout 30 -f " & imagrBrowserDownloadURL
+            -- Update Build Process Window's Text Field
+            set my buildProcessTextField to "Mounting Imagr.dmg"
+            delay 0.1
+            -- Mount the Imagr.dmg
+            set imagrMount to do shell script "/usr/bin/hdiutil attach " & imagrTempDir & "/Imagr.dmg -nobrowse -owners on -plist | awk -F: '/mount-point/ && $0 != \"\" { getline; print $0; exit}'"
+            -- Get the Imagr.dmg's mountpoint, stipping out the <string> </string>
+            set AppleScript's text item delimiters to "<string>"
+            set imagrMountPoint to imagrMount's second text item
+            set AppleScript's text item delimiters to "</string>"
+            set imagrMountPoint to imagrMountPoint's first text item
+            -- Reset Delimters
+            set AppleScript's text item delimiters to {""}
+            --Log Action
+            set logMe to "Imagr.dmg mounted to: " & imagrMountPoint
+            logToFile_(me)
+            -- Get path of the downloaded.
+            set my selectedAppPath to POSIX path of imagrMountPoint & "/Imagr.app/"
+            -- Update Build Process Window's Text Field
+            set my buildProcessTextField to "Imagr.dmg mounted"
+            delay 0.1
+            -- Close build window
+            showBuildProcessWindow's orderOut:(null)
+            -- Run handler
+            selectedAppCheck_(me)
+        on error
+            --Log Action
+            set logMe to "Error: Downloading latest version of Imagr"
+            logToFile_(me)
+            -- Set to false to display
+            set my userNotifyErrorHidden to false
+            -- Set Error message
+            set my userNotifyError to "Error: Downloading latest version of Imagr"
+            -- stop cog
+            set my adminUserWindowCog to false
+            set my adminUserWindowCogAnimate to false
+            -- Notify of errors or success
+            userNotify_(me)
+        end try
+    end downloadLatestImagr_
+    
+    -- Check the Imagr URL details
     on checkImagrURL_(sender)
         -- Make sure imagrConfigURL has a value before we proceed
         if (my imagrConfigURL is equal to missing value) or (my imagrConfigURL is equal to "") then
@@ -1345,7 +1469,6 @@ script AutoImagrNBIAppDelegate
                 (additionalPKGsArray's removeObjects:(additionalPKGsArray's arrangedObjects()))
                 -- For each item in array
                 repeat with selectedPKGsPath in additionalPKGs
-                    --if my selectedPKGsPath as string is not "" then
                         try
                             -- Check for file
                             do shell script "ls " & quoted form of selectedPKGsPath
@@ -1365,7 +1488,6 @@ script AutoImagrNBIAppDelegate
                             -- For prompting later
                             set pkgsMissing to true
                         end try
-                    --end if
                 end repeat
             end try
         end if
@@ -1473,13 +1595,13 @@ script AutoImagrNBIAppDelegate
             logToFile_(me)
             -- Checking variable
             set isAdminUser to true
-            -- Make sure all variables are set if enabled
-            buildPreCheck_(me)
             -- enable adminuser items
             set my disableAdminUserCheck to false
             -- stop cog
             set my adminUserWindowCog to false
             set my adminUserWindowCogAnimate to false
+            -- Function for ElCap NBImageInfo.plist
+            elCapNBImageInfoPlist_(me)
         on error
             -- Set to false to display
             set my userNotifyErrorHidden to false
@@ -1498,6 +1620,95 @@ script AutoImagrNBIAppDelegate
             logToFile_(me)
         end try
     end adminCheck_
+
+    -- Function for ElCap NBImageInfo.plist
+    on elCapNBImageInfoPlist_(sender)
+        -- Reset variables
+        set elCapNBImageInfoPlistExists to false
+        set useLatestNBImageInfo to false
+        -- If we're building an 10.11 NBI
+        if selectedOSdmgVersionMajor is equal to 11 then
+            --Log Action
+            set logMe to "Checking that we have a NBImageInfo.plist for " & selectedOSBuilddmgVersion
+            logToFile_(me)
+            -- Update Build Process Window's Text Field
+            set my buildProcessTextField to "Checking we have NBImageInfo.plist within app bundle"
+            delay 0.1
+            -- Check to see if the NBImageInfo.plist exists
+            tell application "Finder" to if exists pathToResources & "/10.11NBImageInfo/" & selectedOSBuilddmgVersion & ".plist" as POSIX file then set elCapNBImageInfoPlistExists to true
+            -- If we're missing the NBImageInfo.plist
+            if my elCapNBImageInfoPlistExists is true
+            --Log Action
+            set logMe to "Found a NBImageInfo.plist for " & selectedOSBuilddmgVersion
+            logToFile_(me)
+            -- Update Build Process Window's Text Field
+            set my buildProcessTextField to "NBImageInfo.plist found"
+            delay 0.1
+            -- Make sure all variables are set if enabled
+            buildPreCheck_(me)
+        else
+            --Log Action
+            set logMe to "NBImageInfo.plist not found for " & selectedOSBuilddmgVersion & " trying to download"
+            logToFile_(me)
+            try
+                -- Update buildProcessLogTextField to show path to todays log
+                set my buildProcessLogTextField to "Today's Log: ~/Library/Logs/AutoCasperNBI/AutoCasperNBI-" & logDate & ".log"
+                -- Set build Process ProgressBar to indeterminate & animated to false
+                set my buildProcessProgressBarIndeterminate to true
+                set my buildProcessProgressBarAniminate to true
+                -- Update Build Process Window's Text Field
+                set my buildProcessTextField to "Trying to download missing NBImageInfo.plist from macmule.com"
+                delay 0.1
+                -- close admin check window
+                adminUserWindow's orderOut_(null)
+                -- activate build process window
+                activate
+                showBuildProcessWindow's makeKeyAndOrderFront_(null)
+                -- Try & download NBImageInfo.plist from https://macmule.com/NBImageInfo/<buildversion>.plist
+                do shell script "/usr/bin/curl -k -f -o " & quoted form of pathToResources & "/10.11NBImageInfo/" & selectedOSBuilddmgVersion & ".plist https://macmule.com/NBImageInfo/" & selectedOSBuilddmgVersion & ".plist" user name adminUserName password adminUsersPassword with administrator privileges
+                --Log Action
+                set logMe to "Downloaded NBImageInfo.plist for " & selectedOSBuilddmgVersion & ". Re-running function."
+                logToFile_(me)
+                -- Update Build Process Window's Text Field
+                set my buildProcessTextField to "Downloaded missing NBImageInfo.plist from https://macmule.com"
+                delay 0.1
+                -- Close build window
+                showBuildProcessWindow's orderOut:(null)
+                -- Function for ElCap NBImageInfo.plist
+                elCapNBImageInfoPlist_(me)
+            on error
+                --Log Action
+                set logMe to "Cannot download NBImageInfo.plist for " & selectedOSBuilddmgVersion & ". Getting latest NBImageInfo.plist details."
+                logToFile_(me)
+                -- Update Build Process Window's Text Field
+                set my buildProcessTextField to "Cannot download missing NBImageInfo.plist from macmule.com"
+                delay 0.1
+                -- Trying to read OSBuildDetails key from AutoCasperNBI.app/Content/Resources/
+                set latestNBImageInfo to do shell script "/usr/bin/defaults read " & pathToResources & "/10.11NBImageInfo/Latest.plist OSBuildDetails"
+                --Log Action
+                set logMe to "Latest NBImageInfo.plist is for " & latestNBImageInfo
+                logToFile_(me)
+                -- Update Build Process Window's Text Field
+                set my buildProcessTextField to "Reading latest NBImageInfo.plist"
+                delay 0.1
+                -- Close build window
+                showBuildProcessWindow's orderOut:(null)
+                -- Prompt user
+                display dialog "Cannot find NBImageInfo.plist for " & selectedOSDMGTextField & "." & return & return & "Latest NBImageInfo,plist is for " & latestNBImageInfo & "." & return & return & "OK to proceed creating NBI with this NBImageInfo.plist?" with icon caution buttons {"No", "Yes"} default button "Yes"
+                -- If user selected yes
+                if button returned of the result is "Yes" then
+                    -- Set to true for later use
+                    set useLatestNBImageInfo to true
+                    -- Make sure all variables are set if enabled
+                    buildPreCheck_(me)
+                end if
+            end try
+        end if
+        else
+            -- Make sure all variables are set if enabled
+            buildPreCheck_(me)
+        end if
+    end elCapNBImageInfoPlist_
 
     -- Make sure all variables are set if enabled
     on buildPreCheck_(sender)
@@ -1525,6 +1736,8 @@ script AutoImagrNBIAppDelegate
             checkAdditionalCerts_(me)
             -- Calculate progressbar max length, depending on selection
             calcBuildProgressBarMax_(me)
+            -- Check latest Imagr version against selected app
+            checkImagrVersion_(me)
             -- Prompt user for location to create the .nbi
             netBootLocation_(me)
         end if
@@ -2713,14 +2926,26 @@ script AutoImagrNBIAppDelegate
         -- Update build Process ProgressBar
         set my buildProcessProgressBar to buildProcessProgressBar + 1
         try
-            --Log Action
-            set logMe to "Deleting " & netBootDmgMountPath & "/System/Library/CoreServices/Dock.app/Contents/Resources/com.apple.dockfixup.plist"
-            logToFile_(me)
-            -- Delete com.apple.dockfixup.plist
-            do shell script "/bin/rm " & quoted form of netBootDmgMountPath & "/System/Library/CoreServices/Dock.app/Contents/Resources/com.apple.dockfixup.plist" user name adminUserName password adminUsersPassword with administrator privileges
-            --Log Action
-            set logMe to "Deleted " & netBootDmgMountPath & "/System/Library/CoreServices/Dock.app/Contents/Resources/com.apple.dockfixup.plist"
-            logToFile_(me)
+            -- If we're building a 10.10+.nbi
+            if selectedOSdmgVersionMajor is greater than 9
+                --Log Action
+                set logMe to "Deleting " & netBootDmgMountPath & "/System/Library/CoreServices/Dock.app/Contents/Resources/com.apple.dockfixup.plist"
+                logToFile_(me)
+                -- Delete com.apple.dockfixup.plist
+                do shell script "/bin/rm " & quoted form of netBootDmgMountPath & "/System/Library/CoreServices/Dock.app/Contents/Resources/com.apple.dockfixup.plist" user name adminUserName password adminUsersPassword with administrator privileges
+                --Log Action
+                set logMe to "Deleted " & netBootDmgMountPath & "/System/Library/CoreServices/Dock.app/Contents/Resources/com.apple.dockfixup.plist"
+                logToFile_(me)
+                else
+                --Log Action
+                set logMe to "Deleting " & netBootDmgMountPath & "/Library/Preferences/com.apple.dockfixup.plist"
+                logToFile_(me)
+                -- Delete com.apple.dockfixup.plist
+                do shell script "/bin/rm " & quoted form of netBootDmgMountPath & "/Library/Preferences/com.apple.dockfixup.plist" user name adminUserName password adminUsersPassword with administrator privileges
+                --Log Action
+                set logMe to "Deleted " & netBootDmgMountPath & "/Library/Preferences/com.apple.dockfixup.plist"
+                logToFile_(me)
+            end if
             -- Disable AppNap
             disableAppNap_(me)
         on error
@@ -2933,7 +3158,6 @@ script AutoImagrNBIAppDelegate
                 -- Notify of errors or success
                 userNotify_(me)
             end try
-        
     end setTimeServerAndZone_
 
     -- Install AutoImagrNBIStartup.pkg
@@ -2950,10 +3174,18 @@ script AutoImagrNBIAppDelegate
             -- Update build Process ProgressBar
             set my buildProcessProgressBar to buildProcessProgressBar + 1
             --Log Action
+            set logMe to "Trying to create " & quoted form of variableVariable & "/Scripts/"
+            logToFile_(me)
+            -- Make certficates directory
+            do shell script "/bin/mkdir " & quoted form of variableVariable & "/Scripts/" user name adminUserName password adminUsersPassword with administrator privileges
+            --Log Action
+            set logMe to "Created " & quoted form of variableVariable & "/Scripts/"
+            logToFile_(me)
+            --Log Action
             set logMe to "Trying to copy Boot.sh"
             logToFile_(me)
             -- Install Boot.sh
-            do shell script "ditto " & quoted form of pathToResources & "/Boot.sh " &  quoted form of variableVariable & "/Scripts/" user name adminUserName password adminUsersPassword with administrator privileges
+            do shell script "/bin/cp " & quoted form of pathToResources & "/Boot.sh " &  quoted form of variableVariable & "/Scripts/" user name adminUserName password adminUsersPassword with administrator privileges
             --Log Action
             set logMe to "Boot.sh copied"
             logToFile_(me)
@@ -2998,7 +3230,7 @@ script AutoImagrNBIAppDelegate
             set logMe to "Trying to copy com.AutoImagrNBI.boot.plist"
             logToFile_(me)
             -- Install Boot.sh
-            do shell script "ditto " & quoted form of pathToResources & "/com.AutoImagrNBI.boot.plist " & quoted form of netBootDmgMountPath & "/Library/LaunchDaemons/" user name adminUserName password adminUsersPassword with administrator privileges
+            do shell script "/bin/cp " & quoted form of pathToResources & "/com.AutoImagrNBI.boot.plist " & quoted form of netBootDmgMountPath & "/Library/LaunchDaemons/" user name adminUserName password adminUsersPassword with administrator privileges
             --Log Action
             set logMe to "com.AutoImagrNBI.boot.plist copied"
             logToFile_(me)
@@ -3017,7 +3249,7 @@ script AutoImagrNBIAppDelegate
             logToFile_(me)
             -- Install RootUser.pkg
             installRootUserpkg_(me)
-        on error
+            on error
             --Log Action
             set logMe to "Error: Installing AutoImagrNBI LaunchDaemon & required files"
             logToFile_(me)
@@ -3404,7 +3636,7 @@ script AutoImagrNBIAppDelegate
             set logMe to "Trying to install Imagr LaunchAgent"
             logToFile_(me)
             -- Install com.AutoImagrNBI.Imagr.plist from rescources
-            do shell script "ditto " & quoted form of pathToResources & "/com.AutoImagrNBI.Imagr.plist " & quoted form of netBootDmgMountPath & "/Library/LaunchAgents/" user name adminUserName password adminUsersPassword with administrator privileges
+            do shell script "/bin/cp " & quoted form of pathToResources & "/com.AutoImagrNBI.Imagr.plist " & quoted form of netBootDmgMountPath & "/Library/LaunchAgents/" user name adminUserName password adminUsersPassword with administrator privileges
             --Log Action
             set logMe to "Imagr LaunchAgent plist installed"
             logToFile_(me)
@@ -3883,7 +4115,7 @@ script AutoImagrNBIAppDelegate
             set logMe to "Copying " & quoted form of netBootDmgMountPath & "/System/Library/CoreServices/boot.efi to " & quoted form of netBootDirectory & "/i386/booter"
             logToFile_(me)
             -- Copy the plist
-            do shell script "/usr/bin/ditto " & quoted form of netBootDmgMountPath & "/System/Library/CoreServices/boot.efi " & quoted form of netBootDirectory & "/i386/booter" user name adminUserName password adminUsersPassword with administrator privileges
+            do shell script "/bin/cp " & quoted form of netBootDmgMountPath & "/System/Library/CoreServices/boot.efi " & quoted form of netBootDirectory & "/i386/booter" user name adminUserName password adminUsersPassword with administrator privileges
             --Log Action
             set logMe to "Copied " & quoted form of netBootDmgMountPath & "/System/Library/CoreServices/boot.efi to " & quoted form of netBootDirectory & "/i386/booter"
             logToFile_(me)
@@ -3927,7 +4159,7 @@ script AutoImagrNBIAppDelegate
             set logMe to "Copying " & quoted form of netBootDmgMountPath & "/System/Library/CoreServices/PlatformSupport.plist to " & quoted form of netBootDirectory & "/i386/PlatformSupport.plist"
             logToFile_(me)
             -- Copy the plist
-            do shell script "/usr/bin/ditto " & quoted form of netBootDmgMountPath & "/System/Library/CoreServices/PlatformSupport.plist " & quoted form of netBootDirectory & "/i386/PlatformSupport.plist" user name adminUserName password adminUsersPassword with administrator privileges
+            do shell script "/bin/cp " & quoted form of netBootDmgMountPath & "/System/Library/CoreServices/PlatformSupport.plist " & quoted form of netBootDirectory & "/i386/PlatformSupport.plist" user name adminUserName password adminUsersPassword with administrator privileges
             --Log Action
             set logMe to "Copied " & quoted form of netBootDmgMountPath & "/System/Library/CoreServices/PlatformSupport.plist to " & quoted form of netBootDirectory & "/i386/PlatformSupport.plist"
             logToFile_(me)
@@ -3954,16 +4186,47 @@ script AutoImagrNBIAppDelegate
         -- Update build Process ProgressBar
         set my buildProcessProgressBar to buildProcessProgressBar + 1
         try
+            -- If we're building an OS newer than 10.11
+            if selectedOSdmgVersionMajor is equal to 11
+                -- If we're using the bespoke build version of NBImageInfo.plist
+                if useLatestNBImageInfo is false
+                    --Log Action
+                    set logMe to "Copying NBImageInfo.plist for " & selectedOSBuilddmgVersion
+                    logToFile_(me)
+                    -- Log that we're looking to copy a NBImageInfo.plist
+                    set logMe to "/bin/cp " & quoted form of pathToResources & "/10.11NBImageInfo/" & selectedOSBuilddmgVersion & ".plist " & quoted form of netBootDirectory & "NBImageInfo.plist"
+                    logToFile_(me)
+                    -- Copy the plist
+                    do shell script "/bin/cp " & quoted form of pathToResources & "/10.11NBImageInfo/" & selectedOSBuilddmgVersion & ".plist " & quoted form of netBootDirectory & "/NBImageInfo.plist" user name adminUserName password adminUsersPassword with administrator privileges
+                    --Log Action
+                    set logMe to "Copied NBImageInfo.plist"
+                    logToFile_(me)
+                    -- Updates NBImageInfo.plist
+                    updateNBImageInfoPlist_(me)
+                    else
+                    --Log Action
+                    set logMe to "Copying Latest 10.11 NBImageInfo.plist"
+                    logToFile_(me)
+                    -- Copy the plist
+                    do shell script "/bin/cp " & quoted form of pathToResources & "/10.11NBImageInfo/Latest.plist " & quoted form of netBootDirectory & "/NBImageInfo.plist" user name adminUserName password adminUsersPassword with administrator privileges
+                    --Log Action
+                    set logMe to "Copied NBImageInfo.plist"
+                    logToFile_(me)
+                    -- Updates NBImageInfo.plist
+                    updateNBImageInfoPlist_(me)
+                end if
+            else
             --Log Action
             set logMe to "Copying NBImageInfo.plist"
             logToFile_(me)
             -- Copy the plist
-            do shell script "/usr/bin/ditto " & quoted form of pathToResources & "/NBImageInfo.plist " & quoted form of netBootDirectory user name adminUserName password adminUsersPassword with administrator privileges
+            do shell script "/bin/cp " & quoted form of pathToResources & "/NBImageInfo.plist " & quoted form of netBootDirectory user name adminUserName password adminUsersPassword with administrator privileges
             --Log Action
             set logMe to "Copied NBImageInfo.plist"
             logToFile_(me)
             -- Updates NBImageInfo.plist
             updateNBImageInfoPlist_(me)
+            end if
         on error
             --Log Action
             set logMe to "Error: Copying NBImageInfo.plist"
@@ -4177,13 +4440,19 @@ script AutoImagrNBIAppDelegate
             --Log Action
             set logMe to "Trying to set .nbi's EnabledSystemIdentifiers"
             logToFile_(me)
-            -- Get list of supported Macs for NBI
-            set variableVariable to do shell script "/usr/bin/defaults read " & quoted form of netBootDirectory & "/i386/PlatformSupport.plist SupportedModelProperties"
-            -- Set EnabledSystemIdentifiers
-            do shell script "/usr/bin/defaults write " & quoted form of netBootDirectory & "/NBImageInfo.plist DisabledSystemIdentifiers " & quoted form of variableVariable user name adminUserName password adminUsersPassword with administrator privileges
-            --Log Action
-            set logMe to "Set .nbi's EnabledSystemIdentifiers"
-            logToFile_(me)
+            try
+                -- Get list of supported Macs for NBI
+                set variableVariable to do shell script "/usr/bin/defaults read " & quoted form of netBootDirectory & "/i386/PlatformSupport.plist SupportedModelProperties"
+                -- Set EnabledSystemIdentifiers
+                do shell script "/usr/bin/defaults write " & quoted form of netBootDirectory & "/NBImageInfo.plist DisabledSystemIdentifiers " & quoted form of variableVariable user name adminUserName password adminUsersPassword with administrator privileges
+                --Log Action
+                set logMe to "Set .nbi's EnabledSystemIdentifiers"
+                logToFile_(me)
+            on error
+                --Log Action
+                set logMe to "Could not find EnabledSystemIdentifiers array"
+                logToFile_(me)
+            end try
             ---- Fix Plist ----
             -- Correct ownership
             do shell script "/usr/sbin/chown -R root:staff " & quoted form of netBootDirectory & "/NBImageInfo.plist" user name adminUserName password adminUsersPassword with administrator privileges
@@ -4497,6 +4766,19 @@ script AutoImagrNBIAppDelegate
                 logToFile_(me)
                 -- Detach Volume
                 do shell script "/usr/bin/hdiutil detach " & quoted form of selectedOSdmgMountPath & " -force"
+            end try
+        end if
+        -- Unmount Imagr.dmg if mounted
+        if imagrMountPoint is  not equal to missing value then
+            try
+                -- Update Build Process Window's Text Field
+                set my buildProcessTextField to "Trying to detach " & imagrMountPoint
+                delay 0.1
+                --Log Action
+                set logMe to "Trying to detach " & imagrMountPoint
+                logToFile_(me)
+                -- Detach Volume
+                do shell script "/usr/bin/hdiutil detach " & quoted form of imagrMountPoint & " -force"
             end try
         end if
         -- Try & delete mount.plist

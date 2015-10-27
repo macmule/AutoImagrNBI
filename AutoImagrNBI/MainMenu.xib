@@ -129,7 +129,7 @@
                                                 </textFieldCell>
                                             </textField>
                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" id="Re9-gc-CJJ">
-                                                <rect key="frame" x="101" y="79" width="96" height="34"/>
+                                                <rect key="frame" x="100" y="102" width="96" height="34"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Select Imagr.app" id="hFw-Mo-93m">
                                                     <font key="font" metaFont="system"/>
@@ -137,8 +137,17 @@
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                             </textField>
+                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" id="js5-cn-9jU">
+                                                <rect key="frame" x="132" y="62" width="34" height="17"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Or:" id="DCt-rh-aXU">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
                                             <button verticalHuggingPriority="750" id="Khe-LZ-GNX">
-                                                <rect key="frame" x="107" y="43" width="85" height="32"/>
+                                                <rect key="frame" x="108" y="71" width="85" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <buttonCell key="cell" type="push" title="Select.." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Zs5-Ih-C9f">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -161,6 +170,17 @@
                                                     <binding destination="Voe-Tx-rLC" name="animate" keyPath="cogSelectedAppAnimate" id="wtT-e9-5zl"/>
                                                 </connections>
                                             </progressIndicator>
+                                            <button verticalHuggingPriority="750" id="lEQ-mI-8d2">
+                                                <rect key="frame" x="102" y="32" width="97" height="32"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <buttonCell key="cell" type="push" title="Download" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="r3V-2i-RlJ">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="downloadLatestImagr:" target="Voe-Tx-rLC" id="WP5-cB-VYX"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                     </view>
                                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
@@ -204,14 +224,13 @@
                                     </textFieldCell>
                                     <connections>
                                         <action selector="checkImagrURL:" target="Voe-Tx-rLC" id="Wog-eV-2du"/>
-                                        <binding destination="Voe-Tx-rLC" name="value" keyPath="imagrConfigURL" id="2Ki-Xp-4ZZ">
+                                        <binding destination="Voe-Tx-rLC" name="value" keyPath="imagrConfigURL" id="VtZ-17-20y">
                                             <dictionary key="options">
                                                 <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
                                                 <bool key="NSConditionallySetsEditable" value="NO"/>
                                                 <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                                 <string key="NSNullPlaceholder">Required. Imagr Configuration Plist URL</string>
                                                 <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
-                                                <bool key="NSValidatesImmediately" value="YES"/>
                                             </dictionary>
                                         </binding>
                                     </connections>
