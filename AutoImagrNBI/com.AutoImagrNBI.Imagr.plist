@@ -5,7 +5,7 @@
 	<key>Label</key>
 	<string>com.AutoImagrNBI.Imagr</string>
 	<key>Program</key>
-	<string>Applications/Imagr.app/Contents/MacOS/Imagr</string>
+	<string>/Applications/Imagr.app/Contents/MacOS/Imagr</string>
 	<key>RunAtLoad</key>
 	<true/>
 </dict>

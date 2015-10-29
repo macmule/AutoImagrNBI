@@ -670,7 +670,7 @@ script AutoImagrNBIAppDelegate
     on downloadLatestImagr_(sender)
         try
             -- Update buildProcessLogTextField to show path to todays log
-            set my buildProcessLogTextField to "Today's Log: ~/Library/Logs/AutoCasperNBI/AutoCasperNBI-" & logDate & ".log"
+            set my buildProcessLogTextField to "Today's Log: ~/Library/Logs/AutoImagrNBI/AutoImagrNBI-" & logDate & ".log"
             -- Set build Process ProgressBar to indeterminate & animated to false
             set my buildProcessProgressBarIndeterminate to true
             set my buildProcessProgressBarAniminate to true
@@ -1652,7 +1652,7 @@ script AutoImagrNBIAppDelegate
             logToFile_(me)
             try
                 -- Update buildProcessLogTextField to show path to todays log
-                set my buildProcessLogTextField to "Today's Log: ~/Library/Logs/AutoCasperNBI/AutoCasperNBI-" & logDate & ".log"
+                set my buildProcessLogTextField to "Today's Log: ~/Library/Logs/AutoImagrNBI/AutoImagrNBI-" & logDate & ".log"
                 -- Set build Process ProgressBar to indeterminate & animated to false
                 set my buildProcessProgressBarIndeterminate to true
                 set my buildProcessProgressBarAniminate to true
@@ -1683,7 +1683,7 @@ script AutoImagrNBIAppDelegate
                 -- Update Build Process Window's Text Field
                 set my buildProcessTextField to "Cannot download missing NBImageInfo.plist from macmule.com"
                 delay 0.1
-                -- Trying to read OSBuildDetails key from AutoCasperNBI.app/Content/Resources/
+                -- Trying to read OSBuildDetails key from AutoImagrNBI.app/Content/Resources/
                 set latestNBImageInfo to do shell script "/usr/bin/defaults read " & pathToResources & "/10.11NBImageInfo/Latest.plist OSBuildDetails"
                 --Log Action
                 set logMe to "Latest NBImageInfo.plist is for " & latestNBImageInfo
