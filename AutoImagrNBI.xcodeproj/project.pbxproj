@@ -39,23 +39,23 @@
 		7C1DDE371AFAC3B200099DAE /* NBImageInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7CC636E5197D444E008473CE /* NBImageInfo.plist */; };
 		7C1DDE381AFAC3B200099DAE /* rc.netboot in Resources */ = {isa = PBXBuildFile; fileRef = 7CC26BDB19DA1DF8002A093B /* rc.netboot */; };
 		7C1DDE3A1AFAC3B200099DAE /* Boot.sh in Resources */ = {isa = PBXBuildFile; fileRef = 7CCA40B419D9EE9800C7114F /* Boot.sh */; };
-		7C1F6A621B039FCF005F1579 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C1F6A611B039FCF005F1579 /* Sparkle.framework */; };
-		7C1F6A641B03A065005F1579 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7C1F6A611B039FCF005F1579 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7C1F6A661B03A31E005F1579 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 7C1F6A651B03A31E005F1579 /* dsa_pub.pem */; };
 		7C8D6A9C1B0280E200AD4199 /* com.apple.dock.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7C8D6A9B1B0280E200AD4199 /* com.apple.dock.plist */; };
 		7C9C2E551BDECB8A007FF00F /* 10.11NBImageInfo in Resources */ = {isa = PBXBuildFile; fileRef = 7C9C2E541BDECB8A007FF00F /* 10.11NBImageInfo */; };
+		7CD982DC1BE3724000ABA381 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CD982DB1BE3724000ABA381 /* Sparkle.framework */; };
+		7CD982DD1BE3724700ABA381 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7CD982DB1BE3724000ABA381 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7CF177D91AFAB78300B0CD80 /* AppleScriptObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C130580193FC0B60060F343 /* AppleScriptObjC.framework */; };
 		7CF177EC1AFAB9AE00B0CD80 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF177EB1AFAB9AE00B0CD80 /* main.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		7C1F6A631B03A007005F1579 /* CopyFiles */ = {
+		7CD982DA1BE3722C00ABA381 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				7C1F6A641B03A065005F1579 /* Sparkle.framework in CopyFiles */,
+				7CD982DD1BE3724700ABA381 /* Sparkle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,7 +79,6 @@
 		7C1305A3193FC10A0060F343 /* DMGFormat.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = DMGFormat.icns; sourceTree = "<group>"; };
 		7C1305A4193FC10A0060F343 /* NetBootVolume.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = NetBootVolume.icns; sourceTree = "<group>"; };
 		7C1305A6193FC10A0060F343 /* RemoteDesktop.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = RemoteDesktop.icns; sourceTree = "<group>"; };
-		7C1F6A611B039FCF005F1579 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		7C1F6A651B03A31E005F1579 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		7C27FA25198C357900BD5A07 /* AlertStopIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AlertStopIcon.icns; sourceTree = "<group>"; };
 		7C27FA27198C3D9500BD5A07 /* complete.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = complete.aif; sourceTree = "<group>"; };
@@ -100,6 +99,7 @@
 		7CCA40B419D9EE9800C7114F /* Boot.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = Boot.sh; sourceTree = "<group>"; };
 		7CCA40B619D9F22600C7114F /* com.AutoImagrNBI.boot.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = com.AutoImagrNBI.boot.plist; sourceTree = "<group>"; };
 		7CD1B87A19EC76EB00C70449 /* YoYo-diskcopy-doc.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "YoYo-diskcopy-doc.icns"; sourceTree = "<group>"; };
+		7CD982DB1BE3724000ABA381 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = ../../Downloads/Sparkle.framework; sourceTree = "<group>"; };
 		7CDCE26B1985A2B8005CE10C /* Clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Clock.png; sourceTree = "<group>"; };
 		7CDD2BB819EC7BAA008D370F /* YoYo-icn_desktop.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "YoYo-icn_desktop.tiff"; sourceTree = "<group>"; };
 		7CDD2BB919EC7BAA008D370F /* YoYo-FinderIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "YoYo-FinderIcon.icns"; sourceTree = "<group>"; };
@@ -116,7 +116,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7CF177D91AFAB78300B0CD80 /* AppleScriptObjC.framework in Frameworks */,
-				7C1F6A621B039FCF005F1579 /* Sparkle.framework in Frameworks */,
+				7CD982DC1BE3724000ABA381 /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,7 +143,7 @@
 		7C13057D193FC0B60060F343 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7C1F6A611B039FCF005F1579 /* Sparkle.framework */,
+				7CD982DB1BE3724000ABA381 /* Sparkle.framework */,
 				7C13057E193FC0B60060F343 /* Cocoa.framework */,
 				7C130580193FC0B60060F343 /* AppleScriptObjC.framework */,
 				7C130582193FC0B60060F343 /* Other Frameworks */,
@@ -233,7 +233,7 @@
 				7CF177D41AFAB78300B0CD80 /* Sources */,
 				7CF177D51AFAB78300B0CD80 /* Frameworks */,
 				7CF177D61AFAB78300B0CD80 /* Resources */,
-				7C1F6A631B03A007005F1579 /* CopyFiles */,
+				7CD982DA1BE3722C00ABA381 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -432,13 +432,15 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"/Users/btoms/Downloads/Sparkle-1.11.0",
+					/Users/btoms/Downloads,
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/AutoImagrNBI/AutoImagrNBI-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -456,9 +458,11 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"/Users/btoms/Downloads/Sparkle-1.11.0",
+					/Users/btoms/Downloads,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/AutoImagrNBI/AutoImagrNBI-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
