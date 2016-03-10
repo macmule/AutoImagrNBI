@@ -1368,6 +1368,8 @@ script AutoImagrNBIAppDelegate
         --Log Action
         set logMe to "Enable Simple Finder set to : " & simpleFinderEnabled
         logToFile_(me)
+        -- Check for Simple Finder on 10.11 & alert
+        checkSimpleFinderElCap_(me)
     end simpleFinderCheckBox_
 
     -- Check additional Certs array, & amend accordingly
@@ -1542,6 +1544,25 @@ script AutoImagrNBIAppDelegate
         tell defaults to set my additionalPKGs to objectForKey_("additionalPKGs")
     end deletePKG_
 
+    -- Check for Simple Finder on 10.11 & alert
+    on checkSimpleFinderElCap_(sender)
+            -- If we're creating a 10.11 NBI & enabling Simple Finder
+            if selectedOSdmgVersionMajor is 11 and simpleFinderEnabled is true
+            -- Error to user prompting for what to do next
+            display dialog "Simple Finder can be enabled on 10.11 NBI's, but currently cannot be disabled." & return & return & "A bug has been filed with Apple on this." & return & return & "Do you still wish to use Simple Finder?" with icon 2 buttons {"No", "Yes"}
+                -- If user selected "No", disable Simple Finder
+                if button returned of the result is "No" then
+                    --Log action
+                    set logMe to "Disabling Simple Finder"
+                    logToFile_(me)
+                    -- Set to variable to boolean
+                    set simpleFinderEnabled to false
+                    -- Update plist with selection
+                    tell defaults to setObject_forKey_(simpleFinderEnabled, "simpleFinderEnabled")
+                end if
+            end if
+    end checkSimpleFinderElCap_
+
 ----- CLOSE OPTIONS WINDOW CHECK -----
 
     -- Make sure all variables are set if enabled, if passed close options window
@@ -1600,8 +1621,8 @@ script AutoImagrNBIAppDelegate
             -- stop cog
             set my adminUserWindowCog to false
             set my adminUserWindowCogAnimate to false
-            -- Function for ElCap NBImageInfo.plist
-            elCapNBImageInfoPlist_(me)
+            -- Make sure all variables are set if enabled
+           buildPreCheck_(me)
         on error
             -- Set to false to display
             set my userNotifyErrorHidden to false
@@ -1620,95 +1641,6 @@ script AutoImagrNBIAppDelegate
             logToFile_(me)
         end try
     end adminCheck_
-
-    -- Function for ElCap NBImageInfo.plist
-    on elCapNBImageInfoPlist_(sender)
-        -- Reset variables
-        set elCapNBImageInfoPlistExists to false
-        set useLatestNBImageInfo to false
-        -- If we're building an 10.11 NBI
-        if selectedOSdmgVersionMajor is equal to 11 then
-            --Log Action
-            set logMe to "Checking that we have a NBImageInfo.plist for " & selectedOSBuilddmgVersion
-            logToFile_(me)
-            -- Update Build Process Window's Text Field
-            set my buildProcessTextField to "Checking we have NBImageInfo.plist within app bundle"
-            delay 0.1
-            -- Check to see if the NBImageInfo.plist exists
-            tell application "Finder" to if exists pathToResources & "/10.11NBImageInfo/" & selectedOSBuilddmgVersion & ".plist" as POSIX file then set elCapNBImageInfoPlistExists to true
-            -- If we're missing the NBImageInfo.plist
-            if my elCapNBImageInfoPlistExists is true
-            --Log Action
-            set logMe to "Found a NBImageInfo.plist for " & selectedOSBuilddmgVersion
-            logToFile_(me)
-            -- Update Build Process Window's Text Field
-            set my buildProcessTextField to "NBImageInfo.plist found"
-            delay 0.1
-            -- Make sure all variables are set if enabled
-            buildPreCheck_(me)
-        else
-            --Log Action
-            set logMe to "NBImageInfo.plist not found for " & selectedOSBuilddmgVersion & " trying to download"
-            logToFile_(me)
-            try
-                -- Update buildProcessLogTextField to show path to todays log
-                set my buildProcessLogTextField to "Today's Log: ~/Library/Logs/AutoImagrNBI/AutoImagrNBI-" & logDate & ".log"
-                -- Set build Process ProgressBar to indeterminate & animated to false
-                set my buildProcessProgressBarIndeterminate to true
-                set my buildProcessProgressBarAniminate to true
-                -- Update Build Process Window's Text Field
-                set my buildProcessTextField to "Trying to download missing NBImageInfo.plist from macmule.com"
-                delay 0.1
-                -- close admin check window
-                adminUserWindow's orderOut_(null)
-                -- activate build process window
-                activate
-                showBuildProcessWindow's makeKeyAndOrderFront_(null)
-                -- Try & download NBImageInfo.plist from https://macmule.com/NBImageInfo/<buildversion>.plist
-                do shell script "/usr/bin/curl -k -f -o " & quoted form of pathToResources & "/10.11NBImageInfo/" & selectedOSBuilddmgVersion & ".plist https://macmule.com/NBImageInfo/" & selectedOSBuilddmgVersion & ".plist" user name adminUserName password adminUsersPassword with administrator privileges
-                --Log Action
-                set logMe to "Downloaded NBImageInfo.plist for " & selectedOSBuilddmgVersion & ". Re-running function."
-                logToFile_(me)
-                -- Update Build Process Window's Text Field
-                set my buildProcessTextField to "Downloaded missing NBImageInfo.plist from https://macmule.com"
-                delay 0.1
-                -- Close build window
-                showBuildProcessWindow's orderOut:(null)
-                -- Function for ElCap NBImageInfo.plist
-                elCapNBImageInfoPlist_(me)
-            on error
-                --Log Action
-                set logMe to "Cannot download NBImageInfo.plist for " & selectedOSBuilddmgVersion & ". Getting latest NBImageInfo.plist details."
-                logToFile_(me)
-                -- Update Build Process Window's Text Field
-                set my buildProcessTextField to "Cannot download missing NBImageInfo.plist from macmule.com"
-                delay 0.1
-                -- Trying to read OSBuildDetails key from AutoImagrNBI.app/Content/Resources/
-                set latestNBImageInfo to do shell script "/usr/bin/defaults read " & pathToResources & "/10.11NBImageInfo/Latest.plist OSBuildDetails"
-                --Log Action
-                set logMe to "Latest NBImageInfo.plist is for " & latestNBImageInfo
-                logToFile_(me)
-                -- Update Build Process Window's Text Field
-                set my buildProcessTextField to "Reading latest NBImageInfo.plist"
-                delay 0.1
-                -- Close build window
-                showBuildProcessWindow's orderOut:(null)
-                -- Prompt user
-                display dialog "Cannot find NBImageInfo.plist for " & selectedOSDMGTextField & "." & return & return & "Latest NBImageInfo,plist is for " & latestNBImageInfo & "." & return & return & "OK to proceed creating NBI with this NBImageInfo.plist?" with icon caution buttons {"No", "Yes"} default button "Yes"
-                -- If user selected yes
-                if button returned of the result is "Yes" then
-                    -- Set to true for later use
-                    set useLatestNBImageInfo to true
-                    -- Make sure all variables are set if enabled
-                    buildPreCheck_(me)
-                end if
-            end try
-        end if
-        else
-            -- Make sure all variables are set if enabled
-            buildPreCheck_(me)
-        end if
-    end elCapNBImageInfoPlist_
 
     -- Make sure all variables are set if enabled
     on buildPreCheck_(sender)
@@ -1734,6 +1666,8 @@ script AutoImagrNBIAppDelegate
             checkAdditionalPKGs_(me)
             -- Check additional Certs array, & amend accordingly
             checkAdditionalCerts_(me)
+            -- Check for Simple Finder on 10.11 & alert
+            checkSimpleFinderElCap_(me)
             -- Calculate progressbar max length, depending on selection
             calcBuildProgressBarMax_(me)
             -- Check latest Imagr version against selected app
@@ -1783,6 +1717,10 @@ script AutoImagrNBIAppDelegate
         end if
         --if additionalPKGs is not missing value then
         if my additionalPKGs as string is not equal to "" then
+            set my buildProcessProgressBarMax to buildProcessProgressBarMax + 1
+        end if
+        -- If we're creating on a 10.9.x netboot
+        if selectedOSdmgVersionMajor is 9 then
             set my buildProcessProgressBarMax to buildProcessProgressBarMax + 1
         end if
         -- If we're creating a Restorable DMG
@@ -2507,8 +2445,8 @@ script AutoImagrNBIAppDelegate
                 --Log Action
                 set logMe to "Successfully emptied targeted directories in " & netBootDmgMountPath & "/System/Library/"
                 logToFile_(me)
-                -- Delete swap files from the NetBoot.dmg
-                removeSwapFiles_(me)
+                -- Creates the folder path /Library/Application Support/Apple/Remote Desktop/ as this is needed on 10.11.2
+                createRemoteDesktopFolder_(me)
             else
                 --Log Action
                 set logMe to "NetBoot reduction not enabled. Skipping..."
@@ -2528,6 +2466,52 @@ script AutoImagrNBIAppDelegate
             userNotify_(me)
         end try
     end reduceNetBootImage_
+
+    -- Creates the folder path /Library/Application Support/Apple/Remote Desktop/ as this is needed on 10.11.2
+    on createRemoteDesktopFolder_(sender)
+        -- Update Build Process Window's Text Field
+        set my buildProcessTextField to "Creating Remote Desktop Folder"
+        delay 0.1
+        -- Update build Process ProgressBar
+        set my buildProcessProgressBar to buildProcessProgressBar + 1
+        -- Set variableVariable
+        set variableVariable to netBootDmgMountPath & "/Library/Application Support/Apple/Remote Desktop/"
+        --Log Action
+        set logMe to "Creating " & variableVariable
+        -- Log To file
+        logToFile_(me)
+        try
+            -- Make certficates directory
+            do shell script "/bin/mkdir -p " & quoted form of variableVariable user name adminUserName password adminUsersPassword with administrator privileges
+            --Log Action
+            set logMe to "Trying to set ownership to root:wheel on " & quoted form of variableVariable
+            logToFile_(me)
+            -- Correct ownership
+            do shell script "/usr/sbin/chown -R root:wheel " & quoted form of variableVariable user name adminUserName password adminUsersPassword with administrator privileges
+            --Log Action
+            set logMe to "Set ownership to root:wheel on " & quoted form of variableVariable
+            logToFile_(me)
+            -- Update build Process ProgressBar
+            set my buildProcessProgressBar to buildProcessProgressBar + 1
+            --Log Action
+            set logMe to "Trying to set permissions to 755 on " & quoted form of variableVariable
+            logToFile_(me)
+            -- Making writable
+            do shell script "/bin/chmod -R 755 " & quoted form of variableVariable user name adminUserName password adminUsersPassword with administrator privileges
+            on error
+            --Log Action
+            set logMe to "Error: Creating Remote Desktop Folder"
+            logToFile_(me)
+            -- Set to false to display
+            set my userNotifyErrorHidden to false
+            -- Set Error message
+            set my userNotifyError to "Error: Creating Remote Desktop Folder"
+            -- Notify of errors or success
+            userNotify_(me)
+        end try
+        -- Delete swap files from the NetBoot.dmg
+        removeSwapFiles_(me)
+    end createRemoteDesktopFolder
 
     -- Delete swap files from the NetBoot.dmg
     on removeSwapFiles_(sender)
@@ -4055,9 +4039,19 @@ script AutoImagrNBIAppDelegate
             set my buildProcessProgressBar to buildProcessProgressBar + 1
             --Log Action
             set logMe to "Generating kernel cache"
-            logToFile_(me)
-            -- Different location used in 10.10.
-            do shell script quoted form of netBootDmgMountPath & "/usr/sbin/kextcache -arch x86_64 -l -n -K " & quoted form of netBootDmgMountPath & "/System/Library/Kernels/kernel -c " & quoted form of netBootDirectory & "/i386/x86_64/kernelcache " & quoted form of netBootDmgMountPath & "/System/Library/Extensions" user name adminUserName password adminUsersPassword with administrator privileges
+            --logToFile_(me)
+            try
+                -- If we're building an OS newer than 10.9
+                if selectedOSdmgVersionMajor is greater than 9
+                    -- Different location used in 10.10.+
+                    do shell script "/usr/sbin/kextcache -arch x86_64 -l -n -K " & quoted form of netBootDmgMountPath & "/System/Library/Kernels/kernel -c " & quoted form of netBootDirectory & "/i386/x86_64/kernelcache " & quoted form of netBootDmgMountPath & "/System/Library/Extensions" user name adminUserName password adminUsersPassword with administrator privileges
+                else
+                    try
+                        -- Generate kernel cache, silently error as this will error when on 10.9.4 when skipping extensions.
+                        do shell script quoted form of netBootDmgMountPath & "/usr/sbin/kextcache -arch x86_64 -l -n -K " & quoted form of netBootDmgMountPath & "/mach_kernel -c " & quoted form of netBootDirectory & "/i386/x86_64/kernelcache " & quoted form of netBootDmgMountPath & "/System/Library/Extensions" user name adminUserName password adminUsersPassword with administrator privileges
+                    end try
+                end if
+            end try
             --Log Action
             set logMe to "Generated kernel cache on: " & netBootDmgMountPath
             logToFile_(me)
@@ -4186,35 +4180,17 @@ script AutoImagrNBIAppDelegate
         -- Update build Process ProgressBar
         set my buildProcessProgressBar to buildProcessProgressBar + 1
         try
-            -- If we're building an OS newer than 10.11
-            if selectedOSdmgVersionMajor is equal to 11
-                -- If we're using the bespoke build version of NBImageInfo.plist
-                if useLatestNBImageInfo is false
-                    --Log Action
-                    set logMe to "Copying NBImageInfo.plist for " & selectedOSBuilddmgVersion
-                    logToFile_(me)
-                    -- Log that we're looking to copy a NBImageInfo.plist
-                    set logMe to "/bin/cp " & quoted form of pathToResources & "/10.11NBImageInfo/" & selectedOSBuilddmgVersion & ".plist " & quoted form of netBootDirectory & "NBImageInfo.plist"
-                    logToFile_(me)
-                    -- Copy the plist
-                    do shell script "/bin/cp " & quoted form of pathToResources & "/10.11NBImageInfo/" & selectedOSBuilddmgVersion & ".plist " & quoted form of netBootDirectory & "/NBImageInfo.plist" user name adminUserName password adminUsersPassword with administrator privileges
-                    --Log Action
-                    set logMe to "Copied NBImageInfo.plist"
-                    logToFile_(me)
-                    -- Updates NBImageInfo.plist
-                    updateNBImageInfoPlist_(me)
-                    else
-                    --Log Action
-                    set logMe to "Copying Latest 10.11 NBImageInfo.plist"
-                    logToFile_(me)
-                    -- Copy the plist
-                    do shell script "/bin/cp " & quoted form of pathToResources & "/10.11NBImageInfo/Latest.plist " & quoted form of netBootDirectory & "/NBImageInfo.plist" user name adminUserName password adminUsersPassword with administrator privileges
-                    --Log Action
-                    set logMe to "Copied NBImageInfo.plist"
-                    logToFile_(me)
-                    -- Updates NBImageInfo.plist
-                    updateNBImageInfoPlist_(me)
-                end if
+            -- If we're building a 10.11 - 10.11.1 NBI, then copy from 10.11NBImageInfo folder
+            if selectedOSdmgVersion is less than "10.11.2" then
+                --Log Action
+                set logMe to "Copying NBImageInfo.plist for 10.11 - 10.11.1"
+                logToFile_(me)
+                do shell script "/bin/cp " & quoted form of pathToResources & "/10.11NBImageInfo/NBImageInfo.plist " & quoted form of netBootDirectory & "/" user name adminUserName password adminUsersPassword with administrator privileges
+                --Log Action
+                set logMe to "Copied NBImageInfo.plist"
+                logToFile_(me)
+                -- Updates NBImageInfo.plist
+                updateNBImageInfoPlist_(me)
             else
             --Log Action
             set logMe to "Copying NBImageInfo.plist"
@@ -4666,8 +4642,11 @@ script AutoImagrNBIAppDelegate
             --Log Action
             set logMe to "NetBoot successfully created at the following location " & netBootDirectory
             logToFile_(me)
-            -- Play complete.aif
-            do shell script "/usr/bin/afplay " & quoted form of pathToResources & "/complete.aif"
+            -- Try to stop errors when no soundcard
+            try
+                -- Play complete.aif
+                do shell script "/usr/bin/afplay " & quoted form of pathToResources & "/complete.aif"
+            end try
             -- Set to false to display
             set my userNotifySuccessHidden to false
             -- Set Error message

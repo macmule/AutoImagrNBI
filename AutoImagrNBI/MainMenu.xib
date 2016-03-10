@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1605" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9060"/>
+        <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -14,25 +15,25 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="AutoImagrNBI" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES"/>
-            <rect key="contentRect" x="0.0" y="345" width="442" height="433"/>
+            <rect key="contentRect" x="0.0" y="0.0" width="442" height="433"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
-            <value key="minSize" type="size" width="442" height="468"/>
-            <value key="maxSize" type="size" width="442" height="578"/>
+            <value key="minSize" type="size" width="442" height="433"/>
+            <value key="maxSize" type="size" width="442" height="433"/>
             <view key="contentView" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="1" width="442" height="433"/>
+                <rect key="frame" x="0.0" y="0.0" width="442" height="433"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <box autoresizesSubviews="NO" title="Required" boxType="oldStyle" borderType="line" id="1bi-R9-8V0">
                         <rect key="frame" x="9" y="269" width="424" height="159"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <view key="contentView">
+                        <view key="contentView" id="4hN-Kv-aQz">
                             <rect key="frame" x="1" y="1" width="422" height="143"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <box borderType="line" id="nhk-LR-cq4">
                                     <rect key="frame" x="4" y="2" width="207" height="152"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <view key="contentView">
+                                    <view key="contentView" id="NLv-jg-uoT">
                                         <rect key="frame" x="1" y="1" width="205" height="136"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
@@ -98,7 +99,7 @@
                                 <box borderType="line" id="bxD-3m-Aj2">
                                     <rect key="frame" x="213" y="2" width="207" height="152"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <view key="contentView">
+                                    <view key="contentView" id="8Eg-Xi-Mej">
                                         <rect key="frame" x="1" y="1" width="205" height="136"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
@@ -194,7 +195,7 @@
                     <box autoresizesSubviews="NO" title="Imagr Configuration Plist URL" borderType="line" id="w0J-uw-3oP">
                         <rect key="frame" x="6" y="182" width="430" height="80"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <view key="contentView">
+                        <view key="contentView" id="evF-3f-hzA">
                             <rect key="frame" x="1" y="1" width="428" height="64"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -251,7 +252,7 @@
                     <box autoresizesSubviews="NO" title="NetBoot Required Settings" borderType="line" id="ecW-4W-wCb">
                         <rect key="frame" x="6" y="33" width="430" height="145"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <view key="contentView">
+                        <view key="contentView" id="EeL-hy-R7f">
                             <rect key="frame" x="1" y="1" width="428" height="129"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -379,9 +380,6 @@
                                             </attributedString>
                                             <decimal key="minimum" value="NaN"/>
                                             <decimal key="maximum" value="NaN"/>
-                                            <metadata>
-                                                <real key="inspectorSampleValue" value="1"/>
-                                            </metadata>
                                         </numberFormatter>
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -428,7 +426,7 @@
                                     <rect key="frame" x="259" y="6" width="108" height="18"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="cellSize" width="50" height="18"/>
+                                    <size key="cellSize" width="52" height="18"/>
                                     <size key="intercellSpacing" width="4" height="2"/>
                                     <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" controlSize="small" enabled="NO" inset="2" id="z52-1y-nmX">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -686,14 +684,14 @@ CA
                                         <box autoresizesSubviews="NO" borderType="line" id="NcA-HU-27O">
                                             <rect key="frame" x="2" y="-3" width="409" height="510"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <view key="contentView">
+                                            <view key="contentView" id="cU5-pv-GE0">
                                                 <rect key="frame" x="1" y="1" width="407" height="494"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <box autoresizesSubviews="NO" title="Box" borderType="line" titlePosition="noTitle" id="dsm-cS-rQQ">
                                                         <rect key="frame" x="15" y="364" width="377" height="122"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <view key="contentView">
+                                                        <view key="contentView" id="bTF-sV-IEH">
                                                             <rect key="frame" x="1" y="1" width="375" height="120"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
@@ -720,14 +718,6 @@ CA
                                                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </box>
-                                                    <button toolTip="Auto logs in as Root" allowsExpansionToolTips="YES" id="YGI-gl-o1f">
-                                                        <rect key="frame" x="36" y="268" width="202" height="22"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <buttonCell key="cell" type="check" title="Auto login as Root" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="l5c-Qx-aOC">
-                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                            <font key="font" metaFont="system"/>
-                                                        </buttonCell>
-                                                    </button>
                                                     <button toolTip="Enables root acount with the password: netboot" id="a0U-xS-eC4">
                                                         <rect key="frame" x="36" y="283" width="202" height="22"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -784,7 +774,7 @@ CA
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                     </button>
-                                                    <button toolTip="Launches Casper Imaging at login" id="Twn-Pa-2K4">
+                                                    <button toolTip="Launches Imagr at login" id="Twn-Pa-2K4">
                                                         <rect key="frame" x="36" y="193" width="335" height="22"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="check" title="Launches Imagr at login" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="Kif-bY-Blb">
@@ -792,7 +782,7 @@ CA
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                     </button>
-                                                    <button toolTip="Copies the selected Casper Imaging to the NBI's /Application/ folder." id="uyM-Xe-Lku">
+                                                    <button toolTip="Copies the Imagr.app to the NBI's /Application/ folder." id="uyM-Xe-Lku">
                                                         <rect key="frame" x="36" y="208" width="335" height="22"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="check" title="Copies Imagr to NBI's Applications folder" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="pI8-jp-PM4">
@@ -800,7 +790,7 @@ CA
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                     </button>
-                                                    <button toolTip="Remove Casper Imaging's quarantine flag (if present)." id="f2H-ec-FN5">
+                                                    <button toolTip="Remove Imagr.app's quarantine flag (if present)." id="f2H-ec-FN5">
                                                         <rect key="frame" x="36" y="177" width="286" height="22"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="check" title="Removes Imagr's Quarantine Flag" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="WW4-rQ-RUC">
@@ -888,6 +878,14 @@ CA
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                     </button>
+                                                    <button toolTip="Auto logs in as Root" allowsExpansionToolTips="YES" id="YGI-gl-o1f">
+                                                        <rect key="frame" x="36" y="268" width="202" height="22"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <buttonCell key="cell" type="check" title="Auto login as Root" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="l5c-Qx-aOC">
+                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                    </button>
                                                 </subviews>
                                             </view>
                                             <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
@@ -904,12 +902,12 @@ CA
                                         <box autoresizesSubviews="NO" title="NetBoot Optional Settings" borderType="line" id="PgO-cl-XBR">
                                             <rect key="frame" x="4" y="357" width="408" height="148"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <view key="contentView">
+                                            <view key="contentView" id="jz6-09-2Og">
                                                 <rect key="frame" x="1" y="1" width="406" height="132"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <button toolTip="Reduces the NetBoot Images size, removing files &amp; apps not needed for Casper Imaging." id="9bl-5U-ff3">
-                                                        <rect key="frame" x="109" y="6" width="122" height="20"/>
+                                                    <button toolTip="Reduces the NetBoot Images size, removing files &amp; apps not needed for Imagr." id="9bl-5U-ff3">
+                                                        <rect key="frame" x="109" y="6" width="131" height="20"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="check" title="Reduce Image Size" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="PzS-xj-IhD">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -969,7 +967,7 @@ CA
                                         <box autoresizesSubviews="NO" title="Screen Sharing" borderType="line" id="hYS-b7-NyN">
                                             <rect key="frame" x="4" y="161" width="408" height="197"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <view key="contentView">
+                                            <view key="contentView" id="eZy-x9-A5U">
                                                 <rect key="frame" x="1" y="1" width="406" height="181"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -1026,7 +1024,7 @@ CA
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="BJK-wJ-J8Z">
-                                                        <rect key="frame" x="127" y="38" width="83" height="17"/>
+                                                        <rect key="frame" x="125" y="38" width="83" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="VNC Password:" id="kuA-NU-Pde">
                                                             <font key="font" metaFont="smallSystem"/>
@@ -1148,14 +1146,14 @@ CA
                                         <box autoresizesSubviews="NO" title="Desktop Picture" borderType="line" id="6Xl-RF-dKq">
                                             <rect key="frame" x="4" y="-2" width="408" height="164"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <view key="contentView">
+                                            <view key="contentView" id="Ofi-8J-Dar">
                                                 <rect key="frame" x="1" y="1" width="406" height="148"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <box autoresizesSubviews="NO" borderType="line" id="Qk7-ES-i7e">
                                                         <rect key="frame" x="15" y="10" width="376" height="63"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <view key="contentView">
+                                                        <view key="contentView" id="rik-Ld-IzE">
                                                             <rect key="frame" x="1" y="1" width="374" height="47"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
@@ -1188,7 +1186,7 @@ CA
                                                             <binding destination="Voe-Tx-rLC" name="enabled" keyPath="customDesktopImageEnabled" id="XlX-fs-Bt2"/>
                                                         </connections>
                                                     </button>
-                                                    <textField toolTip="Select a Desktop Image here. The path to this fiale is added to the plist for when you run AutoCasperNBI again." horizontalHuggingPriority="251" verticalHuggingPriority="750" id="owc-hT-lNr">
+                                                    <textField toolTip="Select a Desktop Image here. The path to this fiale is added to the plist for when you run AutoImagrNBI again." horizontalHuggingPriority="251" verticalHuggingPriority="750" id="owc-hT-lNr">
                                                         <rect key="frame" x="221" y="86" width="94" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="a Desktop image" id="cNj-lL-jd5">
@@ -1233,7 +1231,7 @@ CA
                                         <box autoresizesSubviews="NO" title="Finder" borderType="line" id="A8b-3i-Fjm">
                                             <rect key="frame" x="7" y="-3" width="402" height="92"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <view key="contentView">
+                                            <view key="contentView" id="hdZ-Oz-3cE">
                                                 <rect key="frame" x="1" y="1" width="400" height="76"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -1262,7 +1260,7 @@ CA
                                         <box autoresizesSubviews="NO" title="Create A Restorable DMG" borderType="line" id="Ha5-af-5KB">
                                             <rect key="frame" x="7" y="174" width="402" height="92"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <view key="contentView">
+                                            <view key="contentView" id="CAU-da-Mzy">
                                                 <rect key="frame" x="1" y="1" width="400" height="76"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -1291,7 +1289,7 @@ CA
                                         <box autoresizesSubviews="NO" title="rc.netboot" borderType="line" id="9XK-71-53R">
                                             <rect key="frame" x="7" y="85" width="402" height="92"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <view key="contentView">
+                                            <view key="contentView" id="08o-p7-3oj">
                                                 <rect key="frame" x="1" y="1" width="400" height="76"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -1320,7 +1318,7 @@ CA
                                         <box autoresizesSubviews="NO" title="Time Server" borderType="line" id="YlU-yj-Pxm">
                                             <rect key="frame" x="7" y="384" width="402" height="121"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <view key="contentView">
+                                            <view key="contentView" id="FB6-gh-kGa">
                                                 <rect key="frame" x="1" y="1" width="400" height="105"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -2646,7 +2644,7 @@ CA
                                         <box autoresizesSubviews="NO" title="Localisation" borderType="line" id="9Sf-rm-95l">
                                             <rect key="frame" x="7" y="265" width="402" height="121"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <view key="contentView">
+                                            <view key="contentView" id="214-Ex-GCD">
                                                 <rect key="frame" x="1" y="1" width="400" height="105"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -2762,7 +2760,7 @@ CA
                                                         <rect key="frame" x="207" y="27" width="178" height="22"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <string key="toolTip">Keyboard Input Language for the NBI. This list is written as per com.apple.HIToolbox requires the keyboards names, even with dodgy capitalisation.</string>
-                                                        <popUpButtonCell key="cell" type="push" title="Georgian-QWERTY" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="-27650" imageScaling="proportionallyDown" inset="2" selectedItem="ekJ-Kv-MuD" id="gqa-pz-aIV">
+                                                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="gqa-pz-aIV">
                                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="smallSystem"/>
                                                             <menu key="menu" title="OtherViews" id="OuF-Ay-0wN">
@@ -2884,7 +2882,7 @@ CA
                                                                     <menuItem title="French - numerical" tag="1111" id="KtY-d4-DBR">
                                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                                     </menuItem>
-                                                                    <menuItem title="Georgian-QWERTY" state="on" tag="-27650" id="ekJ-Kv-MuD">
+                                                                    <menuItem title="Georgian-QWERTY" tag="-27650" id="ekJ-Kv-MuD">
                                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                                     </menuItem>
                                                                     <menuItem title="German" tag="3" id="wuN-g1-9n2">
@@ -3198,7 +3196,7 @@ CA
                                         <box autoresizesSubviews="NO" title="Certificates" borderType="line" id="OjL-Nx-vni">
                                             <rect key="frame" x="7" y="288" width="405" height="218"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <view key="contentView">
+                                            <view key="contentView" id="ToN-Ev-9u6">
                                                 <rect key="frame" x="1" y="1" width="403" height="202"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -3305,7 +3303,7 @@ CA
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
                                                         <tableHeaderView key="headerView" id="FD4-GK-nhB">
-                                                            <rect key="frame" x="0.0" y="0.0" width="10000" height="17"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="1003" height="17"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </tableHeaderView>
                                                     </scrollView>
@@ -3317,7 +3315,7 @@ CA
                                         <box autoresizesSubviews="NO" title="Install Additonal Packages" borderType="line" id="gr2-ix-cd1">
                                             <rect key="frame" x="6" y="4" width="405" height="280"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <view key="contentView">
+                                            <view key="contentView" id="bqV-l8-HcH">
                                                 <rect key="frame" x="1" y="1" width="403" height="264"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -3423,7 +3421,7 @@ CA
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
                                                         <tableHeaderView key="headerView" id="b10-6k-V3j">
-                                                            <rect key="frame" x="0.0" y="0.0" width="10000" height="17"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="1003" height="17"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </tableHeaderView>
                                                     </scrollView>
