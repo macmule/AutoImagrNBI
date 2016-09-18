@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1605" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16A320" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9060"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
         <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
@@ -23,7 +23,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="442" height="433"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <box autoresizesSubviews="NO" title="Required" boxType="oldStyle" borderType="line" id="1bi-R9-8V0">
+                    <box autoresizesSubviews="NO" boxType="oldStyle" borderType="line" title="Required" id="1bi-R9-8V0">
                         <rect key="frame" x="9" y="269" width="424" height="159"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView" id="4hN-Kv-aQz">
@@ -37,7 +37,7 @@
                                         <rect key="frame" x="1" y="1" width="205" height="136"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <progressIndicator hidden="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" doubleValue="50" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="6n1-eD-MAR">
+                                            <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" doubleValue="50" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="6n1-eD-MAR">
                                                 <rect key="frame" x="94" y="6" width="16" height="16"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <connections>
@@ -93,8 +93,6 @@
                                             </imageView>
                                         </subviews>
                                     </view>
-                                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </box>
                                 <box borderType="line" id="bxD-3m-Aj2">
                                     <rect key="frame" x="213" y="2" width="207" height="152"/>
@@ -159,7 +157,7 @@
                                                     <binding destination="Voe-Tx-rLC" name="enabled" keyPath="optionWindowEnabled" id="UgA-ap-ta7"/>
                                                 </connections>
                                             </button>
-                                            <progressIndicator hidden="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="woH-9j-iiI">
+                                            <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="woH-9j-iiI">
                                                 <rect key="frame" x="94" y="6" width="16" height="16"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <connections>
@@ -184,30 +182,21 @@
                                             </button>
                                         </subviews>
                                     </view>
-                                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </box>
                             </subviews>
                         </view>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
-                    <box autoresizesSubviews="NO" title="Imagr Configuration Plist URL" borderType="line" id="w0J-uw-3oP">
-                        <rect key="frame" x="6" y="182" width="430" height="80"/>
+                    <box autoresizesSubviews="NO" misplaced="YES" borderType="line" title="Imagr Configuration Plist URL" id="w0J-uw-3oP">
+                        <rect key="frame" x="6" y="176" width="430" height="92"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView" id="evF-3f-hzA">
-                            <rect key="frame" x="1" y="1" width="428" height="64"/>
+                            <rect key="frame" x="1" y="1" width="428" height="76"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="qrO-dS-2ym">
-                                    <rect key="frame" x="-46" y="-25" width="220" height="150"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="com.apple.macmini-unibody-no-optical" id="Ibf-nZ-Kpr"/>
-                                </imageView>
-                                <textField verticalHuggingPriority="750" id="3TG-5f-y7x">
-                                    <rect key="frame" x="129" y="23" width="290" height="22"/>
+                                <textField verticalHuggingPriority="750" misplaced="YES" id="3TG-5f-y7x">
+                                    <rect key="frame" x="86" y="52" width="320" height="22"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" state="on" borderStyle="bezel" alignment="left" placeholderString="" drawsBackground="YES" id="ciO-jn-z84">
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" allowsUndo="NO" state="on" borderStyle="bezel" alignment="left" placeholderString="Required. Imagr Configuration Plist URL" drawsBackground="YES" usesSingleLineMode="YES" id="ciO-jn-z84">
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -225,31 +214,94 @@
                                     </textFieldCell>
                                     <connections>
                                         <action selector="checkImagrURL:" target="Voe-Tx-rLC" id="Wog-eV-2du"/>
-                                        <binding destination="Voe-Tx-rLC" name="value" keyPath="imagrConfigURL" id="rRF-H6-hbX">
+                                        <binding destination="Voe-Tx-rLC" name="enabled" keyPath="disableOptionsAndBuild" id="8nB-K9-6g1">
+                                            <dictionary key="options">
+                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="Voe-Tx-rLC" name="value" keyPath="imagrConfigURL" id="8K3-iu-FZ7">
                                             <dictionary key="options">
                                                 <bool key="NSConditionallySetsEditable" value="NO"/>
                                                 <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                                 <string key="NSNullPlaceholder">Required. Imagr Configuration Plist URL</string>
                                                 <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
+                                                <bool key="NSValidatesImmediately" value="YES"/>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="Voe-Tx-rLC" name="enabled2" keyPath="optionWindowEnabled" previousBinding="8nB-K9-6g1" id="T8b-3h-EyH">
+                                            <dictionary key="options">
+                                                <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                                <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                                <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                                <integer key="NSNullPlaceholder" value="-1"/>
                                             </dictionary>
                                         </binding>
                                     </connections>
                                 </textField>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Z1f-Mc-P6F">
-                                    <rect key="frame" x="127" y="3" width="294" height="17"/>
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" id="bZa-5O-td6">
+                                    <rect key="frame" x="84" y="7" width="324" height="38"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Press enter to commit URL" id="cOr-sW-WhS">
+                                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="lcZ-Cx-mJV">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
+                                    <connections>
+                                        <binding destination="Voe-Tx-rLC" name="value" keyPath="validateplistMsg" id="hIW-Hx-3V4"/>
+                                    </connections>
                                 </textField>
+                                <button toolTip="Refreshes selections above. Useful for rechecking for missing items." misplaced="YES" id="gO9-PO-fqC">
+                                    <rect key="frame" x="407" y="52" width="18" height="22"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRefreshFreestandingTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="kZr-Yw-yUS">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="checkImagrURL:" target="Voe-Tx-rLC" id="Yz4-fB-Pqd"/>
+                                        <binding destination="Voe-Tx-rLC" name="enabled" keyPath="disableOptionsAndBuild" id="5CQ-4P-qE7">
+                                            <dictionary key="options">
+                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="Voe-Tx-rLC" name="enabled2" keyPath="optionWindowEnabled" previousBinding="5CQ-4P-qE7" id="33b-ie-yL6">
+                                            <dictionary key="options">
+                                                <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                                <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                                <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                                <integer key="NSNullPlaceholder" value="-1"/>
+                                            </dictionary>
+                                        </binding>
+                                    </connections>
+                                </button>
+                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" id="qrO-dS-2ym">
+                                    <rect key="frame" x="7" y="3" width="76" height="73"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <imageCell key="cell" enabled="NO" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AutoImagrNBI_1024" id="Ibf-nZ-Kpr"/>
+                                    <connections>
+                                        <binding destination="Voe-Tx-rLC" name="enabled" keyPath="disableOptionsAndBuild" id="TRf-VW-v3S">
+                                            <dictionary key="options">
+                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                            </dictionary>
+                                        </binding>
+                                    </connections>
+                                </imageView>
+                                <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="FIc-9v-Oi4">
+                                    <rect key="frame" x="238" y="7" width="16" height="16"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <connections>
+                                        <binding destination="Voe-Tx-rLC" name="hidden" keyPath="validateplistCog" id="fBG-KT-DdF">
+                                            <dictionary key="options">
+                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="Voe-Tx-rLC" name="animate" keyPath="validateplistCogAnimate" id="aZH-JA-enU"/>
+                                    </connections>
+                                </progressIndicator>
                             </subviews>
                         </view>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
-                    <box autoresizesSubviews="NO" title="NetBoot Required Settings" borderType="line" id="ecW-4W-wCb">
+                    <box autoresizesSubviews="NO" borderType="line" title="NetBoot Required Settings" id="ecW-4W-wCb">
                         <rect key="frame" x="6" y="33" width="430" height="145"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView" id="EeL-hy-R7f">
@@ -476,8 +528,6 @@
                                 </textField>
                             </subviews>
                         </view>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
                     <button verticalHuggingPriority="750" id="Rb7-IJ-j3O">
                         <rect key="frame" x="367" y="1" width="72" height="32"/>
@@ -671,24 +721,23 @@ CA
                 <rect key="frame" x="0.0" y="0.0" width="442" height="587"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <tabView initialItem="5Qr-LX-Be4" id="pYi-kB-tNx">
-                        <rect key="frame" x="2" y="28" width="437" height="553"/>
+                    <tabView misplaced="YES" initialItem="5Rk-Dy-XRP" id="pYi-kB-tNx">
+                        <rect key="frame" x="4" y="30" width="437" height="553"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="Always Set" identifier="1" id="ObJ-EC-sRC">
                                 <view key="view" id="sgz-Bf-xLl">
                                     <rect key="frame" x="10" y="33" width="417" height="507"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <box autoresizesSubviews="NO" borderType="line" id="NcA-HU-27O">
-                                            <rect key="frame" x="2" y="-3" width="409" height="510"/>
+                                        <box autoresizesSubviews="NO" misplaced="YES" borderType="line" id="NcA-HU-27O">
+                                            <rect key="frame" x="6" y="2" width="405" height="510"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <view key="contentView" id="cU5-pv-GE0">
-                                                <rect key="frame" x="1" y="1" width="407" height="494"/>
+                                                <rect key="frame" x="1" y="1" width="403" height="494"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <box autoresizesSubviews="NO" title="Box" borderType="line" titlePosition="noTitle" id="dsm-cS-rQQ">
+                                                    <box autoresizesSubviews="NO" borderType="line" title="Box" titlePosition="noTitle" id="dsm-cS-rQQ">
                                                         <rect key="frame" x="15" y="364" width="377" height="122"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <view key="contentView" id="bTF-sV-IEH">
@@ -715,8 +764,6 @@ CA
                                                                 </textField>
                                                             </subviews>
                                                         </view>
-                                                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </box>
                                                     <button toolTip="Enables root acount with the password: netboot" id="a0U-xS-eC4">
                                                         <rect key="frame" x="36" y="283" width="202" height="22"/>
@@ -742,16 +789,24 @@ CA
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                     </button>
-                                                    <button toolTip="Disables Software Update from running." id="hRi-6W-ZwG">
+                                                    <button toolTip="Disables App Persistence. To make sure that when running from removable media Imagr doesn't launch twice on second run." misplaced="YES" id="It2-xy-mIP">
                                                         <rect key="frame" x="36" y="146" width="258" height="22"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <buttonCell key="cell" type="check" title="Disables App Persistence" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="7k5-D7-MDs">
+                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                    </button>
+                                                    <button toolTip="Disables Software Update from running." misplaced="YES" id="hRi-6W-ZwG">
+                                                        <rect key="frame" x="36" y="131" width="258" height="22"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="check" title="Disables Software Update" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="nBR-fM-XKp">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                     </button>
-                                                    <button toolTip="Disables Spotlight, removing it's launchDaemons " id="Mcy-TJ-LAd">
-                                                        <rect key="frame" x="36" y="131" width="258" height="22"/>
+                                                    <button toolTip="Disables Spotlight, removing it's launchDaemons " misplaced="YES" id="Mcy-TJ-LAd">
+                                                        <rect key="frame" x="36" y="116" width="258" height="22"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="check" title="Disables Spotlight" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="DjW-iL-Ppl">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -798,8 +853,8 @@ CA
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                     </button>
-                                                    <button toolTip="Sets the NetBoot Image to diskless." id="EIv-Ya-yAR">
-                                                        <rect key="frame" x="36" y="71" width="238" height="22"/>
+                                                    <button toolTip="Sets the NetBoot Image to diskless." misplaced="YES" id="EIv-Ya-yAR">
+                                                        <rect key="frame" x="36" y="57" width="238" height="22"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="check" title="Enables Diskless NetBoot" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="cpE-U7-eM3">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -814,16 +869,16 @@ CA
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                     </button>
-                                                    <button toolTip="Disables GateKeeper" id="FWF-ak-T3V">
-                                                        <rect key="frame" x="36" y="101" width="200" height="22"/>
+                                                    <button toolTip="Disables GateKeeper" misplaced="YES" id="FWF-ak-T3V">
+                                                        <rect key="frame" x="36" y="86" width="200" height="22"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="check" title="Disables GateKeeper" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="rMS-x4-c4o">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                     </button>
-                                                    <button toolTip="Enables Disk Utilities Debug menu for assisting when troubleshooting disks." id="s86-zO-Wj4">
-                                                        <rect key="frame" x="36" y="86" width="229" height="22"/>
+                                                    <button toolTip="Enables Disk Utilities Debug menu for assisting when troubleshooting disks." misplaced="YES" id="s86-zO-Wj4">
+                                                        <rect key="frame" x="36" y="71" width="229" height="22"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="check" title="Enables Disk Utilities Debug Menu" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="dCt-te-XnD">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -846,32 +901,32 @@ CA
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                     </button>
-                                                    <button toolTip="Stops TimeMachine from asking for new disks to be used for backing up too." id="DIn-tD-gcy">
-                                                        <rect key="frame" x="36" y="116" width="211" height="22"/>
+                                                    <button toolTip="Stops TimeMachine from asking for new disks to be used for backing up too." misplaced="YES" id="DIn-tD-gcy">
+                                                        <rect key="frame" x="36" y="101" width="211" height="22"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="check" title="Disables TimeMachine prompts" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="ZZC-SV-Pga">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                     </button>
-                                                    <button toolTip="The NetBoot Image will be expanded to 64GB, this allows the NetBoot to use upto 64GB of RAM to cache it's startup disk." id="jt4-5q-AGt">
-                                                        <rect key="frame" x="36" y="56" width="238" height="22"/>
+                                                    <button toolTip="The NetBoot Image will be expanded to 64GB, this allows the NetBoot to use upto 64GB of RAM to cache it's startup disk." misplaced="YES" id="jt4-5q-AGt">
+                                                        <rect key="frame" x="36" y="41" width="238" height="22"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="check" title="Expands NetBoot Image to 64GB" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="5ah-Wn-bhf">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                     </button>
-                                                    <button toolTip="The NetBoot Image is compacted so as to take up as little disk space on the NetBoot Server." id="6uV-X8-Nwy">
-                                                        <rect key="frame" x="36" y="41" width="238" height="22"/>
+                                                    <button toolTip="The NetBoot Image is compacted so as to take up as little disk space on the NetBoot Server." misplaced="YES" id="6uV-X8-Nwy">
+                                                        <rect key="frame" x="36" y="26" width="238" height="22"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="check" title="Compacts NetBoot Image" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="zZH-bC-KPt">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                     </button>
-                                                    <button toolTip="The NetBoot.sparseimage is renamed NetBoot.dmg for hosting on some NetBoot Servers" id="qbJ-GG-PGP">
-                                                        <rect key="frame" x="36" y="26" width="330" height="22"/>
+                                                    <button toolTip="The NetBoot.sparseimage is renamed NetBoot.dmg for hosting on some NetBoot Servers" misplaced="YES" id="qbJ-GG-PGP">
+                                                        <rect key="frame" x="36" y="11" width="330" height="22"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="check" title="Renames Sparseimage to DMG" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="1Sn-AO-31J">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -888,8 +943,149 @@ CA
                                                     </button>
                                                 </subviews>
                                             </view>
-                                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </box>
+                                    </subviews>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="App Config" identifier="" id="5Rk-Dy-XRP">
+                                <view key="view" id="PW2-BJ-HhE">
+                                    <rect key="frame" x="10" y="33" width="417" height="507"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <box autoresizesSubviews="NO" misplaced="YES" borderType="line" title="Reporting" id="EgN-do-5Yg">
+                                            <rect key="frame" x="6" y="261" width="405" height="249"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <view key="contentView" id="Rvn-YK-kou">
+                                                <rect key="frame" x="1" y="1" width="403" height="233"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" setsMaxLayoutWidthAtFirstLayout="YES" id="Qgt-lR-Zwf">
+                                                        <rect key="frame" x="30" y="179" width="343" height="48"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" title="Imagr allows you to send report information to either a HTTP server via POST, or a Syslog server" id="Tqw-kZ-vXU">
+                                                            <font key="font" metaFont="cellTitle"/>
+                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" setsMaxLayoutWidthAtFirstLayout="YES" id="KQT-hP-gLD">
+                                                        <rect key="frame" x="25" y="175" width="343" height="16"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" title="For more information, please see the Imagr Wiki:" id="gKR-FB-y4L">
+                                                            <font key="font" metaFont="cellTitle"/>
+                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <box autoresizesSubviews="NO" misplaced="YES" borderType="line" title="Box" titlePosition="noTitle" id="7EX-IO-BIt">
+                                                        <rect key="frame" x="8" y="81" width="387" height="67"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <view key="contentView" id="96f-nx-3gx">
+                                                            <rect key="frame" x="1" y="1" width="385" height="65"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        </view>
+                                                    </box>
+                                                    <textField verticalHuggingPriority="750" misplaced="YES" id="e57-Z3-NNg">
+                                                        <rect key="frame" x="74" y="97" width="292" height="22"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="G2W-6f-uDN">
+                                                            <font key="font" metaFont="smallSystem"/>
+                                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                        <connections>
+                                                            <action selector="checkHTTPReportingURL:" target="Voe-Tx-rLC" id="k3m-cy-i3D"/>
+                                                            <binding destination="Voe-Tx-rLC" name="enabled" keyPath="httpReportingEnabled" id="lwb-oM-fkA"/>
+                                                            <binding destination="Voe-Tx-rLC" name="value" keyPath="httpReportingURL" id="N5m-m6-30D">
+                                                                <dictionary key="options">
+                                                                    <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                                    <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
+                                                                </dictionary>
+                                                            </binding>
+                                                        </connections>
+                                                    </textField>
+                                                    <button misplaced="YES" id="dnm-oP-plc">
+                                                        <rect key="frame" x="37" y="120" width="176" height="20"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <buttonCell key="cell" type="check" title="HTTP Reporting" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="pWo-uV-N4K">
+                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                            <font key="font" metaFont="smallSystem"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="httpReportingOption:" target="Voe-Tx-rLC" id="27C-5z-r9o"/>
+                                                            <binding destination="Voe-Tx-rLC" name="value" keyPath="httpReportingEnabled" id="Ud4-aG-rLj"/>
+                                                        </connections>
+                                                    </button>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" id="Vng-Mb-8NX">
+                                                        <rect key="frame" x="38" y="98" width="34" height="17"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="URL:" id="A4S-r7-sxc">
+                                                            <font key="font" metaFont="smallSystem"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <button verticalHuggingPriority="750" misplaced="YES" id="RIQ-Qg-ndI">
+                                                        <rect key="frame" x="130" y="148" width="134" height="28"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <buttonCell key="cell" type="push" title="Reporting Wiki Entry" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="AGF-O4-zeY">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="smallSystem"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="openReportingWikiEntry:" target="Voe-Tx-rLC" id="o00-M7-0Kf"/>
+                                                        </connections>
+                                                    </button>
+                                                    <box autoresizesSubviews="NO" misplaced="YES" borderType="line" title="Box" titlePosition="noTitle" id="xFB-aV-EeH">
+                                                        <rect key="frame" x="8" y="9" width="387" height="67"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <view key="contentView" id="uWZ-QR-hLP">
+                                                            <rect key="frame" x="1" y="1" width="385" height="65"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        </view>
+                                                    </box>
+                                                    <textField verticalHuggingPriority="750" misplaced="YES" id="z42-Kk-s26">
+                                                        <rect key="frame" x="74" y="25" width="292" height="22"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="j2I-gZ-8zG">
+                                                            <font key="font" metaFont="smallSystem"/>
+                                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                        <connections>
+                                                            <action selector="checkSyslogReportingURL:" target="Voe-Tx-rLC" id="3Or-K3-UY2"/>
+                                                            <binding destination="Voe-Tx-rLC" name="enabled" keyPath="syslogReportingEnabled" id="1cN-V6-sbx"/>
+                                                            <binding destination="Voe-Tx-rLC" name="value" keyPath="syslogReportingURL" id="UPh-iy-tMA">
+                                                                <dictionary key="options">
+                                                                    <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                                    <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
+                                                                </dictionary>
+                                                            </binding>
+                                                        </connections>
+                                                    </textField>
+                                                    <button misplaced="YES" id="CaX-hl-5sq">
+                                                        <rect key="frame" x="37" y="48" width="176" height="20"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <buttonCell key="cell" type="check" title="Enable Syslog Reporting" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="c5p-Dr-ob3">
+                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                            <font key="font" metaFont="smallSystem"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="syslogReportingOption:" target="Voe-Tx-rLC" id="6Gx-Lv-MLw"/>
+                                                            <binding destination="Voe-Tx-rLC" name="value" keyPath="syslogReportingEnabled" id="Yg0-NB-5CR"/>
+                                                        </connections>
+                                                    </button>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" id="Gp3-eA-NW7">
+                                                        <rect key="frame" x="38" y="26" width="34" height="17"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="URL:" id="1bO-n1-f2k">
+                                                            <font key="font" metaFont="smallSystem"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </subviews>
+                                            </view>
                                         </box>
                                     </subviews>
                                 </view>
@@ -899,8 +1095,8 @@ CA
                                     <rect key="frame" x="10" y="33" width="417" height="507"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <box autoresizesSubviews="NO" title="NetBoot Optional Settings" borderType="line" id="PgO-cl-XBR">
-                                            <rect key="frame" x="4" y="357" width="408" height="148"/>
+                                        <box autoresizesSubviews="NO" misplaced="YES" borderType="line" title="NetBoot Optional Settings" id="PgO-cl-XBR">
+                                            <rect key="frame" x="6" y="355" width="408" height="148"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <view key="contentView" id="jz6-09-2Og">
                                                 <rect key="frame" x="1" y="1" width="406" height="132"/>
@@ -961,11 +1157,9 @@ CA
                                                     </imageView>
                                                 </subviews>
                                             </view>
-                                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </box>
-                                        <box autoresizesSubviews="NO" title="Screen Sharing" borderType="line" id="hYS-b7-NyN">
-                                            <rect key="frame" x="4" y="161" width="408" height="197"/>
+                                        <box autoresizesSubviews="NO" misplaced="YES" borderType="line" title="Screen Sharing" id="hYS-b7-NyN">
+                                            <rect key="frame" x="6" y="159" width="408" height="197"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <view key="contentView" id="eZy-x9-A5U">
                                                 <rect key="frame" x="1" y="1" width="406" height="181"/>
@@ -1086,7 +1280,7 @@ CA
                                                     <textField verticalHuggingPriority="750" id="oOg-fG-Hd0">
                                                         <rect key="frame" x="209" y="129" width="179" height="19"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" placeholderString="" drawsBackground="YES" usesSingleLineMode="YES" id="5Ru-ty-IDl">
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" placeholderString="" drawsBackground="YES" usesSingleLineMode="YES" id="5Ru-ty-IDl">
                                                             <font key="font" metaFont="smallSystem"/>
                                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1122,12 +1316,9 @@ CA
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
-                                                    <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" id="fK1-0C-d0W">
+                                                    <box verticalHuggingPriority="750" boxType="separator" id="fK1-0C-d0W">
                                                         <rect key="frame" x="20" y="85" width="366" height="5"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                        <font key="titleFont" metaFont="system"/>
                                                     </box>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="ElL-yD-P9j">
                                                         <rect key="frame" x="275" y="42" width="82" height="11"/>
@@ -1140,11 +1331,9 @@ CA
                                                     </textField>
                                                 </subviews>
                                             </view>
-                                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </box>
-                                        <box autoresizesSubviews="NO" title="Desktop Picture" borderType="line" id="6Xl-RF-dKq">
-                                            <rect key="frame" x="4" y="-2" width="408" height="164"/>
+                                        <box autoresizesSubviews="NO" misplaced="YES" borderType="line" title="Desktop Picture" id="6Xl-RF-dKq">
+                                            <rect key="frame" x="6" y="-4" width="408" height="164"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <view key="contentView" id="Ofi-8J-Dar">
                                                 <rect key="frame" x="1" y="1" width="406" height="148"/>
@@ -1171,8 +1360,6 @@ CA
                                                                 </textField>
                                                             </subviews>
                                                         </view>
-                                                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </box>
                                                     <button toolTip="Select a Desktop Image here. The path to this fiale is added to the plist for when you run AutoCasperNBI again." verticalHuggingPriority="750" id="BcM-Wb-vsP">
                                                         <rect key="frame" x="166" y="81" width="58" height="28"/>
@@ -1217,8 +1404,6 @@ CA
                                                     </imageView>
                                                 </subviews>
                                             </view>
-                                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </box>
                                     </subviews>
                                 </view>
@@ -1228,11 +1413,11 @@ CA
                                     <rect key="frame" x="10" y="33" width="417" height="507"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <box autoresizesSubviews="NO" title="Finder" borderType="line" id="A8b-3i-Fjm">
-                                            <rect key="frame" x="7" y="-3" width="402" height="92"/>
+                                        <box autoresizesSubviews="NO" misplaced="YES" borderType="line" title="Finder" id="A8b-3i-Fjm">
+                                            <rect key="frame" x="6" y="0.0" width="405" height="92"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <view key="contentView" id="hdZ-Oz-3cE">
-                                                <rect key="frame" x="1" y="1" width="400" height="76"/>
+                                                <rect key="frame" x="1" y="1" width="403" height="76"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <button toolTip="Sets Finder to be in Simple mode, his hides desktop icons &amp; stops windows from being opened." id="ZZM-Pw-sfh">
@@ -1254,14 +1439,12 @@ CA
                                                     </imageView>
                                                 </subviews>
                                             </view>
-                                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </box>
-                                        <box autoresizesSubviews="NO" title="Create A Restorable DMG" borderType="line" id="Ha5-af-5KB">
-                                            <rect key="frame" x="7" y="174" width="402" height="92"/>
+                                        <box autoresizesSubviews="NO" misplaced="YES" borderType="line" title="Create A Restorable DMG" id="Ha5-af-5KB">
+                                            <rect key="frame" x="6" y="177" width="405" height="92"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <view key="contentView" id="CAU-da-Mzy">
-                                                <rect key="frame" x="1" y="1" width="400" height="76"/>
+                                                <rect key="frame" x="1" y="1" width="403" height="76"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Dni-N9-E5o">
@@ -1283,14 +1466,12 @@ CA
                                                     </button>
                                                 </subviews>
                                             </view>
-                                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </box>
-                                        <box autoresizesSubviews="NO" title="rc.netboot" borderType="line" id="9XK-71-53R">
-                                            <rect key="frame" x="7" y="85" width="402" height="92"/>
+                                        <box autoresizesSubviews="NO" misplaced="YES" borderType="line" title="rc.netboot" id="9XK-71-53R">
+                                            <rect key="frame" x="6" y="88" width="405" height="92"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <view key="contentView" id="08o-p7-3oj">
-                                                <rect key="frame" x="1" y="1" width="400" height="76"/>
+                                                <rect key="frame" x="1" y="1" width="403" height="76"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <button toolTip="Installs a modifed rc.netboot file, this will not create shadow files on the NetBoot server." id="OEs-ku-2dk">
@@ -1312,14 +1493,12 @@ CA
                                                     </imageView>
                                                 </subviews>
                                             </view>
-                                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </box>
-                                        <box autoresizesSubviews="NO" title="Time Server" borderType="line" id="YlU-yj-Pxm">
-                                            <rect key="frame" x="7" y="384" width="402" height="121"/>
+                                        <box autoresizesSubviews="NO" misplaced="YES" borderType="line" title="Time Server" id="YlU-yj-Pxm">
+                                            <rect key="frame" x="6" y="387" width="405" height="121"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <view key="contentView" id="FB6-gh-kGa">
-                                                <rect key="frame" x="1" y="1" width="400" height="105"/>
+                                                <rect key="frame" x="1" y="1" width="403" height="105"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <popUpButton toolTip="Time Zone for the .nbi, list was taken from sudo systemsetup -listtimezones" verticalHuggingPriority="750" id="rXe-zf-twX">
@@ -2638,14 +2817,12 @@ CA
                                                     </imageView>
                                                 </subviews>
                                             </view>
-                                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </box>
-                                        <box autoresizesSubviews="NO" title="Localisation" borderType="line" id="9Sf-rm-95l">
-                                            <rect key="frame" x="7" y="265" width="402" height="121"/>
+                                        <box autoresizesSubviews="NO" misplaced="YES" borderType="line" title="Localisation" id="9Sf-rm-95l">
+                                            <rect key="frame" x="6" y="268" width="405" height="121"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <view key="contentView" id="214-Ex-GCD">
-                                                <rect key="frame" x="1" y="1" width="400" height="105"/>
+                                                <rect key="frame" x="1" y="1" width="403" height="105"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <popUpButton toolTip="Language for the NBI. This list is the tier 1 languages from the languagesetup command." verticalHuggingPriority="750" id="9JB-Bk-wAP">
@@ -2760,12 +2937,12 @@ CA
                                                         <rect key="frame" x="207" y="27" width="178" height="22"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <string key="toolTip">Keyboard Input Language for the NBI. This list is written as per com.apple.HIToolbox requires the keyboards names, even with dodgy capitalisation.</string>
-                                                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="gqa-pz-aIV">
+                                                        <popUpButtonCell key="cell" type="push" title="Afghan Dari" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="-2092" imageScaling="proportionallyDown" inset="2" selectedItem="f6g-08-Faz" id="gqa-pz-aIV">
                                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="smallSystem"/>
                                                             <menu key="menu" title="OtherViews" id="OuF-Ay-0wN">
                                                                 <items>
-                                                                    <menuItem title="Afghan Dari" tag="-2092" id="f6g-08-Faz">
+                                                                    <menuItem title="Afghan Dari" state="on" tag="-2092" id="f6g-08-Faz">
                                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                                     </menuItem>
                                                                     <menuItem title="Afghan Pashto" tag="-2094" id="wab-DG-X6j">
@@ -2840,7 +3017,10 @@ CA
                                                                     <menuItem title="Czech-QWERTY" tag="-30778" id="Njt-8U-vf2">
                                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                                     </menuItem>
-                                                                    <menuItem title="Devanagari" tag="20480" id="0ml-Es-Gef">
+                                                                    <menuItem title="Danish" tag="9" id="0ml-Es-Gef">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Devanagari" tag="20480" id="OGw-gP-zP0">
                                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                                     </menuItem>
                                                                     <menuItem title="Devanagari-QWERTY" tag="-20481" id="NrP-11-wLm">
@@ -3182,8 +3362,6 @@ CA
                                                     </imageView>
                                                 </subviews>
                                             </view>
-                                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </box>
                                     </subviews>
                                 </view>
@@ -3193,11 +3371,11 @@ CA
                                     <rect key="frame" x="10" y="33" width="417" height="507"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <box autoresizesSubviews="NO" title="Certificates" borderType="line" id="OjL-Nx-vni">
-                                            <rect key="frame" x="7" y="288" width="405" height="218"/>
+                                        <box autoresizesSubviews="NO" misplaced="YES" borderType="line" title="Certificates" id="OjL-Nx-vni">
+                                            <rect key="frame" x="7" y="286" width="404" height="218"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <view key="contentView" id="ToN-Ev-9u6">
-                                                <rect key="frame" x="1" y="1" width="403" height="202"/>
+                                                <rect key="frame" x="1" y="1" width="402" height="202"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="tIN-h1-3Js">
@@ -3260,11 +3438,11 @@ CA
                                                         <rect key="frame" x="14" y="35" width="375" height="94"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <clipView key="contentView" id="I46-SW-UEq">
-                                                            <rect key="frame" x="1" y="1" width="371" height="119"/>
-                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <rect key="frame" x="1" y="0.0" width="373" height="93"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" headerView="FD4-GK-nhB" id="hJn-iy-2QT">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="1003" height="19"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="1003" height="76"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -3294,7 +3472,6 @@ CA
                                                                     </tableColumns>
                                                                 </tableView>
                                                             </subviews>
-                                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </clipView>
                                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="0fI-6M-KMR">
                                                             <autoresizingMask key="autoresizingMask"/>
@@ -3309,11 +3486,9 @@ CA
                                                     </scrollView>
                                                 </subviews>
                                             </view>
-                                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </box>
-                                        <box autoresizesSubviews="NO" title="Install Additonal Packages" borderType="line" id="gr2-ix-cd1">
-                                            <rect key="frame" x="6" y="4" width="405" height="280"/>
+                                        <box autoresizesSubviews="NO" misplaced="YES" borderType="line" title="Install Additonal Packages" id="gr2-ix-cd1">
+                                            <rect key="frame" x="6" y="2" width="405" height="280"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <view key="contentView" id="bqV-l8-HcH">
                                                 <rect key="frame" x="1" y="1" width="403" height="264"/>
@@ -3374,11 +3549,11 @@ CA
                                                         <rect key="frame" x="14" y="44" width="375" height="151"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <clipView key="contentView" id="ZE2-lf-Qw2">
-                                                            <rect key="frame" x="1" y="1" width="371" height="119"/>
-                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <rect key="frame" x="1" y="0.0" width="373" height="150"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" headerView="b10-6k-V3j" id="Jph-rm-hCa">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="1003" height="19"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="1003" height="133"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -3412,7 +3587,6 @@ CA
                                                                     </tableColumns>
                                                                 </tableView>
                                                             </subviews>
-                                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </clipView>
                                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="TDD-mm-Hmw">
                                                             <autoresizingMask key="autoresizingMask"/>
@@ -3432,8 +3606,6 @@ CA
                                                     </imageView>
                                                 </subviews>
                                             </view>
-                                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </box>
                                     </subviews>
                                 </view>
@@ -3762,9 +3934,9 @@ DQ
                         </connections>
                     </textField>
                     <button verticalHuggingPriority="750" id="UOp-1F-vSR">
-                        <rect key="frame" x="221" y="4" width="80" height="28"/>
+                        <rect key="frame" x="216" y="4" width="91" height="28"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="push" title="Open NBI" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Y5E-Nj-Uz6">
+                        <buttonCell key="cell" type="push" title="Open Folder" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Y5E-Nj-Uz6">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
@@ -3806,7 +3978,6 @@ DQ
         <image name="YoYo-diskcopy-doc" width="512" height="512"/>
         <image name="YoYo-icn_desktop" width="148" height="113"/>
         <image name="YoYo-package" width="512" height="512"/>
-        <image name="com.apple.macmini-unibody-no-optical" width="512" height="512"/>
         <image name="imagr_icon" width="512" height="512"/>
     </resources>
 </document>

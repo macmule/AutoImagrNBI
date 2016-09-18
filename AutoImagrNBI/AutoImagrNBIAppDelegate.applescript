@@ -12,6 +12,7 @@ script AutoImagrNBIAppDelegate
 
 --- Classes
 	property parent : class "NSObject"
+    property NSApp  : current application's class "NSApp"
     
 --- Objects
     property defaults : ""
@@ -36,6 +37,7 @@ script AutoImagrNBIAppDelegate
     property netBootImageIndexLabel : ""
     property netBootDescription : ""
     property applescriptsDelims : ""
+    property wordCount : ""
     property startTag : ""
     property endTag : ""
     property hostMacOSVersionToDelim : ""
@@ -74,6 +76,7 @@ script AutoImagrNBIAppDelegate
     property buildProcessLogTextField : ""
     property versionOfAutoImagrNBI : ""
     property netBootDirectory : ""
+    property rootDirectory : ""
     property adminUserName : ""
     property adminUsersPassword : ""
     property adminUserWindow : ""
@@ -110,6 +113,9 @@ script AutoImagrNBIAppDelegate
     property imagrTempDir : ""
     property imagrMount : ""
     property imagrMountPoint : ""
+    property validateplistMsg : ""
+    property httpReportingURL : ""
+    property syslogReportingURL : ""
     
     --- Booleans
     property selectedOSDMGTextFieldEnabled : false
@@ -164,6 +170,10 @@ script AutoImagrNBIAppDelegate
     property imagrConfigURLCheckPass : false
     property elCapNBImageInfoPlistExists : false
     property useLatestNBImageInfo : false
+    property validateplistCog : false
+    property validateplistCogAnimate : true
+    property httpReportingEnabled : false
+    property syslogReportingEnabled : false
     
     -- Others
     property buildProcessProgressBarMax : 0
@@ -245,7 +255,11 @@ script AutoImagrNBIAppDelegate
                                             createReadOnlyDMG:createReadOnlyDMG, ¬
                                             simpleFinderEnabled:simpleFinderEnabled, ¬
                                             additionalCerts:additionalCerts, ¬
-                                            additionalPKGs:additionalPKGs})
+                                            additionalPKGs:additionalPKGs, ¬
+                                            httpReportingEnabled:httpReportingEnabled, ¬
+                                            httpReportingURL:httpReportingURL, ¬
+                                            syslogReportingEnabled:syslogReportingEnabled, ¬
+                                            syslogReportingURL:syslogReportingURL})
     end regDefaults_
     
     -- Get values from plist
@@ -272,6 +286,10 @@ script AutoImagrNBIAppDelegate
         tell defaults to set my simpleFinderEnabled to objectForKey_("simpleFinderEnabled") as boolean
         tell defaults to set my additionalCerts to objectForKey_("additionalCerts") as list
         tell defaults to set my additionalPKGs to objectForKey_("additionalPKGs") as list
+        tell defaults to set my httpReportingEnabled to objectForKey_("httpReportingEnabled") as boolean
+        tell defaults to set my httpReportingURL to objectForKey_("httpReportingURL") as string
+        tell defaults to set my syslogReportingEnabled to objectForKey_("syslogReportingEnabled") as boolean
+        tell defaults to set my syslogReportingURL to objectForKey_("syslogReportingURL") as string
     end retrieveDefaults_
     
     ----- BUTTON HANDLERS ----
@@ -288,7 +306,7 @@ script AutoImagrNBIAppDelegate
         -- Set to boolean
         set optionsWindowPreCheckPassed to optionsWindowPreCheckPassed as boolean
         -- If we ok to proceed
-        if optionsWindowPreCheckPassed is true then
+        if optionsWindowPreCheckPassed is true and imagrConfigURLCheckPass is true then
             -- Disable main windows buttons
             set my optionWindowEnabled to false
             -- reload options from plist
@@ -343,11 +361,15 @@ script AutoImagrNBIAppDelegate
     ---- ADMIN CHECK PANEL ---
     -- Check Administrative credentials
     on adminCredentialPrompt_(sender)
-        -- Main Window
-        set my disableOptionsAndBuild to true
-        -- activate main window
-        activate
-        adminUserWindow's makeKeyAndOrderFront_(null)
+        -- check the Imagr URL
+        checkimagrURL_(me)
+        if imagrConfigURLCheckPass is true then
+            -- Main Window
+            set my disableOptionsAndBuild to true
+            -- activate main window
+            activate
+            adminUserWindow's makeKeyAndOrderFront_(null)
+        end if
     end adminCredentialPrompt
     
     -- Prompt for Administrative credentials
@@ -508,7 +530,7 @@ script AutoImagrNBIAppDelegate
                 -- Reset OSDMG Icons
                 doResetOSDMGIcons_(me)
                 -- Make sure we're building a 10.10+ NBI
-                if selectedOSdmgVersionMajor is not greater than 9 then
+                if selectedOSdmgVersionMajor is not greater than 10 then
                     --Log Action
                     set logMe to "Error: Select a 10.10+ DMG"
                     logToFile_(me)
@@ -754,8 +776,16 @@ script AutoImagrNBIAppDelegate
     -- Check the Imagr URL details
     on checkImagrURL_(sender)
         -- Make sure imagrConfigURL has a value before we proceed
-        if (my imagrConfigURL is equal to missing value) or (my imagrConfigURL is equal to "") then
-            tell defaults to removeObjectForKey_("imagrConfigURL")
+        if (my imagrConfigURL as string is not equal to "") and (my imagrConfigURL as string is not equal to missing value) then
+            -- Update plist
+            tell defaults to setObject_forKey_(imagrConfigURL, "imagrConfigURL")
+            -- Set to true so we can continue
+            set imagrConfigURLCheckPass to true
+            -- Check config plist
+            checkConfigPlist_(me)
+        else
+            -- Update plist
+            --tell defaults to removeObjectForKey_("imagrConfigURL")
             -- Display error to user
             display dialog "Please enter an Imagr Configuration Plist URL" with icon 0 buttons {"OK"}
             --Log Action
@@ -767,25 +797,69 @@ script AutoImagrNBIAppDelegate
             set imagrConfigURLCheckPass to false
             -- See if pre-reqs have been met
             checkIfReadyToProceed_(me)
-        else
-            -- Update plist
-            tell defaults to setObject_forKey_(imagrConfigURL, "imagrConfigURL")
-            -- Set to true so we can continue
-            set imagrConfigURLCheckPass to true
-            -- See if pre-reqs have been met
-            checkIfReadyToProceed_(me)
         end if
     end checkImagrURL_
     
+    -- Check config plist
+    on checkConfigPlist_(sender)
+        try
+            -- Set label to Imagr version
+            set my validateplistMsg to "Validating plist..."
+            -- Display the cog to reinforce we're busy
+            set my validateplistCog to true
+            -- Delay needed to update label
+            delay 0.1
+            -- Run validateplist again imagrConfigURL
+            set validateplistOutput to do shell script "python " & quoted form of pathToResources & "/validateplist " & imagrConfigURL
+            -- Get words from output
+            set wordCount to (count words of validateplistOutput)
+            -- Store delimiters for resetting later
+            set applescriptsDelims to AppleScript's text item delimiters
+            -- Set delimiters to forwardslash
+            set AppleScript's text item delimiters to "WARNING"
+            -- Count any warnings we get
+            set warningCount to (count text items of validateplistOutput) - 1
+            -- Reset delimiters
+            set AppleScript's text item delimiters to applescriptsDelims
+            -- If we have any warnings
+            if warningCount is greater than 0 then
+                -- Show how many warnings
+                set my validateplistMsg to "WARNING: plist validated with " & warningCount & " warnings."
+                --Log Action
+                set logMe to validateplistMsg
+                logToFile_(me)
+                -- Hide the cog
+                set my validateplistCog to false
+                -- Display alert
+                display alert "Validateplist Output" message "config plist validated with " & warningCount & " warnings." as warning
+            else
+                -- if we suceeded
+                set my validateplistMsg to last paragraph of validateplistOutput
+                --Log Action
+                set logMe to validateplistMsg
+                logToFile_(me)
+                -- Hide the cog
+                set my validateplistCog to false
+            end if
+            -- See if pre-reqs have been met
+            checkIfReadyToProceed_(me)
+        on error errStr
+            -- If we got an error
+            set my validateplistMsg to errStr
+            --Log Action
+            set logMe to validateplistMsg
+            logToFile_(me)
+            -- Hide the cog
+            set my validateplistCog to false
+            -- Display alert
+            display alert "Validateplist Output" message "config plist validation errored with:\n" & errStr as critical
+        end try
+    end checkConfigPlist_
+
     -- Make sure OS & Imaging.app is specified before proceeding, once checked enable Imagr options, as well as Build & Option buttons
     on checkIfReadyToProceed_(sender)
-        -- Make sure imagrConfigURL has a value before we proceed
-        if (my imagrConfigURL is not equal to missing value) and (my imagrConfigURL is not equal to "") then
-            -- Set to true so we can continue
-            set imagrConfigURLCheckPass to true
-        end if
         -- Check to see if we have ticks or minor warning before we proceed
-        if (selectedAppCheckPass and selectedOSDMGCheckPass is equal to true) and imagrConfigURLCheckPass is equal to true then
+        if selectedAppCheckPass and selectedOSDMGCheckPass is equal to true then
             -- Enable Options & Build
             set my disableOptionsAndBuild to false
             --Log Action
@@ -925,6 +999,89 @@ script AutoImagrNBIAppDelegate
 
 ----- OPTIONS WINDOW  -----
 
+    -- Bound to Reporting Wiki Entry Button
+    on openReportingWikiEntry_(sender)
+        open location "https://github.com/grahamgilbert/imagr/wiki/Reporting"
+    end openReportingWikiEntry_
+
+    -- Bound to Enable HTTP Reporting
+    on httpReportingOption_(sender)
+        -- If false
+        if my httpReportingEnabled is false then
+            -- Update plist with selection
+            tell defaults to setObject_forKey_(httpReportingEnabled, "httpReportingEnabled")
+        else
+            -- Update plist with selection
+            tell defaults to setObject_forKey_(httpReportingEnabled, "httpReportingEnabled")
+        end if
+    end httpReportingOption_
+
+    -- Check that we have a HTTP Reporting URL
+    on checkHTTPReportingURL_(sender)
+        -- Set to boolean of value
+        set my httpReportingEnabled to httpReportingEnabled as boolean
+        -- If httpReportingEnabled is true
+        if my httpReportingEnabled is true
+            -- If textfield is empty
+            if (httpReportingURL is equal to "") or (httpReportingURL is missing value) then
+                -- Delete httpReportingURL from plist
+                tell defaults to removeObjectForKey_("httpReportingURL")
+                -- Display error to user
+                display dialog "Please enter a URL for the HTTP Reporting, or deselect the HTTP Reporting option." with icon 0 buttons {"OK"}
+                --Log Action
+                set logMe to "Error: Please enter a URL for the HTTP Reporting, or deselect the HTTP Reporting option."
+                logToFile_(me)
+                -- Set to false so we don't proceed
+                set closeButtonPreCheckPassed to false
+            else
+                -- Update plist with selection
+                tell defaults to setObject_forKey_(httpReportingURL, "httpReportingURL")
+                --Log Action
+                set logMe to "HTTP Reporting URL " & my httpReportingURL & " written to plist"
+                logToFile_(me)
+            end if
+        end if
+    end checkHTTPReportingURL_
+
+    -- Bound to Enable HTTP Reporting
+    on syslogReportingOption_(sender)
+        -- If false
+        if my syslogReportingEnabled is false then
+            -- Update plist with selection
+            tell defaults to setObject_forKey_(syslogReportingEnabled, "syslogReportingEnabled")
+        else
+            -- Update plist with selection
+            tell defaults to setObject_forKey_(syslogReportingEnabled, "syslogReportingEnabled")
+        end if
+    end syslogReportingOption_
+
+    -- Check that we have a Syslog URL
+    on checkSyslogReportingURL_(sender)
+        -- Set to boolean of value
+        set my syslogReportingEnabled to syslogReportingEnabled as boolean
+        -- If syslogReportingEnabled is true
+        if my syslogReportingEnabled is true
+            -- If textfield is empty
+            if (syslogReportingURL is equal to "") or (syslogReportingURL is missing value) then
+                -- Delete syslogReportingURL from plist
+                tell defaults to removeObjectForKey_("syslogReportingURL")
+                -- Display error to user
+                display dialog "Please enter a URL for the Syslog Reporting, or deselect the Syslog Reporting option." with icon 0 buttons {"OK"}
+                --Log Action
+                set logMe to "Error: Please enter a URL for the Syslog Reporting, or deselect the Syslog Reporting option."
+                logToFile_(me)
+                -- Set to false so we don't proceed
+                set closeButtonPreCheckPassed to false
+            else
+                -- Update plist with selection
+                tell defaults to setObject_forKey_(syslogReportingURL, "syslogReportingURL")
+                --Log Action
+                set logMe to "Syslog Reporting URL " & my syslogReportingURL & " written to plist"
+                logToFile_(me)
+            end if
+        end if
+    end checkSyslogReportingURL_
+
     -- Bound to "Enable Description"
     on enablenetBootDescription_(sender)
         --If not enabled, delete from plist
@@ -1044,6 +1201,14 @@ script AutoImagrNBIAppDelegate
                 display dialog "Please enter a Username for the ARD user or deselect the ARD option" with icon 0 buttons {"OK"}
                 --Log Action
                 set logMe to "Error: Please enter a Username for the ARD user or deselect the ARD option"
+                logToFile_(me)
+                -- Set to false so we don't proceed
+                set closeButtonPreCheckPassed to false
+            else if ardusername is equal to "root" then
+                -- Display error to user
+                display dialog "Please enter a Username other than root" with icon 0 buttons {"OK"}
+                --Log Action
+                set logMe to "Error: Please enter a Username other than root"
                 logToFile_(me)
                 -- Set to false so we don't proceed
                 set closeButtonPreCheckPassed to false
@@ -1571,6 +1736,10 @@ script AutoImagrNBIAppDelegate
         set closeButtonPreCheckPassed to true
         -- Verify that the description field has a value & reset & prompt if not
         netBootDescriptionCheck_(me)
+        -- Verify that a HTTP Reporting URL is set if enabled
+        checkHTTPReportingURL_(me)
+        -- Verify that a Syslog URL is set if enabled
+        checkSyslogReportingURL_(me)
         -- Check the value entered in the ARD Username textfield
         checkardUsername_(me)
         -- Check the value entered in the ARD Password textfield
@@ -1646,6 +1815,8 @@ script AutoImagrNBIAppDelegate
     on buildPreCheck_(sender)
         -- reset value
         set buildButtonPreCheckPassed to true
+        -- check the Imagr URL
+        checkimagrURL_(me)
         -- Make sure a name is specified for the NetBoot Image, error if not.
         netBootName_(me)
         -- Error if incorrect value specified
@@ -1655,7 +1826,7 @@ script AutoImagrNBIAppDelegate
         -- Set to boolean of value
         set buildButtonPreCheckPassed to buildButtonPreCheckPassed as boolean
         -- Proceed if we've passed precheck
-        if buildButtonPreCheckPassed is true then
+        if buildButtonPreCheckPassed is true and imagrConfigURLCheckPass is true then
             -- reload options from plist
             retrieveDefaults_(me)
             -- Set NetBoot Description
@@ -1683,6 +1854,14 @@ script AutoImagrNBIAppDelegate
         set my buildProcessProgressBarMax to 72
         -- Update build Process ProgressBar
         set my buildProcessProgressBar to 0
+        -- If HTTP Reporting URL is specified
+        if httpReportingEnabled is true then
+            set my buildProcessProgressBarMax to buildProcessProgressBarMax + 1
+        end if
+        -- If Syslog Reporting URL is specified
+        if syslogReportingEnabled is true then
+            set my buildProcessProgressBarMax to buildProcessProgressBarMax + 1
+        end if
         -- Check if reduce NetBoot Image is ticked
         if netBootImageReduceEnabled is true then
             set my buildProcessProgressBarMax to buildProcessProgressBarMax + 5
@@ -2038,14 +2217,24 @@ script AutoImagrNBIAppDelegate
                 set my buildProcessProgressBarIndeterminate to false
                 set my buildProcessProgressBarAniminate to false
                 -- Update Build Process Window's Text Field
-                set my buildProcessTextField to "Creating .nbi folder"
+                set my buildProcessTextField to "Creating folder structure"
                 delay 0.1
                 -- Update build Process ProgressBar
                 set my buildProcessProgressBar to buildProcessProgressBar + 1
+                -- Set root directory
+                set rootDirectory to netBootSelectedLocation & netBootNameTextField
                 -- Set to path of NetBoot directory
-                set netBootDirectory to netBootSelectedLocation & netBootNameTextField & ".nbi"
+                set netBootDirectory to rootDirectory & "/" & netBootNameTextField & ".nbi"
                 --Log action
-                set logMe to "Trying to create .nbi folder " & netBootDirectory
+                set logMe to "Trying to create root folder " & rootDirectory
+                logToFile_(me)
+                -- Create .nbi folder
+                do shell script "/bin/mkdir " & quoted form of rootDirectory user name adminUserName password adminUsersPassword with administrator privileges
+                --Log action
+                set logMe to "Successfully created " & quoted form of rootDirectory
+                logToFile_(me)
+                --Log action
+                set logMe to "Trying to create nbi folder " & netBootDirectory
                 logToFile_(me)
                 -- Create .nbi folder
                 do shell script "/bin/mkdir " & quoted form of netBootDirectory user name adminUserName password adminUsersPassword with administrator privileges
@@ -2060,12 +2249,12 @@ script AutoImagrNBIAppDelegate
                 -- If user selected "Delete Existing"
                 if button returned of the result is "Delete Existing" then
                     --Log action
-                    set logMe to "Trying to delete " & quoted form of netBootDirectory
+                    set logMe to "Trying to delete " & quoted form of rootDirectory
                     logToFile_(me)
                     -- Delete existing folder
-                    do shell script "/bin/rm -rf " & quoted form of netBootDirectory user name adminUserName password adminUsersPassword with administrator privileges
+                    do shell script "/bin/rm -rf " & quoted form of rootDirectory user name adminUserName password adminUsersPassword with administrator privileges
                     --Log action
-                    set logMe to "Deleted " & quoted form of netBootDirectory
+                    set logMe to "Deleted " & quoted form of rootDirectory
                     logToFile_(me)
                     -- Create the .nbi folder
                     netBootLocationCreate_(me)
@@ -2961,9 +3150,9 @@ script AutoImagrNBIAppDelegate
             --Log Action
             set logMe to "App Nap disabled"
             logToFile_(me)
-            -- Disable Screen Saver
-            disableScreenSaver_(me)
-        on error
+            -- Disable Persistance
+            disablePersistance_(me)
+    on error
             --Log Action
             set logMe to "Error: Disabling App Nap"
             logToFile_(me)
@@ -2975,6 +3164,37 @@ script AutoImagrNBIAppDelegate
             userNotify_(me)
         end try
     end disableAppNap_
+
+    -- Disable Persistance
+    on disablePersistance_(sender)
+        try
+            -- Update Build Process Window's Text Field
+            set my buildProcessTextField to "Disabling Persistance"
+            delay 0.1
+            -- Update build Process ProgressBar
+            set my buildProcessProgressBar to buildProcessProgressBar + 1
+            --Log Action
+            set logMe to "Trying to disable Persistance"
+            logToFile_(me)
+            -- Set Language
+            do shell script "/usr/bin/defaults write " & quoted form of netBootDmgMountPath & "/private/var/root/Library/Preferences/.GlobalPreferences.plist ApplePersistence -bool NO" user name adminUserName password adminUsersPassword with administrator privileges
+            --Log Action
+            set logMe to "Persistance disabled"
+            logToFile_(me)
+            -- Disable Screen Saver
+            disableScreenSaver_(me)
+            on error
+            --Log Action
+            set logMe to "Error: Disabling Persistance"
+            logToFile_(me)
+            -- Set to false to display
+            set my userNotifyErrorHidden to false
+            -- Set Error message
+            set my userNotifyError to "Error: Disabling Persistance"
+            -- Notify of errors or success
+            userNotify_(me)
+        end try
+    end disablePersistance_
 
     -- Disable Screen Saver
     on disableScreenSaver_(sender)
@@ -3581,7 +3801,7 @@ script AutoImagrNBIAppDelegate
             -- If a Imagr URL is specified
             if imagrConfigURL is not ""
                 -- Update Build Process Window's Text Field
-                set my buildProcessTextField to "Writing Imagr plist"
+                set my buildProcessTextField to "Writing Imagr URL to plist"
                 delay 0.1
                 -- Update build Process ProgressBar
                 set my buildProcessProgressBar to buildProcessProgressBar + 1
@@ -3590,7 +3810,37 @@ script AutoImagrNBIAppDelegate
                 -- Write Imagr Server URL to plist,
                 do shell script "/usr/bin/defaults write " & quoted form of variableVariable & " serverurl -string " & imagrConfigURL user name adminUserName password adminUsersPassword with administrator privileges
                 --Log Action
-                set logMe to "plist updated with Imagr Server url"
+                set logMe to "plist updated with Imagr Server URL"
+                logToFile_(me)
+            end if
+            -- If HTTP Reporting URL is specified
+            if syslogReportingEnabled is true then
+                -- Update Build Process Window's Text Field
+                set my buildProcessTextField to "Writing HTTP Reporting URL to plist"
+                delay 0.1
+                -- Update build Process ProgressBar
+                set my buildProcessProgressBar to buildProcessProgressBar + 1
+                -- Imagr Plist location on mounted volume
+                set variableVariable to netBootDmgMountPath & "/private/var/root/Library/Preferences/com.grahamgilbert.Imagr.plist"
+                -- Write HTTP Reporting URL to plist,
+                do shell script "/usr/bin/defaults write " & quoted form of variableVariable & " syslog -string " & httpReportingURL user name adminUserName password adminUsersPassword with administrator privileges
+                --Log Action
+                set logMe to "plist updated with HTTP Reporting URL"
+                logToFile_(me)
+            end if
+            -- If Syslog URL is specified
+            if syslogReportingEnabled is true then
+                -- Update Build Process Window's Text Field
+                set my buildProcessTextField to "Writing Syslog URL to plist"
+                delay 0.1
+                -- Update build Process ProgressBar
+                set my buildProcessProgressBar to buildProcessProgressBar + 1
+                -- Imagr Plist location on mounted volume
+                set variableVariable to netBootDmgMountPath & "/private/var/root/Library/Preferences/com.grahamgilbert.Imagr.plist"
+                -- Write Syslog URL to plist,
+                do shell script "/usr/bin/defaults write " & quoted form of variableVariable & " syslog -string " & syslogReportingURL user name adminUserName password adminUsersPassword with administrator privileges
+                --Log Action
+                set logMe to "plist updated with Syslog URL"
                 logToFile_(me)
             end if
             -- Install ImagrLaunchAgent
@@ -4549,7 +4799,7 @@ script AutoImagrNBIAppDelegate
                 set logMe to "Trying create Restorable DMG of " & netBootDirectory & "/NetBoot.sparseimage"
                 logToFile_(me)
                 -- Make a Read-Only copy of NetBoot.sparseimage
-                do shell script "/usr/bin/hdiutil convert -format UDZO -o " & quoted form of netBootDirectory & "/NetBoot.restorable.dmg " & quoted form of netBootDirectory & "/NetBoot.sparseimage" user name adminUserName password adminUsersPassword with administrator privileges
+                do shell script "/usr/bin/hdiutil convert -format UDZO -o " & quoted form of rootDirectory & "/" & quoted form of netBootNameTextField & ".restorable.dmg " & quoted form of netBootDirectory & "/NetBoot.sparseimage" user name adminUserName password adminUsersPassword with administrator privileges
                 --Log Action
                 set logMe to "Created " & netBootDirectory & "/NetBoot.restorable.dmg"
                 logToFile_(me)
@@ -4559,12 +4809,12 @@ script AutoImagrNBIAppDelegate
                 -- Update build Process ProgressBar
                 set my buildProcessProgressBar to buildProcessProgressBar + 1
                 --Log Action
-                set logMe to "ASR scanning " & netBootDirectory & "/NetBoot.restorable.dmg"
+                set logMe to "ASR scanning " & quoted form of rootDirectory & "/" & quoted form of netBootNameTextField & ".restorable.dmg"
                 logToFile_(me)
                 -- ASR scan NetBoot.readonly.dmg
-                do shell script "/usr/sbin/asr -imagescan -allowfragmentedcatalog " & quoted form of netBootDirectory & "/NetBoot.restorable.dmg" user name adminUserName password adminUsersPassword with administrator privileges
+                do shell script "/usr/sbin/asr -imagescan -allowfragmentedcatalog " & quoted form of rootDirectory & "/" & quoted form of netBootNameTextField & ".restorable.dmg" user name adminUserName password adminUsersPassword with administrator privileges
                 --Log Action
-                set logMe to "ASR scanned " & netBootDirectory & "/NetBoot.restorable.dmg"
+                set logMe to "ASR scanned " & quoted form of rootDirectory & "/" & quoted form of netBootNameTextField & ".restorable.dmg"
                 logToFile_(me)
                 -- Rename sparseimage to .DMG
                 renameSparseimageToDMG_(me)
@@ -4676,7 +4926,7 @@ script AutoImagrNBIAppDelegate
         userNotifyClose_(me)
         -- Open NBI folder in Finder
         tell application "Finder"
-            open netBootDirectory as POSIX file
+            open rootDirectory as POSIX file
         end tell
         -- Make frontmost
         tell application "System Events" to set frontmost of process "Finder" to true
@@ -4684,6 +4934,8 @@ script AutoImagrNBIAppDelegate
 
     -- Notify of errors or success
     on userNotify_(sender)
+        -- Bounce app icon
+        current application's NSApp's requestUserAttention:0
         -- activate user notify window
         activate
         userNotifyWindow's makeKeyAndOrderFront_(null)
