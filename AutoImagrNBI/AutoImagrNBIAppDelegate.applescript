@@ -3745,8 +3745,8 @@ script AutoImagrNBIAppDelegate
                 set logMe to "Quarantine flag already removed from " & quoted form of copiedAppPath
                 logToFile_(me)
             end try
-            -- Enable Imagr in Debug mode
-            enableImagrDebug_(me)
+            -- Write the Imagr plist
+            writeImagrPlist_(me)
         on error
             --Log Action
             set logMe to "Error: There was an issue copying  " & selectedAppPath & " to " & variableVariable
@@ -3759,41 +3759,6 @@ script AutoImagrNBIAppDelegate
             userNotify_(me)
         end try
     end copyImagrApp_
-
-    -- Enable Imagr in Debug mode
-    on enableImagrDebug_(sender)
-        try
-            -- Update Build Process Window's Text Field
-            set my buildProcessTextField to "Setting Imagr to Debug mode"
-            delay 0.1
-            -- Update build Process ProgressBar
-            set my buildProcessProgressBar to buildProcessProgressBar + 1
-            -- Try as errors if found
-            try
-                -- Make Debug folder
-                do shell script "/bin/mkdir " & quoted form of copiedAppPath & "/Contents/Support/debug" user name adminUserName password adminUsersPassword with administrator privileges
-                -- Log Action
-                set logMe to "Debug folder created in "  & quoted form of copiedAppPath & "/Contents/Support/debug"
-                logToFile_(me)
-            on error
-                -- Log Action
-                set logMe to "Debug found at "  & quoted form of copiedAppPath & "/Contents/Support/debug"
-                logToFile_(me)
-            end try
-            -- Write the Imagr plist
-            writeImagrPlist_(me)
-        on error
-            --Log Action
-            set logMe to "Error: Setting Imagr to Debug mode"
-            logToFile_(me)
-            -- Set to false to display
-            set my userNotifyErrorHidden to false
-            -- Set Error message
-            set my userNotifyError to "Error: Setting Imagr to Debug mode"
-            -- Notify of errors or success
-            userNotify_(me)
-        end try
-    end enableImagrDebug_
         
     -- Write the Imagr plist
     on writeImagrPlist_(sender)
@@ -3803,6 +3768,9 @@ script AutoImagrNBIAppDelegate
                 -- Update Build Process Window's Text Field
                 set my buildProcessTextField to "Writing Imagr URL to plist"
                 delay 0.1
+                --Log Action
+                set logMe to "Writing Imagr URL to plist"
+                logToFile_(me)
                 -- Update build Process ProgressBar
                 set my buildProcessProgressBar to buildProcessProgressBar + 1
                 -- Imagr Plist location on mounted volume
@@ -3814,16 +3782,19 @@ script AutoImagrNBIAppDelegate
                 logToFile_(me)
             end if
             -- If HTTP Reporting URL is specified
-            if syslogReportingEnabled is true then
+            if httpReportingEnabled is true then
                 -- Update Build Process Window's Text Field
                 set my buildProcessTextField to "Writing HTTP Reporting URL to plist"
                 delay 0.1
+                --Log Action
+                set logMe to "Writing HTTP Reporting URL to plist"
+                logToFile_(me)
                 -- Update build Process ProgressBar
                 set my buildProcessProgressBar to buildProcessProgressBar + 1
                 -- Imagr Plist location on mounted volume
                 set variableVariable to netBootDmgMountPath & "/private/var/root/Library/Preferences/com.grahamgilbert.Imagr.plist"
                 -- Write HTTP Reporting URL to plist,
-                do shell script "/usr/bin/defaults write " & quoted form of variableVariable & " syslog -string " & httpReportingURL user name adminUserName password adminUsersPassword with administrator privileges
+                do shell script "/usr/bin/defaults write " & quoted form of variableVariable & " reporturl -string " & httpReportingURL user name adminUserName password adminUsersPassword with administrator privileges
                 --Log Action
                 set logMe to "plist updated with HTTP Reporting URL"
                 logToFile_(me)
@@ -3833,6 +3804,9 @@ script AutoImagrNBIAppDelegate
                 -- Update Build Process Window's Text Field
                 set my buildProcessTextField to "Writing Syslog URL to plist"
                 delay 0.1
+                --Log Action
+                set logMe to "Writing Syslog URL to plist"
+                logToFile_(me)
                 -- Update build Process ProgressBar
                 set my buildProcessProgressBar to buildProcessProgressBar + 1
                 -- Imagr Plist location on mounted volume
