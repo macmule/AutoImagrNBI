@@ -499,8 +499,14 @@ script AutoImagrNBIAppDelegate
         -- Loop through each entry, looking for the key's value
         repeat with anItem in theEntities
             set selectedOSdmgMountPath to anItem's objectForKey_("mount-point")
-            -- If we found a value, exit with it
-            if (selectedOSdmgMountPath is not equal to None) then exit repeat
+            -- If we have a value, then check.. if APFS a few new mount-points appear that we need to discard
+            if (selectedOSdmgMountPath is not equal to missing value) then
+                set selectedOSdmgMountPath to (NSString's stringWithString:selectedOSdmgMountPath) as string
+                if (selectedOSdmgMountPath as string is not equal to "/Volumes/Preboot") and (selectedOSdmgMountPath as string is not equal to "/Volumes/Recovery") then
+                    set selectedOSdmgMountPath to selectedOSdmgMountPath as text
+                    exit repeat
+                end if
+            end if
             -- Guess we didn't find one, let's check the next ...
         end repeat
         --  Set to text of variable
@@ -775,8 +781,16 @@ script AutoImagrNBIAppDelegate
     
     -- Check the Imagr URL details
     on checkImagrURL_(sender)
-        -- Make sure imagrConfigURL has a value before we proceed
-        if (my imagrConfigURL as string is not equal to "") and (my imagrConfigURL as string is not equal to missing value) then
+        -- Error if a local url is passed
+        if (my imagrConfigURL as string starts with "/") or (my imagrConfigURL as string starts with "file:")
+            -- Set to false
+            set imagrConfigURLCheckPass to false
+            -- Empty variable
+            set imagrConfigURL to "" as string
+            -- display message to the user
+            display dialog "Local plists need to be validated outside of AutoImagrNBI & added to the NBI as a pkg" with icon 0 buttons {"OK"}
+        --  If  imagrConfigURL has a value
+        else if (my imagrConfigURL as string is not equal to "") and (my imagrConfigURL as string is not equal to missing value) then
             -- Update plist
             tell defaults to setObject_forKey_(imagrConfigURL, "imagrConfigURL")
             -- Set to true so we can continue
@@ -784,17 +798,8 @@ script AutoImagrNBIAppDelegate
             -- Check config plist
             checkConfigPlist_(me)
         else
-            -- Update plist
-            --tell defaults to removeObjectForKey_("imagrConfigURL")
-            -- Display error to user
-            display dialog "Please enter an Imagr Configuration Plist URL" with icon 0 buttons {"OK"}
-            --Log Action
-            set logMe to "Error: Please enter an Imagr Configuration Plist URL"
-            logToFile_(me)
-            -- Disable Options & Build
-            set my disableOptionsAndBuild to true
-            -- Set to false so we don't continue
-            set imagrConfigURLCheckPass to false
+            -- Set to true so we can continue
+            set imagrConfigURLCheckPass to true
             -- See if pre-reqs have been met
             checkIfReadyToProceed_(me)
         end if
@@ -1851,7 +1856,7 @@ script AutoImagrNBIAppDelegate
     -- Calculate progressbar max length, depending on selection
     on calcBuildProgressBarMax_(sender)
         -- Reset
-        set my buildProcessProgressBarMax to 72
+        set my buildProcessProgressBarMax to 76
         -- Update build Process ProgressBar
         set my buildProcessProgressBar to 0
         -- If HTTP Reporting URL is specified
@@ -1901,6 +1906,10 @@ script AutoImagrNBIAppDelegate
         -- If we're creating on a 10.9.x netboot
         if selectedOSdmgVersionMajor is 9 then
             set my buildProcessProgressBarMax to buildProcessProgressBarMax + 1
+        end if
+        -- If we're creating on a 10.13.x netboot
+        if selectedOSdmgVersionMajor is 13 then
+            set my buildProcessProgressBarMax to buildProcessProgressBarMax + 2
         end if
         -- If we're creating a Restorable DMG
         if createReadOnlyDMG is true
@@ -2412,7 +2421,7 @@ script AutoImagrNBIAppDelegate
                 set my buildProcessProgressBar to buildProcessProgressBar + 1
                 delay 0.1
                 -- Delete all in the location except those that are given below
-                do shell script "find " & quoted form of netBootDmgMountPath & "/System/Library/PreferencePanes/* -maxdepth 0 -not -path \"*DateAndTime.prefPane*\" -not -path \"*Displays.prefPane*\" -not -path \"*Network.prefPane*\" -not -path \"*SharingPref.prefPane*\" -not -path \"*StartupDisk.prefPane*\" -exec rm -rf {} \\;" user name adminUserName password adminUsersPassword with administrator privileges
+                do shell script "find " & quoted form of netBootDmgMountPath & "/System/Library/PreferencePanes/* -maxdepth 0 -not -path \"*DateAndTime.prefPane*\" -not -path \"*Displays.prefPane*\" -not -path \"*Keyboard.prefPane*\" -not -path \"*Network.prefPane*\" -not -path \"*SharingPref.prefPane*\" -not -path \"*StartupDisk.prefPane*\" -exec rm -rf {} \\;" user name adminUserName password adminUsersPassword with administrator privileges
                 --Log Action
                 set logMe to "Deleted Preference Panes from: " & netBootDmgMountPath & "/System/Library/PreferencePanes/"
                 logToFile_(me)
@@ -2572,10 +2581,10 @@ script AutoImagrNBIAppDelegate
                 set logMe to "Emptied " & netBootDmgMountPath & "/System/Library/Automator/"
                 logToFile_(me)
                 -- Update Build Process Window's Text Field
-                set my buildProcessTextField to "Emptying /System/Library/Caches/"
-                delay 0.1
+                --set my buildProcessTextField to "Emptying /System/Library/Caches/"
+               -- delay 0.1
                 -- Empty the below folder
-                do shell script "/bin/rm -rf " & quoted form of netBootDmgMountPath & "/System/Library/Caches/*" user name adminUserName password adminUsersPassword with administrator privileges
+                --do shell script "/bin/rm -rf " & quoted form of netBootDmgMountPath & "/System/Library/Caches/*" user name adminUserName password adminUsersPassword with administrator privileges
                 --Log Action
                 set logMe to "Emptied " & netBootDmgMountPath & "/System/Library/Caches/"
                 logToFile_(me)
@@ -3119,8 +3128,8 @@ script AutoImagrNBIAppDelegate
                 set logMe to "Deleted " & netBootDmgMountPath & "/Library/Preferences/com.apple.dockfixup.plist"
                 logToFile_(me)
             end if
-            -- Disable AppNap
-            disableAppNap_(me)
+            -- Deletes launchAgent that triggers "New to Mac?" notification
+            deleteTouristd_(sender)
         on error
             --Log Action
             set logMe to "Error: Deleting /Library/Preferences/com.apple.dockfixup.plist"
@@ -3133,6 +3142,47 @@ script AutoImagrNBIAppDelegate
             userNotify_(me)
         end try
     end deleteDockFixUp_
+
+    -- Deletes launchAgent that triggers "New to Mac?" notification
+    on deleteTouristd_(sender)
+        -- Update Build Process Window's Text Field
+        set my buildProcessTextField to "Disabling touristd"
+        delay 0.1
+        -- Update build Process ProgressBar
+        set my buildProcessProgressBar to buildProcessProgressBar + 1
+        try
+            set variableVariable to netBootDmgMountPath & "/System/Library/LaunchAgents/com.apple.touristd.plist"
+            set file_path to current application's NSString's stringWithString:variableVariable
+            set fileManager to current application's NSFileManager's defaultManager()
+            if (item 1 of (fileManager's fileExistsAtPath:file_path isDirectory:(reference))) as boolean = true then
+                --Log Action
+                set logMe to "Found com.apple.touristd.plist: " & file_path
+                logToFile_(me)
+                -- Delete the below folder, silently error if doesn't exist
+                try
+                    do shell script "/bin/rm " & quoted form of variableVariable user name adminUserName password adminUsersPassword with administrator privileges
+                end try
+                --Log Action
+                set logMe to "Deleted " & file_path
+                logToFile_(me)
+                -- Disable AppNap
+                disableAppNap_(me)
+            else
+                -- Disable AppNap
+                disableAppNap_(me)
+            end if
+        on error
+            --Log Action
+            set logMe to "Error: Disabling touristd"
+            logToFile_(me)
+            -- Set to false to display
+            set my userNotifyErrorHidden to false
+            -- Set Error message
+            set my userNotifyError to "Error: Disabling touristd"
+            -- Notify of errors or success
+            userNotify_(me)
+        end try
+    end deleteTouristd_
 
     -- Disable AppNap
     on disableAppNap_(sender)
@@ -4190,13 +4240,13 @@ script AutoImagrNBIAppDelegate
             logToFile_(me)
             -- Update dylyd cache, this can error on success.
             try
-                do shell script "/usr/bin/update_dyld_shared_cache -root " & quoted form of netBootDmgMountPath & " -universal_boot -force" user name adminUserName password adminUsersPassword with administrator privileges
+                do shell script quoted form of netBootDmgMountPath & "/usr/bin/update_dyld_shared_cache -root " & quoted form of netBootDmgMountPath & " -universal_boot -force" user name adminUserName password adminUsersPassword with administrator privileges
             end try
             --Log Action
             set logMe to "Successfully created dyld caches"
             logToFile_(me)
-            -- Generate the Kernel cache
-            generateKernelCache_(me)
+            -- Delete launchd rebuild caches
+            deleteLaunchdRebuildCaches_(me)
         on error
             --Log Action
             set logMe to "Error: Creating dyld shared cache files"
@@ -4209,6 +4259,86 @@ script AutoImagrNBIAppDelegate
             userNotify_(me)
         end try
     end createDlydCaches
+
+    -- Delete launchd rebuild caches
+    on deleteLaunchdRebuildCaches_(sender)
+        try
+            set variableVariable to netBootDmgMountPath & "/var/db/.launchd_rebuild_caches"
+            set file_path to current application's NSString's stringWithString:variableVariable
+            set fileManager to current application's NSFileManager's defaultManager()
+            if (item 1 of (fileManager's fileExistsAtPath:file_path isDirectory:(reference))) as boolean = true then
+                -- Update Build Process Window's Text Field
+                set my buildProcessTextField to "Deleting /var/db/.launchd_rebuild_caches"
+                delay 0.1
+                -- Update build Process ProgressBar
+                set my buildProcessProgressBar to buildProcessProgressBar + 1
+                --Log Action
+                set logMe to "Found: " & file_path
+                logToFile_(me)
+                -- Delete the below file, silently error if doesn't exist
+                try
+                    do shell script "/bin/rm " & quoted form of variableVariable user name adminUserName password adminUsersPassword with administrator privileges
+                end try
+                --Log Action
+                set logMe to "Deleted: " & file_path
+                logToFile_(me)
+                -- Create xpc extensions cache files
+                createXpcExtensionsCaches_(me)
+            else
+                -- Create xpc extensions cache files
+                createXpcExtensionsCaches_(me)
+            end if
+            on error
+            --Log Action
+            set logMe to "Error: Creating xpc extensions cache"
+            logToFile_(me)
+            -- Set to false to display
+            set my userNotifyErrorHidden to false
+            -- Set Error message
+            set my userNotifyError to "Error: xpc extensions cache"
+            -- Notify of errors or success
+            userNotify_(me)
+        end try
+    end deleteLaunchdRebuildCaches
+
+    -- Create xpc extensions cache files
+    on createXpcExtensionsCaches_(sender)
+        try
+            set variableVariable to netBootDmgMountPath & "/usr/libexec/xpccachectl"
+            set file_path to current application's NSString's stringWithString:variableVariable
+            set fileManager to current application's NSFileManager's defaultManager()
+            if (item 1 of (fileManager's fileExistsAtPath:file_path isDirectory:(reference))) as boolean = true then
+                -- Update Build Process Window's Text Field
+                set my buildProcessTextField to "Creating xpc extensions cache"
+                delay 0.1
+                -- Update build Process ProgressBar
+                set my buildProcessProgressBar to buildProcessProgressBar + 1
+                --Log Action
+                set logMe to "Creating xpc extensions cache on : " & netBootDmgMountPath
+                logToFile_(me)
+                -- Update xpc extension caches
+                do shell script quoted form of netBootDmgMountPath & "/usr/libexec/xpccachectl --base " & quoted form of netBootDmgMountPath user name adminUserName password adminUsersPassword with administrator privileges
+                --Log Action
+                set logMe to "Successfully xpc extensions cache"
+                logToFile_(me)
+                -- Generate the Kernel cache
+                generateKernelCache_(me)
+            else
+                -- Generate the Kernel cache
+                generateKernelCache_(me)
+            end if
+        on error
+            --Log Action
+            set logMe to "Error: Creating xpc extensions cache"
+            logToFile_(me)
+            -- Set to false to display
+            set my userNotifyErrorHidden to false
+            -- Set Error message
+            set my userNotifyError to "Error: xpc extensions cache"
+            -- Notify of errors or success
+            userNotify_(me)
+        end try
+    end createXpcExtensionsCaches
 
     -- Generate the Kernel cache
     on generateKernelCache_(sender)
@@ -4350,8 +4480,8 @@ script AutoImagrNBIAppDelegate
             --Log Action
             set logMe to "Set ownership to root:staff on " & netBootDirectory & "/i386/booter"
             logToFile_(me)
-            -- Copy PlatformSupport.plist
-            copyPlatformSupportPlist_(me)
+            -- Copy Wifi Folder if exists
+            copyWifiFolder_(me)
         on error
             --Log Action
             set logMe to "Error: Copying booter.efi"
@@ -4364,6 +4494,65 @@ script AutoImagrNBIAppDelegate
             userNotify_(me)
         end try
     end copyBootEfi_
+
+    -- Copy Wifi Folder if exists
+    on copyWifiFolder_(sender)
+        try
+            set variableVariable to netBootDmgMountPath & "/usr/share/firmware/wifi/"
+            set file_path to current application's NSString's stringWithString:variableVariable
+            set fileManager to current application's NSFileManager's defaultManager()
+            if (item 1 of (fileManager's fileExistsAtPath:file_path isDirectory:(reference))) as boolean = true then
+                --Log Action
+                set logMe to "Found wifi folder: " & file_path
+                logToFile_(me)
+                -- Update build Process ProgressBar
+                set my buildProcessProgressBar to buildProcessProgressBar + 1
+                --Log Action
+                set logMe to "Trying to create folder " & netBootDirectory & "/i386/wifi"
+                logToFile_(me)
+                -- Create the wifi folder
+                do shell script "/bin/mkdir -p " & quoted form of netBootDirectory & "/i386/wifi" user name adminUserName password adminUsersPassword with administrator privileges
+                --Log Action
+                set logMe to "Created folder " & netBootDirectory & "/i386/wifi"
+                logToFile_(me)
+                -- Update Build Process Window's Text Field
+                set my buildProcessTextField to "Copying wifi folder"
+                delay 0.1
+                -- Update build Process ProgressBar
+                set my buildProcessProgressBar to buildProcessProgressBar + 1
+                --Log Action
+                set logMe to "Trying to copy wifi folder from" & quoted form of variableVariable
+                logToFile_(me)
+                set logMe to "command: /bin/cp -R " & quoted form of variableVariable & space & quoted form of netBootDirectory & "/i386/wifi/"
+                logToFile_(me)
+                -- Create the wifi folder
+                do shell script "/bin/cp -R " & quoted form of variableVariable & space & quoted form of netBootDirectory & "/i386/wifi/" user name adminUserName password adminUsersPassword with administrator privileges
+                --Log Action
+                set logMe to "Successfully copied wifi folder"
+                logToFile_(me)
+                -- Correct ownership
+                do shell script "/usr/sbin/chown -R root:staff " & quoted form of netBootDirectory & "/i386/wifi" user name adminUserName password adminUsersPassword with administrator privileges
+                --Log Action
+                set logMe to "Set ownership to root:staff on " & netBootDirectory & "/i386/wifi"
+                logToFile_(me)
+                -- Copy PlatformSupport.plist
+                copyPlatformSupportPlist_(me)
+            else
+                -- Copy PlatformSupport.plist
+                copyPlatformSupportPlist_(me)
+            end if
+        on error
+            --Log Action
+            set logMe to "Error: Copying wifi folder"
+            logToFile_(me)
+            -- Set to false to display
+            set my userNotifyErrorHidden to false
+            -- Set Error message
+            set my userNotifyError to "Error: Copying wifi folder"
+            -- Notify of errors or success
+            userNotify_(me)
+        end try
+    end copyWifiFolder_
 
     -- Copy PlatformSupport.plist
     on copyPlatformSupportPlist_(sender)

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16A320" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16G29" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13122.17"/>
         <capability name="box content view" minToolsVersion="7.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -196,16 +197,17 @@
                                 <textField verticalHuggingPriority="750" misplaced="YES" id="3TG-5f-y7x">
                                     <rect key="frame" x="86" y="52" width="320" height="22"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" allowsUndo="NO" state="on" borderStyle="bezel" alignment="left" placeholderString="Required. Imagr Configuration Plist URL" drawsBackground="YES" usesSingleLineMode="YES" id="ciO-jn-z84">
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" allowsUndo="NO" state="on" borderStyle="bezel" alignment="left" placeholderString="Optional. Imagr Configuration Plist URL." drawsBackground="YES" usesSingleLineMode="YES" id="ciO-jn-z84">
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         <connections>
-                                            <binding destination="Voe-Tx-rLC" name="value" keyPath="imagrConfigURL" id="Ks8-Jf-Nn9">
+                                            <binding destination="Voe-Tx-rLC" name="value" keyPath="imagrConfigURL" id="1od-QZ-Jkx">
                                                 <dictionary key="options">
                                                     <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
                                                     <bool key="NSConditionallySetsEditable" value="NO"/>
                                                     <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                    <string key="NSNullPlaceholder">Optional. Imagr Configuration Plist URL</string>
                                                     <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                                     <bool key="NSValidatesImmediately" value="YES"/>
                                                 </dictionary>
@@ -219,21 +221,21 @@
                                                 <string key="NSValueTransformerName">NSNegateBoolean</string>
                                             </dictionary>
                                         </binding>
-                                        <binding destination="Voe-Tx-rLC" name="value" keyPath="imagrConfigURL" id="8K3-iu-FZ7">
-                                            <dictionary key="options">
-                                                <bool key="NSConditionallySetsEditable" value="NO"/>
-                                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
-                                                <string key="NSNullPlaceholder">Required. Imagr Configuration Plist URL</string>
-                                                <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
-                                                <bool key="NSValidatesImmediately" value="YES"/>
-                                            </dictionary>
-                                        </binding>
                                         <binding destination="Voe-Tx-rLC" name="enabled2" keyPath="optionWindowEnabled" previousBinding="8nB-K9-6g1" id="T8b-3h-EyH">
                                             <dictionary key="options">
                                                 <integer key="NSMultipleValuesPlaceholder" value="-1"/>
                                                 <integer key="NSNoSelectionPlaceholder" value="-1"/>
                                                 <integer key="NSNotApplicablePlaceholder" value="-1"/>
                                                 <integer key="NSNullPlaceholder" value="-1"/>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="Voe-Tx-rLC" name="value" keyPath="imagrConfigURL" id="boC-YW-tEy">
+                                            <dictionary key="options">
+                                                <bool key="NSConditionallySetsEditable" value="NO"/>
+                                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                <string key="NSNullPlaceholder">Optional. Imagr Configuration Plist URL.</string>
+                                                <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
+                                                <bool key="NSValidatesImmediately" value="YES"/>
                                             </dictionary>
                                         </binding>
                                     </connections>
