@@ -23,6 +23,7 @@ script AutoImagrNBIAppDelegate
     property showBuildProcessWindow : ""
     property selectedOSdmgPath : ""
     property selectedOSdmgMountPath : ""
+    property selectedOSdmgKind : ""
     property selectedOSdmgVersion : ""
     property selectedOSBuilddmgVersion : ""
     property selectedAppPath : ""
@@ -496,9 +497,11 @@ script AutoImagrNBIAppDelegate
         -- There can be (and usually are) multiple entities. We're looking for the one that contains a "mount-point" key
         -- Start with a default value of None
         set selectedOSdmgMountPath to None
+        set selectedOSdmgKind to None
         -- Loop through each entry, looking for the key's value
         repeat with anItem in theEntities
             set selectedOSdmgMountPath to anItem's objectForKey_("mount-point")
+            set selectedOSdmgKind to (anItem's objectForKey:"volume-kind")
             -- If we have a value, then check.. if APFS a few new mount-points appear that we need to discard
             if (selectedOSdmgMountPath is not equal to missing value) then
                 set selectedOSdmgMountPath to (NSString's stringWithString:selectedOSdmgMountPath) as string
@@ -511,8 +514,18 @@ script AutoImagrNBIAppDelegate
         end repeat
         --  Set to text of variable
         set selectedOSdmgMountPath to selectedOSdmgMountPath as text
+        -- If APFS source byt not 10.13
+        if ((NSString's stringWithString:selectedOSdmgKind) as string) is equal to "apfs" then
+            --Log Action
+            set logMe to "APFS source, not a 10.13 host"
+            logToFile_(me)
+            -- Error advising we cannot mount the DMG
+            set my selectedOSDMGTextField to "Cannot Mount DMG"
+            display dialog selectedOSdmgPath & " is an APFS Volume, & therefore needs 10.13 to create an NBI from." with icon 0 buttons {"OK"}
+            -- Reset OSDMG Icons & hide cog
+            doResetOSDMGIcons_(me)
         -- If we have an value for the OS DMG's mount-point, try & get OS version
-        if selectedOSdmgMountPath is not equal to None then
+        else if selectedOSdmgMountPath is not equal to None then
             set logMe to "Mounted to: " & selectedOSdmgMountPath
             logToFile_(me)
             -- Try & read /System/Library/CoreServices/SystemVersion.plist
