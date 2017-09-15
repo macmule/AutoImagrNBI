@@ -215,6 +215,18 @@ script AutoImagrNBIAppDelegate
         logToFile_(me)
         -- Get OS of host mac to verify that we can create an .nbi from supplied OS.dmg
         set my hostMacOSVersion to (do shell script "/usr/bin/sw_vers -productVersion")
+        -- Variables to mess with, keeping the orignal with their decimals
+        set my hostMacOSVersionToDelim to hostMacOSVersion
+        -- Store delimiters for resetting later
+        set applescriptsDelims to AppleScript's text item delimiters
+        -- Set delimiters to decimal
+        set AppleScript's text item delimiters to "."
+        -- Set variables to the split versions
+        set hostMacOSVersionToDelim to hostMacOSVersionToDelim's text items
+        -- Set to major version of OS
+        set hostMacOSVersionMajor to text item 2 of hostMacOSVersionToDelim as integer
+        -- Reset delimiters
+        set AppleScript's text item delimiters to applescriptsDelims
         -- Get host macs Build version for logging/debugging
         set my hostMacOSBuildVersion to (do shell script "/usr/bin/sw_vers -buildVersion")
         -- Log OS version & build of host mac
@@ -514,8 +526,8 @@ script AutoImagrNBIAppDelegate
         end repeat
         --  Set to text of variable
         set selectedOSdmgMountPath to selectedOSdmgMountPath as text
-        -- If APFS source byt not 10.13
-        if ((NSString's stringWithString:selectedOSdmgKind) as string) is equal to "apfs" then
+        -- If APFS source but not 10.13
+        if (hostMacOSVersionMajor is less than 13) and ((NSString's stringWithString:selectedOSdmgKind) as string) is equal to "apfs" then
             --Log Action
             set logMe to "APFS source, not a 10.13 host"
             logToFile_(me)
