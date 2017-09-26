@@ -3617,10 +3617,15 @@ script AutoImagrNBIAppDelegate
             --Log Action
             set logMe to "Trying to set Root User auto login"
             logToFile_(me)
-            -- Write Imagr URL to plist,
+            -- Write autoLoginUID to plist,
+            do shell script "/usr/bin/defaults write " & quoted form of netBootDmgMountPath & "/Library/Preferences/com.apple.loginwindow.plist autoLoginUID -string 0" user name adminUserName password adminUsersPassword with administrator privileges
+            --Log Action
+            set logMe to "Successfully set autoLoginUID"
+            logToFile_(me)
+            -- Write autoLoginUser to plist,
             do shell script "/usr/bin/defaults write " & quoted form of netBootDmgMountPath & "/Library/Preferences/com.apple.loginwindow.plist autoLoginUser -string root" user name adminUserName password adminUsersPassword with administrator privileges
             --Log Action
-            set logMe to "Successfully set Root User auto login"
+            set logMe to "Successfully set autoLoginUser"
             logToFile_(me)
             --Log Action
             set logMe to "Trying to set ownership to root:wheel on " & quoted form of netBootDmgMountPath & "/Library/Preferences/com.apple.loginwindow.plist"
