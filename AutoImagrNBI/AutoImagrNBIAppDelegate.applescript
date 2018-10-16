@@ -490,8 +490,6 @@ script AutoImagrNBIAppDelegate
         set my cogOSDMG to true
         -- Delay needed to update label
         delay 0.1
-        -- Set to front window
-        --tell application "System Events" to set frontmost of process "AutoImagrNBI" to true
         --  Try & mount OS.dmg
         -- Stolen from frogor on IRC with permission :)
         -- Mount OS.dmh & get mount point
@@ -5106,11 +5104,7 @@ script AutoImagrNBIAppDelegate
         -- Close User Notify Window
         userNotifyClose_(me)
         --Open log file with console
-        tell application "Console"
-            open "~/Library/Logs/AutoImagrNBI/AutoImagrNBI-" & logDate & ".log" as POSIX file
-        end tell
-        -- Make frontmost
-        --tell application "System Events" to set frontmost of process "Console" to true
+        do shell script "/usr/bin/open -a /Applications/Utilities/Console.app ~/Library/Logs/AutoImagrNBI/AutoImagrNBI-" & logDate & ".log"
     end openLogLocation_
 
     -- Open NBI Location
