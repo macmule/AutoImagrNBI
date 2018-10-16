@@ -491,7 +491,7 @@ script AutoImagrNBIAppDelegate
         -- Delay needed to update label
         delay 0.1
         -- Set to front window
-        tell application "System Events" to set frontmost of process "AutoImagrNBI" to true
+        --tell application "System Events" to set frontmost of process "AutoImagrNBI" to true
         --  Try & mount OS.dmg
         -- Stolen from frogor on IRC with permission :)
         -- Mount OS.dmh & get mount point
@@ -517,7 +517,7 @@ script AutoImagrNBIAppDelegate
             -- If we have a value, then check.. if APFS a few new mount-points appear that we need to discard
             if (selectedOSdmgMountPath is not equal to missing value) then
                 set selectedOSdmgMountPath to (NSString's stringWithString:selectedOSdmgMountPath) as string
-                if (selectedOSdmgMountPath as string is not equal to "/Volumes/Preboot") and (selectedOSdmgMountPath as string is not equal to "/Volumes/Recovery") then
+                if (selectedOSdmgMountPath as string does not start with "/Volumes/Preboot") and (selectedOSdmgMountPath as string is not equal to "/Volumes/Recovery") then
                     set selectedOSdmgMountPath to selectedOSdmgMountPath as text
                     exit repeat
                 end if
@@ -5110,7 +5110,7 @@ script AutoImagrNBIAppDelegate
             open "~/Library/Logs/AutoImagrNBI/AutoImagrNBI-" & logDate & ".log" as POSIX file
         end tell
         -- Make frontmost
-        tell application "System Events" to set frontmost of process "Console" to true
+        --tell application "System Events" to set frontmost of process "Console" to true
     end openLogLocation_
 
     -- Open NBI Location
@@ -5122,7 +5122,7 @@ script AutoImagrNBIAppDelegate
             open rootDirectory as POSIX file
         end tell
         -- Make frontmost
-        tell application "System Events" to set frontmost of process "Finder" to true
+        --tell application "System Events" to set frontmost of process "Finder" to true
     end openNBILocation_
 
     -- Notify of errors or success
