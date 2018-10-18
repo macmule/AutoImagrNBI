@@ -2032,10 +2032,7 @@ script AutoImagrNBIAppDelegate
             
             ----- SIZE OF VOLUME ON WHICH WE'RE CREATING THE NBI ----
             -- Set netBootSelectedLocation to path of location given
-            set variableVariable to netBootSelectedLocation
-            tell application "Finder"
-                set my variableVariable to variableVariable as text
-            end tell
+            set variableVariable to netBootSelectedLocation as text
             -- If it's an external volume
             if variableVariable begins with "/Volumes/" then
                 -- Store delimiters for resetting later
@@ -2049,7 +2046,8 @@ script AutoImagrNBIAppDelegate
                 set selectedVolume to "/Volumes/" & selectedVolume
             else
                 -- Get volume name of startup disk
-                tell application "Finder" to set my volname to name of startup disk
+                set fileManager to current application's NSFileManager's defaultManager()
+                set my volname to (fileManager's displayNameAtPath:"/") as text
                 -- If an internal volume, check
                 set my fullPath to variableVariable as POSIX file
                 set my fullPath to fullPath as text
@@ -4408,8 +4406,10 @@ script AutoImagrNBIAppDelegate
             --Log Action
             set logMe to "Updating kernel cache on: " & netBootDmgMountPath
             logToFile_(me)
-            -- Update
-            do shell script quoted form of netBootDmgMountPath & "/usr/sbin/kextcache -update-volume " & quoted form of netBootDmgMountPath user name adminUserName password adminUsersPassword with administrator privileges
+            -- Update volumes kext-cache
+            if not (hostMacOSVersionMajor is less than 14) and (selectedOSdmgVersionMajor is equal to 14)
+                do shell script quoted form of netBootDmgMountPath & "/usr/sbin/kextcache -update-volume " & quoted form of netBootDmgMountPath user name adminUserName password adminUsersPassword with administrator privileges
+            end if
             --Log Action
             set logMe to "Updated kernel cache on: " & netBootDmgMountPath
             logToFile_(me)
@@ -5112,11 +5112,7 @@ script AutoImagrNBIAppDelegate
         -- Close User Notify Window
         userNotifyClose_(me)
         -- Open NBI folder in Finder
-        tell application "Finder"
-            open rootDirectory as POSIX file
-        end tell
-        -- Make frontmost
-        --tell application "System Events" to set frontmost of process "Finder" to true
+        do shell script "/usr/bin/open -a /System/Library/CoreServices/Finder.app" & rootDirectory
     end openNBILocation_
 
     -- Notify of errors or success
