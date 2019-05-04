@@ -96,6 +96,7 @@
 		7CA424A91AFAA40300C60874 /* imagr_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = imagr_icon.png; sourceTree = "<group>"; };
 		7CA424AD1AFAA75800C60874 /* AutoImagrNBI_1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AutoImagrNBI_1024.png; sourceTree = "<group>"; };
 		7CB60993199189E20068574D /* root.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = root.plist; sourceTree = "<group>"; };
+		7CB7C6A0227DB02D000B0F39 /* AutoImagrNBI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AutoImagrNBI.entitlements; sourceTree = "<group>"; };
 		7CC26BD719DA1C0D002A093B /* kcpassword */ = {isa = PBXFileReference; lastKnownFileType = text; path = kcpassword; sourceTree = "<group>"; };
 		7CC26BD919DA1D2C002A093B /* com.AutoImagrNBI.Imagr.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = com.AutoImagrNBI.Imagr.plist; sourceTree = "<group>"; };
 		7CC26BDB19DA1DF8002A093B /* rc.netboot */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = rc.netboot; sourceTree = "<group>"; };
@@ -168,6 +169,7 @@
 		7C130586193FC0B60060F343 /* AutoImagrNBI */ = {
 			isa = PBXGroup;
 			children = (
+				7CB7C6A0227DB02D000B0F39 /* AutoImagrNBI.entitlements */,
 				7C9C2E541BDECB8A007FF00F /* 10.11NBImageInfo */,
 				7C1F6A651B03A31E005F1579 /* dsa_pub.pem */,
 				7CB60993199189E20068574D /* root.plist */,
@@ -256,19 +258,24 @@
 		7C130573193FC0B60060F343 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1000;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = macmule;
 				TargetAttributes = {
 					7CF177D71AFAB78300B0CD80 = {
 						CreatedOnToolsVersion = 6.2;
 						DevelopmentTeam = 7WHVYYF52U;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.HardenedRuntime = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
 			buildConfigurationList = 7C130576193FC0B60060F343 /* Build configuration list for PBXProject "AutoImagrNBI" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -341,7 +348,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/bash\n#\n# https://crunchybagel.com/auto-incrementing-build-numbers-in-xcode/\n# \n\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n";
+			shellScript = "#!/bin/bash\n#\n# https://crunchybagel.com/auto-incrementing-build-numbers-in-xcode/\n# \n\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n\n# https://github.com/sparkle-project/Sparkle/issues/1266#issuecomment-421182578 & https://github.com/sparkle-project/Sparkle/issues/1266#issuecomment-427610782\n\nLOCATION=\"${BUILT_PRODUCTS_DIR}\"/\"${FRAMEWORKS_FOLDER_PATH}\"\n\nIDENTITY=\"${EXPANDED_CODE_SIGN_IDENTITY_NAME}\"\n\n/usr/bin/codesign --verbose --force --deep -o runtime --sign \"$IDENTITY\" \"$LOCATION/Sparkle.framework/Versions/A/Resources/AutoUpdate.app\"\n/usr/bin/codesign --verbose --force -o runtime --sign \"$IDENTITY\" \"$LOCATION/Sparkle.framework/Versions/A\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -381,6 +388,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -434,6 +442,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -485,6 +494,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 7WHVYYF52U;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -513,6 +523,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 7WHVYYF52U;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
